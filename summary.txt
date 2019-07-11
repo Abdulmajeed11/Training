@@ -1,0 +1,398 @@
+// Below will be a summary of all the concepts so far
+
+1) Anonymous function:
+->These are the functons without a name, they can be used by assigning them to a variable and then can be accessed by calling them.
+eg:  var Temp = function(name)
+     {
+     return name;
+      }
+     console.log(Temp('abdul'))
+
+     // O/p : abdul
+
+->One common use for anonymous functions is as arguments to other functions
+eg: setTimeout(function() {
+    console.log('hello');
+     }, 1000);
+
+    // O/p: hello (after one second)
+
+2) Event Emitter:
+->Event: Its basically an action 
+eg: a server emits an event each time a peer connects to it
+
+->EventEmitter is an object, all the methods and properties are an instance of it.
+-> We can create our own events using this
+Eg1: Assuming we have a server, Whenever an HTTP request is received, we want the server to call a function defined in our  handles the request and returns some response.
+   server.listen( function( err, request, response ) {
+    if ( err ) {
+       return err;
+    }
+    response.write( 'Hello' );
+    response.end();
+} )
+
+Eg2: We can also create our own event handelers using the eventEmitter Object
+      var events = require('events');
+      var eventEmitter = new events.EventEmitter();
+
+      var myEventHandler = function () {
+      console.log('hello');
+      }
+      eventEmitter.on('hello', myEventHandler);
+      eventEmitter.emit('hello');
+
+Here eventEmitter lets us to create new Events, emit is used to starting the event we have created and eventHandeler is the event that will be executed
+
+note : here 'emit', 'on', 'listen' are called as listeners. Listeners listen to the request and give the response
+
+3) Callback:
+->Nodejs being asynchronous runs on a single thread. It dosent wait for one process to complete and proceed after that, it will keep on executing and when the process is done,callback is called.
+->In short,A Callback is simply a function passed as an argument to another function which will then use it (call it back).
+
+Eg1: function greeting(name) {
+    console.log('Hello ' + name);
+   }
+
+   function processInput(callback) {
+   callback('abdul');
+   }
+
+   processInput(greeting);
+
+   O/p: abdul
+
+Eg2: console.log("One");
+
+     setTimeout(function() {
+     console.log("Two")
+     },3000);
+
+    console.log("Three");
+   
+   O/p: one, three, two
+
+
+4) Exports/module.exports :
+->The module.exports or exports is a special object which is included in every JS file in the Node.js application by default. module is a variable that represents current module and exports is an object that will be exposed as a module. So, whatever you assign to module.exports or exports, will be exposed as a module.
+-> We can export multiple variaible,function or an object and use it in other file by using exports or module.exports.
+-> EG1: // using module.exports 
+    // Person.js
+   module.exports = function (firstName, lastName) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.fullName = function () { 
+        return this.firstName + ' ' + this.lastName;
+    }
+    }
+
+   // run.js
+   var person = require('./Person.js');
+   var person1 = new person('James', 'Bond');
+   console.log(person1.fullName());
+
+// when we execute run.js 
+O/p: James Bond
+
+Eg2:// using export
+    //example1.js
+    exports.a = function(){
+    console.log("hello")
+     }
+
+     exports.add = function(a,b){
+     var c = a + b;
+     console.log(c)
+     return c;
+     }
+
+     //run1.js
+     var R = require('./example1.js')
+     R.a()
+     R.add(5,5)
+
+// when we try to execute run1.js we get 
+ O/p: hello , 10
+
+5) Arrays :
+-> JavaScript array is an object that represents a collection of similar type of elements or they
+can refered as variables that can store multiple values
+We can create array by follwing ways
+i)Using a literal :
+Eg: var cars = ["Saab", "Volvo", "BMW"];    //An array
+
+ii)Usig new keyword/Array obejct):
+var cars = new Array("Saab", "Volvo", "BMW");
+ console.log(cars);
+
+Ways to access array:
+Eg: fruits = ["Banana", "Orange", "Apple", "Mango"];
+    var first = fruits[0];
+    console.log(first)
+
+Array object :
+var person = {firstName:"John", lastName:"Doe", age:46};
+ conole.log(person.firstName)
+
+-> There are many built in methods for arrays in Javascript some of them are :
+Length (gives the length of the array )
+push (Adds an element to an array)
+pop  (Remove elemnet from array)
+sort (sort the array alphabetically)
+and many more..
+note: Look the arrays folder for more
+
+->The difference between object and arrays is that arrays are numbered index whereas objects are named index
+
+->JavaScript does not support associative arrays we should use objects when you want the element names to be strings (text) and we should use arrays when you want the element names to be numbers.
+
+6) String:
+ String is an object that represents a sequence of characters, we can store and manipulate the text using strings, it can be created in following ways:
+ i) using literal:
+    var string1 = 'hello'
+    console.log(string1); 
+
+ ii) using new keyword/String object:
+      var str =  new string('Hello');
+      console.log(str)
+
+String contains various in built methods for manipulation of the data, some of them are:
+length, indexOf, lastIndexOf, search, replace, slice, subString, etc
+
+Note: Look at array floder for examples  
+
+7) this keyword:
+It refers to the object it belongs to,It has different values depending on where it is used:
+In a method, this refers to the owner object.
+Alone, this refers to the global object.
+In a function, this refers to the global object.
+In a function, in strict mode, this is undefined.
+In an event, this refers to the element that received the event.
+Methods like call(), and apply() can refer this to any object.
+
+Eg: var person = {
+   firstName: "John",
+   lastName : "Doe",
+     id       : 5566,
+     fullName : function() {
+     return this.firstName + " " + this.lastName;
+  }
+};
+  console.log(person.fullName());
+
+//In this example this refers to the Owner obect i.e Person
+O/p: John Doe
+
+Eg2: var person1 = {
+  fullName: function() {
+    return this.firstName + " " + this.lastName;
+  }
+}
+var person2 = {
+  firstName:"John",
+  lastName: "Doe",
+}
+console.log(person1.fullName.call(person2)); 
+
+O/p: John Doe
+
+8) Objects:
+An object is an entity with a state and a behaviour.A JavaScript object is a collection of named values. Almost everything is javascript is an object
+We can create object in the following ways:
+i) Using literal:
+var person = {firstName:"John", lastName:"Doe", age:50, eyeColor:"blue"};
+
+//to access:
+console.log(person.firstName) 
+O/p: John Doe
+
+ii)using object instance
+    var emp=new Object();  
+    emp.id=101;  
+    emp.name="Ravi";     
+    console.log(emp.id+" "+emp.name);  
+
+ o/p: 101, Ravi
+
+->The named values, in JavaScript objects, are called properties
+->in first example firstName is a property
+-> Actions performed by an object are called methods;
+->values of a property can be changed
+-> The values in a property can be deleted by using the delete keyword but when we try to delete the entire object it wont have any impact on the object 
+Eg: var person = {firstName:"John", lastName:"Doe", age:50};
+     delete person.age;  
+    console.log(person)
+
+o/p: {firstName:'John',lastName:'Doe'}
+
+But when we try to delete the entire object we get the object as shown below
+
+var person = {firstName:"John", lastName:"Doe", age:50, eyeColor:"blue"};
+delete person;
+console.log(person)
+
+// O/p: { firstName: 'John', lastName: 'Doe', age: 50, eyeColor: 'blue' }
+
+
+->JavaScript methods are actions that can be performed on objects.A JavaScript method is a property containing a function definition.
+Eg: var person = {
+  firstName: "John",
+  lastName : "Doe",
+  id       : 5566,
+  fullName : function() {
+    return this.firstName + " " + this.lastName;
+  }
+};
+console.log(person.fullName)
+
+O/p: John Doe
+
+// Here fullName is a method
+
+-> Javascript contains many built in methods like toUppercase,toLowerCase,Object.create(),
+Object.defineProperty(),etc
+
+Note: look up in the ObjectsClass for methods example 
+
+-> For Creating multiple objects we use constructors which act as a bluePrint for creating multiple objects 
+Eg: function Person(first, last, age, eye) {
+  this.firstName = first;
+  this.lastName = last;
+  this.age = age;
+  this.eyeColor = eye;
+}
+var person1 = new Person("John", "Doe", 50, "blue");
+var person2 = new Person("Sally", "Rally", 48, "green");
+
+Here Person is the constructor,
+person1,person2 are the new objects being created with the help of the constructor 
+
+-> We can add an object property or an object method to an existing object,
+considering above example
+
+person1.nationality = "English";
+
+->This property will be assigned to person1 but not person2, when try to access person2.nationality we get undefined
+-> We can do the same with methods
+-> We cant add methods the way we added the the property for an existing object 
+i.e considering above example:
+ Person.nationality = 'english'   // will be undefined if we try to access
+
+->If we want to add a property to the constructor we will need to use Prototype 
+Considering the above exmaple again
+
+  Person.prototype.nationality = "English";  // this will add the property i.e nationality to the constructor and we can access it 
+
+-> The same we can do to add methods
+ 
+  Person.prototype.name = function() {
+  return this.firstName + " " + this.lastName;
+};
+
+9) Class: 
+->In JavaScript, classes are the special type of functions. We can define the class just like function declarations and function expressions
+->The JavaScript class contains various class members within a body including methods or constructor. The class is executed in strict mode. So, the code containing the silent error or mistake throws an error.The class syntax contains two components:
+Class declarations
+Class expressions
+->A class can be defined by using a class declaration. A class keyword is used to declare a class with any particular name. According to JavaScript naming conventions, the name of the class always starts with an uppercase letter.
+
+EG: class Employee  
+  {  
+//Initializing an object  
+    constructor(id,name)  
+    {  
+      this.id=id;  
+      this.name=name;  
+    }  
+//Declaring method  
+    detail()  
+    {  
+ console.log(this.id + " " + this.name)
+    }  
+  }  
+//passing object to a variable   
+var e1=new Employee(101,"Martin Roy");  
+var e2=new Employee(102,"Duke William");  
+e1.detail(); //calling method  
+e2.detail();  
+
+O/p: 101 Martin Roy
+     102 Duke Williams
+
+->Unlike function declaration, the class declaration is not a part of JavaScript hoisting. So, it is required to declare the class before invoking it.
+Taking above example, if we call e1 and e2 before initializing the class we will get a refernce Error
+but, if we try to use a fuction and call it before defining it will give us undefined
+  Eg: console.log(hoist); // Output: undefined
+      var hoist = 'The variable has been hoisted.'; 
+
+-> A class can be declared once only. If we try to declare class more than one time, it throws an error.
+
+
+->Another way to define a class is by using a class expression. Here, it is not mandatory to assign the name of the class. So, the class expression can be named or unnamed. The class expression allows us to fetch the class name. However, this will not be possible with class declaration
+Eg: var emp = class {  
+    constructor(id, name) {  
+    this.id = id;  
+    this.name = name;  
+  }  
+};  
+console.log(emp.name);    // gives the name of the class 
+
+O/p: emp          
+
+->Unlike class declaration, the class expression allows us to re-declare the same class
+
+10) Scope:
+Scope determines the accessibility (visibility) of variables
+In JavaScript there are two types of scope:
+Local scope,Global scope
+JavaScript has function scope: Each function creates a new scope.
+Scope determines the accessibility (visibility) of these variables.
+Variables defined inside a function are not accessible (visible) from outside the function.
+
+Local Scope:
+Variables declared within a JavaScript function, become LOCAL to the function.
+Local variables have Function scope: They can only be accessed from within the function.
+Eg: // code here can NOT use carName
+    function myFunction() {
+     var carName = "Volvo";
+    // code here CAN use carName
+    }
+
+Since local variables are only recognized inside their functions, variables with the same name can be used in different functions.
+Local variables are created when a function starts, and deleted when the function is completed
+
+Global Scope:
+->A variable declared outside a function, becomes global.
+->A global variable has global scope: All scripts and functions on a web page can access it. 
+EG: var carName = "Volvo";
+  // code here can use carName
+   function myFunction() {
+  // code here can also use carName 
+}
+
+->If you assign a value to a variable that has not been declared, it will automatically become a global variable.
+This code example will declare a global variable carName, even if the value is assigned inside a function.
+EG: myFunction();
+   // code here can use carName 
+   function myFunction() {
+  carName = "Volvo";
+   }
+
+->The lifetime of a JavaScript variable starts when it is declared.
+->Local variables are deleted when the function is completed.
+
+Example of global and local scope
+
+EG: var globalVar = "This is a global variable";   
+    function fun() { 
+     var localVar = "This is a local variable";   
+    console.log(globalVar); 
+    console.log(localVar); 
+    } 
+  
+   fun();
+
+o/p: This is a global variable
+     This is a local variable
+
+Note: for more examples refer argumentEg.js, scope, public, global folders

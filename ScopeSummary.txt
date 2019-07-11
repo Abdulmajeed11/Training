@@ -1,0 +1,324 @@
+Scopes summary will various cases:
+Basically there are two scopes one is local and one is global,below are examples based upon them 
+
+Example1:  Basic example
+var a = 10;
+function fun(){
+	var b = 20;
+     console.log(a);
+     console.log(b)
+}
+
+fun()            
+O/p: 10, 20
+
+Here 'a' is global and 'b' is local
+
+Example 2: Passing argument value to function parameter
+
+i)Passing number as Argument:
+
+test = "p"
+function x(test){
+    console.log(test);
+}
+
+x(1)
+
+O/p: 1
+
+->value of test = 'p' is global, we pass argument 1 to test parameter, and the parameter value is printed not the global variable 
+
+ii) Passing string as argument:
+
+test = "p"
+function x(test){
+    console.log(test);
+}
+
+x('test')
+
+o/p: test
+
+iii) Passing function as an argument:
+
+function a(test){
+console.log(test)
+}
+a(function(){
+	console.log(a)
+});
+
+O/p: [Function]
+
+iv) Passing variable as argument 
+test = "p"
+function x(test){
+    console.log(test);
+}
+
+x(test)
+
+O/p: P
+
+->Global variable is passed as argument to the function and that value is printed
+
+Example 3: Accessing a global variable value
+i)
+function myFunction() {
+   carName = "Volvo";
+} 
+ 
+myFunction();
+console.log(carName);
+
+O/p: Volvo
+
+->After my function is getting called the variable carName is assigned global when we print it after function call it will give us the value 
+
+ii)
+function myFunction() {
+   carName = "Volvo";
+} 
+ 
+console.log(carName);
+myFunction();
+
+O/p: carName not defined
+
+-> Order of execution, printing carName        // Error
+                       function call (myFunction())
+ 
+ Code will fail after error
+
+iii)
+function a(t){
+	test = 'p';
+}
+console.log(test)
+a()
+
+->Order of execution, printing console          // Error
+                      function call wihtout argument 
+                           global variable set, test = p 
+->code will fail at error
+
+Example 4a: Re-assigning the global variable values
+
+l = "p";
+function fun_one(){
+    y = "test";
+    console.log(a)
+}
+
+fun_one()
+console.log(y)
+a = "b";
+console.log(a) 
+
+O/p: a not defined
+
+->Order of execution, global variable set l = 'p', 
+                    function call
+                    global varibale set y = 'test'
+                    printing 'a'       // Error as its not defined
+
+->Code will fail after the error
+->If we interchange above code as
+
+l = "p";
+function fun_one(){
+    y = "test";
+    console.log(a)
+}
+a = "b";
+fun_one()
+console.log(y)
+console.log(a)
+
+O/p:   b, test , b
+
+->Order of execution, global variable set l = 'p'
+                      global variable set a = 'b'
+                      function call (fun_one())
+                            setting global variable  ='test'
+                            printing a                             // b 
+                      printing y                                   // test
+                      printing a again                             // b
+                       
+
+Example 4b:
+
+function a(test){
+	console.log(test);
+    t = 'p';
+}
+t = '1'
+console.log(t);
+a();
+console.log(t);
+
+O/p: 1 ,undefined , p
+
+->Order of execution, global variable set, t = '1'
+                      printing t                       //1
+                      function call a()
+                             printing test i.e function parameter // undefined
+                             (As no value is passed as argument)
+                             global variable value set t = 'p' (value replaced )
+                      printing t                        // p
+                             
+Example 5: Calling function without any argument but function consisting of a parameter
+
+i) 
+
+function a(test){
+	console.log(test);
+}
+test = 2;
+a();
+
+O/p:  undefined
+
+->Order of execution, global variable set test = 2
+                      function call, a()
+                            printing the parameter test // Undefined
+
+->No argument was passed hence the test value is undefined
+-> The parameter is getting printed not the global variable 
+
+ii)
+
+function a(test){
+	console.log(test);
+}
+a();
+test =2;
+
+O/p: undeifned
+
+-> Order of execution, function call, a()
+                              printing parameter test     // undefined
+                       global variable set, test = 2;
+
+As no argument is passed to the function parameter and parameter is getting printed hence it will be undefied
+
+iii)
+
+function a(test)
+{
+	test2 = '2';
+	console.log(test2)
+}
+test2 = '1a';
+a(1);
+
+O/p: 2
+
+Order of execution, global variable set, test2 = '1a'
+                    function call a(1)
+                            Reassignment of global variable test2 = '2',
+                            printing test2           // 2
+
+->The argument passed is different that what we are printing. If we print parameter 'test' inside the function we will get value = 1;
+-> We are printing global variable value here after its getting re-assigned
+
+Example 6: Change of scope
+i)
+function a(test){
+    test = "p";
+    console.log(test)
+}
+test = "t";
+a(test);
+
+O/p: p
+
+Order of execution, global variable set test = 't'
+                    function call with global variable as argument
+                              parameter value is getting changed to test = 'p'   // 
+                              (Scope getting changed)
+                              printing test (parameter value)               // p
+
+Note : When the argumnet name is same as the variable name inside a function it will change its scope to local 
+
+ii)
+function a(test){
+    test = "p";
+   
+}
+a('t');
+console.log(test)
+
+O/p: test not defined 
+
+Order of execution, function call with sting as an argument
+                          setting parameter value to p        //scope changs to local
+                    printing test          // test not defined 
+
+Scope of the variable is getting changed to local hence the error
+
+iii)
+function a(test){
+	test = 'p';
+}
+test ='t';
+a();
+console.log(test)
+
+O/p: t
+
+Order of execution, global variable set, test ='t'
+                    function call without argument
+                               setting parameter value to test = 'p' 
+                               (parameter scope changed to local ) 
+                    printing test          //  t     (global test value)
+
+Global variable value is printed
+
+iv)
+function a(t){
+	console.log(test);
+}
+test = 't';
+a(test);
+test = 'p';
+
+O/p: t
+
+Order of execution, global variable set, test = 't'
+                    function call with variable as argument
+                             printing the value passed to to parameter  // t
+                    global variable set test ='p       // no affect on the output
+
+If we print another console at the end of the code that value will be 'p'
+
+v)
+function a(t){
+	test = 'p';
+}
+a()
+console.log(test)
+ 
+O/p: p
+
+Order of execution, calling the function without argument
+                         global variable set, test = p;
+                    printing test             //  p         (global variable value)
+
+ Note: Here the function parameter has a different name and is not used inside the function, if we change the a(t) to a(test) we will get an error
+
+ vi)
+ function a(t){
+	test = 'p';
+}
+console.log(test)
+a()
+
+O/p: test node defined     
+
+Order of execution , printing test             // test not defined
+                     function call without parameter with
+                            global variable set test = 'p'
+
+Test wont be recognized as its not set yet, hence code will fail

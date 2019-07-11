@@ -1,0 +1,305 @@
+module.exports / exports:
+
+->If we want to contents of one file such as a variable, an object,function or multiple variables,multiple objects, mutiple functions, to be used in some other file we use module.export/ exports concept
+
+Examples:
+Example 1:    Variable export
+
+i) Exporting a variable:
+  
+//a.js
+var num = 1000
+exports.message = num
+
+//b.js
+var a = require('./a.js')            //meaning, we want to use the file a.js 
+console.log(a.message)
+
+O/p: 1000
+
+We exported the variable message from one file and printing that variable in another
+
+ii) Exporting multiple variables:
+
+// a.js
+
+var a = 10;
+var b =  20;
+var c = 'Hello'
+
+// exports.a = a;
+// exports.b = b;
+// exports.c = c;             (exports = module.exports)
+ 
+  // or 
+
+module.exports.a = a;
+module.exports.b = b;
+module.exports.c = c;
+
+
+//b.js
+
+var R = require('./a.js')
+console.log(R.a)
+console.log(R.b)
+console.log(R.c)
+
+O/p: 10, 20, Hello
+
+Example 2: function export
+i) Exporting  single function:
+
+//a.js
+exports.a = function() {
+console.log('hello');
+};
+
+//b.js
+var H = require('./a.js')
+H.a()
+H.b()
+
+O/p: hello
+
+ii) Exporting multiple functions:
+
+//a.js
+exports.a = function() {
+console.log('hello');
+};
+
+exports.b = function() {
+console.log('world');
+};
+
+//b.js
+var H = require('./a.js')
+H.a()
+H.b()
+
+O/p: Hello
+     world
+
+Example 3: object export
+
+i) Exporting single object 
+
+//a.js
+exports.caravan = {
+    month: "july"
+};
+
+//b.js
+var Y = require('./a.js');
+console.log(Y.caravan.month);
+
+O/p: july
+
+ii) Exporting multiple objects:
+
+//a.js
+exports.a = {}
+
+exports.obj = {
+	city : "hyderabad",
+	country : 'india'
+}
+
+exports.Quora = {
+	Founder : 'Adam', Details: { Type: 'Q & A ', AppBase : 'Android' }
+}
+
+//b.js
+var T = require('./a.js')
+console.log(T.a)
+
+console.log(T.obj)
+console.log(T.obj.city)
+console.log(T.obj.country)
+
+console.log(T.Quora)
+console.log(T.Quora.Founder)
+console.log(T.Quora.Details)
+console.log(T.Quora.Details.Type)
+console.log(T.Quora.Details.AppBase)
+
+O/p: {}
+     { city: 'hyderabad', country: 'india' }
+     hyderabad
+     india
+     { Founder: 'Adam',
+     Details: { Type: 'Q & A ', AppBase: 'Android' } }
+     Adam
+     { Type: 'Q & A ', AppBase: 'Android' }
+     Q & A  
+     Android
+
+Example 4: exporting Multiple variables, functions and objects
+
+i) Using export 
+//a.js
+
+// multiple variable 
+var a = 1000;
+exports.a =a;
+
+var text = 'hello'
+exports.text =  text;  
+
+//multiple function
+exports.ab = function() {
+console.log('hello world');
+};
+
+exports.abc = function(a) {
+   return a
+};
+
+//multiple objects 
+
+exports.obj = {
+	city : "hyderabad",
+	country : 'india'
+}
+
+exports.Facebook = {
+	Founder : 'Mark zuckerberg', Details: { Type: 'Social media ', AppBase : 'Android & Ios' }
+}
+
+//b.js
+var R = require('./a.js')
+
+//variable exe 
+console.log(R.a);
+console.log(R.text);
+
+//function exe
+R.ab()
+console.log(R.abc(5))
+
+//object exe
+console.log(R.obj)
+console.log(R.obj.city)
+console.log(R.obj.country)
+
+
+console.log(R.Facebook)
+console.log(R.Facebook.Founder)
+console.log(R.Facebook.Details)
+console.log(R.Facebook.Details.Type)
+console.log(R.Facebook.Details.AppBase)
+
+O/p: 1000
+     hello
+     hello world
+     5
+	{ city: 'hyderabad', country: 'india' }
+	hyderabad
+	india
+	{ Founder: 'Mark zuckerberg',
+  	Details: { Type: 'Social media ', AppBase: 'Android & Ios' } }
+	Mark zuckerberg
+	{ Type: 'Social media ', AppBase: 'Android & Ios' }
+	Social media 
+	Android & Ios
+
+ii) Using module.export:
+
+//a.js
+module.exports.eg = {
+	
+	name : 'abdul',
+	temp : function(a){
+		return a;
+	},
+    name  : function(firstName, lastName){
+      this.firstName = firstName;
+      this.lastName = lastName;
+      name = this.firstName + ' ' + this.lastName
+      return name;
+    }
+};
+
+//b.js
+var R = require('./a.js')
+console.log(R.eg.name);
+console.log(R.eg.temp(5))
+console.log(R.eg.name('abdul','majeed'))
+
+O/p: [Function: name]
+     5
+     abdul majeed
+
+Example 5: Some examples with module.exports
+i)
+//a.js
+module.exports = "hello world"
+
+//b.js
+var T =  require('./a.js')
+console.log(T);
+
+O/p: hello world
+
+ii)
+//a.js
+module.exports = {
+     firstName: 'James',
+     lastName: 'Bond'
+}
+
+//b.js
+var T =  require('./a.js')
+console.log(T.firstName + ' ' + T.lastName);
+
+O/p: James Bond
+
+iii)
+//a.js
+module.exports =  {
+sayHelloInEnglish: function() {
+ console.log("HELLO");
+},
+
+sayHelloInSpanish: function() {
+console.log("Hola");
+}
+};
+
+//b.js
+var greetings = require('./a.js');
+greetings.sayHelloInEnglish();
+greetings.sayHelloInSpanish();
+
+O/p: HELLO
+     hola
+
+iv)
+//a.js
+module.exports = function (msg) { 
+    console.log(msg);
+};
+
+//b.js
+var T = require('./a.js');
+T('Hello World');
+
+O/p: Hello world
+
+v)
+//a.js
+module.exports = function (firstName, lastName) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.fullName = function () { 
+        return this.firstName + ' ' + this.lastName;
+    }
+}
+
+//b.js
+var person = require('./a.js');
+var person1 = new person('James', 'Bond');
+console.log(person1.fullName());
+
+O/p: James Bond
