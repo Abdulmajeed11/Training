@@ -3,7 +3,7 @@ cryptr = new Cryptr('myTotalySecretKey');
  
 // var connection = require('./../config');
 var connection = require('./config');
-module.exports.register=function(req,res){
+/*module.exports.register=function(req,res){
     var today = new Date();
  // var encryptedString = cryptr.encrypt(req.body.password);
     var users={
@@ -72,4 +72,25 @@ module.exports.authenticate=function(req,res){
       }
     });
 }
- 
+ */
+
+ module.exports.register=function(callback){
+    var today = new Date();
+ // var encryptedString = cryptr.encrypt(req.body.password);
+    function(req,res){
+    var users={
+        "name":req.body.name,
+        "email":req.body.email,
+      //  "password":encryptedString,
+        "password":req.body.password,
+        "created_at":today,
+        "updated_at":today
+    }  return connection.query('INSERT INTO users SET ?',users, callback) 
+}
+}
+
+module.exports.authenticate=function(callback){
+    var email=req.body.email;
+    var password=req.body.password;
+   
+ return connection.query('SELECT * FROM users WHERE email = ?',[email],callback )
