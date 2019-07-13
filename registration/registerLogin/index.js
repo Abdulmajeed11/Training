@@ -11,8 +11,9 @@ var app = express();
 //colab code
 // var authenticateController=require('./controllers/colab');
 // var registerController=require('./controllers/colab');
+
  
-//var controller = require('./colab');
+// var controller = require('./colab');
 
 
 
@@ -41,10 +42,10 @@ app.get('/login.html', function (req, res) {
 
 // console.log(authenticateController);
 
-/*
+
 // app.post('/controllers/register-controller', registerController.register);
 // app.post('/controllers/authenticate-controller', authenticateController.authenticate);
-*/
+
 
 // below 2 lines are  for registration and authentication colab in colab.js file
 
@@ -130,18 +131,12 @@ connection.query('SELECT * FROM users WHERE email = ?',[email], function (error,
 // app.post('/colaboration',connection.authenticate)
 
 
+// Having database operations in config.js file and sending response from this file
+
 app.post('/colab',function(req,res){
-      var today = new Date();
- // var encryptedString = cryptr.encrypt(req.body.password);
-    var users={
-        "name":req.body.name,
-        "email":req.body.email,
-      //  "password":encryptedString,
-        "password":req.body.password,
-        "created_at":today,
-        "updated_at":today
-    }
+   console.log('is it coming here in colab')
   connection.register(function(error, results, fields){
+console.log('is it inside thhe query')
    if (error) {
         console.log('is it coming here')
         res.json({
@@ -160,6 +155,8 @@ app.post('/colab',function(req,res){
 })
 
 app.post('/colaboration',function(req,res){
+      var email=req.body.email;
+    var password=req.body.password;
   connection.authenticate(function (error, results, fields) {
       if (error) {
         console.log('is it coming here')
