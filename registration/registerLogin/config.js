@@ -1,3 +1,4 @@
+var bodyParser=require('body-parser');
 var mysql      = require('mysql');
 var connection = mysql.createConnection({
   host     : 'localhost',
@@ -13,10 +14,12 @@ if(!err) {
 }
 });
 
+// Database operation in this file but sending response from index.js file
 
  module.exports.register=function(req,res,callback){
- //  var today = new Date();
+   var today = new Date();
  console.log('is this getting printed')
+
     var users={
         "name":req.body.name,
         "email":req.body.email,
@@ -24,22 +27,17 @@ if(!err) {
         "created_at":today,
         "updated_at":today
     }
-    console.log(users.name,'is is coming here after users')
-
- // var encryptedString = cryptr.encrypt(req.body.password);
+    console.log(users,'is is coming here after users')
       return connection.query('INSERT INTO users SET ?',users, callback) 
+    
 }
-
-
 
 module.exports.authenticate=function(req,res,callback){
        var email=req.body.email;
-    var password=req.body.password;
- return connection.query('SELECT * FROM users WHERE email = ?',[email],callback )
+       var password=req.body.password;
+       return connection.query('SELECT * FROM users WHERE email = ?',[email],callback )
+
 }
-
-
-
 
 module.exports.connection = connection;
 

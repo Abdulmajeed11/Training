@@ -20,6 +20,8 @@ var app = express();
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.json({ type: 'application/*+json' }))
+
 app.get('/', function (req, res) {  
    res.sendFile( __dirname + "/" + "index.html" );  
 })  
@@ -74,7 +76,7 @@ app.post('/colab',function(req,res){
             message:'there are some error with query for registration'
         })
       }else{
-        console.log('is it coming here in else')
+        console.log('iscolab it coming here in else')
           res.json({
             status:true,
             data:results,
@@ -135,7 +137,7 @@ connection.query('SELECT * FROM users WHERE email = ?',[email], function (error,
 
 app.post('/colab',function(req,res){
    console.log('is it coming here in colab')
-  connection.register(function(error, results, fields){
+  connection.register(req,res,function(error, results, fields){
 console.log('is it inside thhe query')
    if (error) {
         console.log('is it coming here')
@@ -157,7 +159,7 @@ console.log('is it inside thhe query')
 app.post('/colaboration',function(req,res){
       var email=req.body.email;
     var password=req.body.password;
-  connection.authenticate(function (error, results, fields) {
+  connection.authenticate(req,res,function (error, results, fields) {
       if (error) {
         console.log('is it coming here')
           res.json({
@@ -169,7 +171,7 @@ app.post('/colaboration',function(req,res){
         if(results.length >0){
  // decryptedString = cryptr.decrypt(results[0].password);
           //  if(password==decryptedString){
-            if(password){
+            if(req.body.password){
                 res.json({
                     status:true,
                     message:'successfully authenticated'
