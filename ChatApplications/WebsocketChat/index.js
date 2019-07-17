@@ -27,4 +27,11 @@ io.on('connection', (socket) => {
         socket.broadcast.emit('typing', data);
     });
 
+
+// trying to add stuff
+socket.on('disconnect',function(){
+    console.log('user disconnected');
+    socket.emit('user is offline');
+})
+
 });

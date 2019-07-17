@@ -136,8 +136,12 @@ connection.query('SELECT * FROM users WHERE email = ?',[email], function (error,
 // Having database operations in config.js file and sending response from this file
 
 app.post('/colab',function(req,res){
+    var name = req.body.name;
+      var email=req.body.email;
+      var password=req.body.password;
    console.log('is it coming here in colab')
-  connection.register(req,res,function(error, results, fields){
+  //connection.register(req,res,function(error, results, fields){
+    connection.register(name,email,password,function(error, results, fields){
 console.log('is it inside thhe query')
    if (error) {
         console.log('is it coming here')
@@ -159,7 +163,8 @@ console.log('is it inside thhe query')
 app.post('/colaboration',function(req,res){
       var email=req.body.email;
     var password=req.body.password;
-  connection.authenticate(req,res,function (error, results, fields) {
+  //connection.authenticate(req,res,function(error,results,fields) {
+  connection.authenticate(email,password,function (error, results, fields) {
       if (error) {
         console.log('is it coming here')
           res.json({

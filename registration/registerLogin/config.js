@@ -1,29 +1,50 @@
-var bodyParser=require('body-parser');
-var mysql      = require('mysql');
-var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : '0000',
-  database : 'mydb'
-});
-connection.connect(function(err){
-if(!err) {
-    console.log("Database is connected");
-} else {
-    console.log("Error while connecting with database");
-}
-});
+
+// var mysql      = require('mysql');
+// var connection = mysql.createConnection({
+//   host     : 'localhost',
+//   user     : 'root',
+//   password : '0000',
+//   database : 'mydb'
+// });
+// connection.connect(function(err){
+// if(!err) {
+//     console.log("Database is connected");
+// } else {
+//     console.log("Error while connecting with database");
+// }
+// });
+
+var mysql = require('mysql');  
+var connection = mysql.createConnection({  
+  host: "127.0.0.1",  
+  user: "root",  
+  password: "0000" ,
+  database : "mydb" 
+});  
+connection.connect(function(err) {  
+  if (err) throw err;  
+  console.log("Connected!");  
+});  
+
 
 // Database operation in this file but sending response from index.js file
-
- module.exports.register=function(req,res,callback){
+ /* changed value below
+ //module.exports.register=function(req,res,callback){
+var users ={
+        "name":req.body.name,
+        "email":email,
+        "password":password,
+}
+*/
+ 
+ module.exports.register=function(name,email,password,callback){
    var today = new Date();
  console.log('is this getting printed')
 
     var users={
-        "name":req.body.name,
-        "email":req.body.email,
-        "password":req.body.password,
+        "name":name,
+        "email":email,
+        "password":password,
         "created_at":today,
         "updated_at":today
     }
@@ -32,9 +53,9 @@ if(!err) {
     
 }
 
-module.exports.authenticate=function(req,res,callback){
-       var email=req.body.email;
-       var password=req.body.password;
+module.exports.authenticate=function(email,password,callback){
+       var email= email;
+       var password= password;
        return connection.query('SELECT * FROM users WHERE email = ?',[email],callback )
 
 }
