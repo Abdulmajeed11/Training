@@ -1,4 +1,4 @@
-body{
+/*body{
     font-family: 'Nunito';
 }
 
@@ -6,8 +6,9 @@ h2{
     font-size: 18px;
     padding: 10px 20px;
     color: #575ed8;
-}
+}*/
 
+/*
 #chat{
     max-width: 600px;
     margin: 30px auto;
@@ -67,3 +68,36 @@ button{
     width: 100%;
     border-radius: 0 0 2px 2px;
 }
+*/
+
+#chat
+    {
+        width: 400px;
+        height: 500px;
+        overflow: scroll;
+
+    }
+    #contentwrap
+    {
+        display: none;
+
+    }
+    #chatwrap
+    {
+        float: left;
+        border: 100px #000 solid;
+        border-color: black;
+    }
+    .error
+    {
+        color: red;
+    }
+    .whisper
+    {
+        color: green;
+        font-style: italic;
+    }
+    .normal
+    {
+        color:blue;
+    }

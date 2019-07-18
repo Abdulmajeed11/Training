@@ -4,22 +4,95 @@
         <meta charset="utf-8">
         <title>ChatApp</title>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js"></script>
-        <link href="/styles.css" rel="stylesheet" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+       <link href="/styles.css" rel="stylesheet" />  
     </head>
     <body>
 
-        <div id="chat">
-            <h2>Chat</h2>
-            <div id="chat-window">
-                <div id="output"></div>
-                <div id="feedback"></div>
-            </div>
-            <input id="handle" type="text" placeholder="Handle" />
-            <input id="message" type="text" placeholder="Message" />
-            <button id="send">Send</button>
+    <div id="nickwrap">
+        <p>Enter your username:</p>
+        <p id="nicknameerror"></p>
+        <form id="setnick">
+            <input type="text" id="nickname"/>
+            <input type="submit"/>
+        </form>
+    </div>
+    <div id="contentwrap">
+        <h2>Chat</h2>
+        <div id="chat-window">
+            <div id="chat"></div>
+            <div id="feedback"></div>
+            <form id="sendmessage">
+                <input type="text" id="message"/>
+                <input type="submit"/>
+            </form>
         </div>
+        <div id="users"></div>
+    </div>
+<!--     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> -->
+    <script>
+    $(function(){
+            var socket=io.connect();
+            var $nickform=$('#setnick');
+            var $nickerror=$('#nicknameerror');
+            var $nickbox=$('#nickname');
+            var $messageform=$('#sendmessage');
+            var $messageip=$('#message');
+            var $chat=$('#chat');
+            var $users=$('#users');
+            $nickform.submit(function(e){
+                e.preventDefault();
+                if($nickbox.val()=='' || $nickbox.val()==" ")
+                {
+                    alert("not allowed");
+                    return false;
+                }
+                socket.emit('new user',$nickbox.val(),function(data){//to check whether its a valid nick name or not
+                    if(data){
+                        $('#nickwrap').fadeOut();
+                        $('#contentwrap').fadeIn();
+                    }
+                    else
+                    {
+                        $nickerror.html('That username is already taken...Try again!');
+                    }
 
+                });
+                $nickbox.val('');
+            });
+            $messageform.submit(function(e){
+                e.preventDefault();
+                socket.emit('sendmessage',$messageip.val(),function(data){
+                    $chat.append('<span class="error"><b>'+data+"</span><Br>");     
+                });
+                $messageip.val("");//clear input field
 
+            });
+
+            socket.on('newmessage',function(data){
+                //console.log(data);
+                $chat.append('<span class="normal"><b>'+data.nick+':-</b>'+data.msg+"</span><Br>");
+            });
+            socket.on('usernames',function(data){
+                var str=' ';
+                for(var i=0;i<data.length;i++)
+                {
+                    str+=data[i]+'<br/>';
+
+                }
+                $users.html(str).css("color","black");
+            });
+            socket.on('whisper',function(data){
+                $chat.append('<span class="whisper"><b>'+data.nick+':-</b>'+data.msg+"</span><Br>");
+            })
+
+        var feedback = document.getElementById('feedback');
+         socket.on('typing', function(data){
+    $chat.append('<p><em>' + data + ' is typing a message...</em></p>');
+});
+
+        }); 
+    </script>
     </body>
-    <script src="/chat.js"></script>
+
 </html>
