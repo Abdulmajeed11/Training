@@ -28,10 +28,8 @@ socket.on('new user',function(data,callback){
         {
             console.log("here");
             callback(true);
-            socket.nickname=data;//store nickname of each user becomes clear on disconnect
-            users[socket.nickname]=socket;//key value pair as defined above
-            //nicknames.push(socket.nickname);
-            //io.sockets.emit('usernames',nicknames);//send usernames for display
+            socket.nickname=data;                //store nickname of each user becomes clear on disconnect
+            users[socket.nickname]=socket;       //key value pair as defined above
             updateNicknames();
         }
     });
@@ -74,10 +72,9 @@ socket.on('new user',function(data,callback){
         io.sockets.emit('usernames',Object.keys(users));//sending socket does not make sense
     }
 
-
-    socket.on('typing', function(data){
-        socket.broadcast.emit('typing', data);
-    }); 
+    // socket.on('typing', function(data){
+    //     socket.broadcast.emit('typing', data);
+    // }); 
 
 // trying to add stuff
 socket.on('disconnect',function(data){

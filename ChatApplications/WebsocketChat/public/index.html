@@ -21,7 +21,7 @@
         <h2>Chat</h2>
         <div id="chat-window">
             <div id="chat"></div>
-            <div id="feedback"></div>
+         <!--   <div id="feedback"></div>  -->
             <form id="sendmessage">
                 <input type="text" id="message"/>
                 <input type="submit"/>
@@ -29,7 +29,6 @@
         </div>
         <div id="users"></div>
     </div>
-<!--     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> -->
     <script>
     $(function(){
             var socket=io.connect();
@@ -47,7 +46,7 @@
                     alert("not allowed");
                     return false;
                 }
-                socket.emit('new user',$nickbox.val(),function(data){//to check whether its a valid nick name or not
+                socket.emit('new user',$nickbox.val(),function(data){//to check whether its a valid nickname or not
                     if(data){
                         $('#nickwrap').fadeOut();
                         $('#contentwrap').fadeIn();
@@ -86,10 +85,10 @@
                 $chat.append('<span class="whisper"><b>'+data.nick+':-</b>'+data.msg+"</span><Br>");
             })
 
-        var feedback = document.getElementById('feedback');
-         socket.on('typing', function(data){
-    $chat.append('<p><em>' + data + ' is typing a message...</em></p>');
-});
+//         var feedback = document.getElementById('feedback');
+//          socket.on('typing', function(data){
+//     $chat.append('<p><em>' + data + ' is typing a message...</em></p>');
+// });
 
         }); 
     </script>
