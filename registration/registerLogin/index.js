@@ -142,7 +142,7 @@ app.post('/colab',function(req,res){
    console.log('is it coming here in colab')
   //connection.register(req,res,function(error, results, fields){
     connection.register(name,email,password,function(error, results, fields){
-console.log('is it inside thhe query')
+console.log('is it inside the query')
    if (error) {
         console.log('is it coming here')
         res.json({

@@ -1,6 +1,6 @@
 var express = require('express');
 var socket = require('socket.io');
-
+var connection =  require('./chatdb.js');
 var app = express();
 var server = app.listen(4000, function(){
     console.log('listening for requests on port 4000,');
