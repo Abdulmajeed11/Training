@@ -71,14 +71,14 @@ socket.on('new user',function(data,callback){
         }
         else{
                    var today = new Date();
-             //   name = data.name;
-
+          //      name = data.name;
+                    var name = socket.nickname;
                 console.log(msg)
         //       connection.saveMsg(name,message,function(err){
          //           if(err) throw error;
             //    console.log(name,message);
                 var users={
-          //    "name":name,
+              "name":name,
               "message":msg,
             "created_at":today,
             "updated_at":today
