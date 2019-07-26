@@ -62,6 +62,7 @@
             $messageform.submit(function(e){
                 e.preventDefault();
                 socket.emit('sendmessage',$messageip.val(),function(data){
+                
                     $chat.append('<span class="error"><b>'+data+"</span><Br>");     
                 });
                 $messageip.val("");//clear input field

@@ -7,6 +7,9 @@ var server = app.listen(4000, function(){
 });
 
 var users={};
+var name = '';
+var toUser = '';
+var message ='';
 // Static files
 app.use(express.static('public'));
 app.get('/',function(req,res){
@@ -28,9 +31,14 @@ socket.on('new user',function(data,callback){
         {
             console.log("here");
             callback(true);
-            socket.nickname=data;                //store nickname of each user becomes clear on disconnect
+            socket.nickname=data; 
+            name=socket.nickname;               //store nickname of each user becomes clear on disconnect
             users[socket.nickname]=socket;       //key value pair as defined above
             updateNicknames();
+     //    console.log(users)
+     console.log("is this working fine")
+     var sql = "INSERT INTO chat (name) VALUES ('"+name+"')"
+    connection.query(sql)
         }
     });
     socket.on('sendmessage',function(data,callback){
@@ -49,6 +57,7 @@ socket.on('new user',function(data,callback){
                 {
                     users[name].emit('whisper',{msg:msg,nick:socket.nickname});
                     console.log('whispered');   
+           //     connection.query('Insert into chat values (name,message,created_at,updated_at)')
                 }
                 else
                 {
@@ -61,8 +70,24 @@ socket.on('new user',function(data,callback){
             }
         }
         else{
-            io.sockets.emit('newmessage',{msg:msg,nick:socket.nickname});
-        }
+                   var today = new Date();
+             //   name = data.name;
+
+                console.log(msg)
+        //       connection.saveMsg(name,message,function(err){
+         //           if(err) throw error;
+            //    console.log(name,message);
+                var users={
+          //    "name":name,
+              "message":msg,
+            "created_at":today,
+            "updated_at":today
+    }
+              connection.query('INSERT into chat set ?',users)
+              io.sockets.emit('newmessage',{msg:msg,nick:socket.nickname});
+       
+     //   })
+}
 
     });
 

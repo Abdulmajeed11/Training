@@ -10,7 +10,7 @@ connection.connect(function(err) {
   console.log("Connected!");  
 });  
 
-exports.saveMsg = function(name,message, callback){
+module.exports.saveMsg = function(name,message, callback){
    var today = new Date();
     var users={
         "name":name,
@@ -19,6 +19,8 @@ exports.saveMsg = function(name,message, callback){
         "updated_at":today
     }
 
- return connection.query("INSERT into chat set",users,callback)
+ return connection.query("INSERT into chat set ?",users,callback)
 
 };
+
+module.exports = connection;
