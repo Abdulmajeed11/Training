@@ -7,9 +7,7 @@ var server = app.listen(4000, function(){
 });
 
 var users={};
-var name = '';
-var toUser = '';
-var message ='';
+
 // Static files
 app.use(express.static('public'));
 app.get('/',function(req,res){
@@ -19,6 +17,11 @@ app.get('/',function(req,res){
 var io = socket(server);
 io.on('connection', (socket) => {
     console.log('made socket connection', socket.id);
+connection.oldMsg(function(err,docs){
+if(err) throw err;
+console.log("old messages")
+socket.emit("load old messages",docs);
+})
 
 socket.on('new user',function(data,callback){
         console.log("New user");
@@ -34,15 +37,14 @@ socket.on('new user',function(data,callback){
             socket.nickname=data; 
             name=socket.nickname;               //store nickname of each user becomes clear on disconnect
             users[socket.nickname]=socket;       //key value pair as defined above
+              console.log("is this working fine")
+    connection.saveUser(socket,name,function(){})
             updateNicknames();
      //    console.log(users)
-     console.log("is this working fine")
-     var sql = "INSERT INTO chat (name) VALUES ('"+name+"')"
-    connection.query(sql)
+
         }
     });
     socket.on('sendmessage',function(data,callback){
-        //console.log(data);
         var msg=data.trim();
         if(msg[0]=='@')//if thats whisper or private msg
         {
@@ -52,12 +54,17 @@ socket.on('new user',function(data,callback){
             {
                 //check the username is valid
                 var name=msg.substr(0,idx);
+                console.log(name,"@@@")
+
                 msg=msg.substr(idx+1);
-                if(name in users)
+          //      if(users.indexOf(name)!== -1)
+                 if(name in users)
                 {
+                    var today = new Date();
+                    var toUser = socket.nickname;
+                    connection.privateMsg(toUser,msg,function(){});                    
                     users[name].emit('whisper',{msg:msg,nick:socket.nickname});
                     console.log('whispered');   
-           //     connection.query('Insert into chat values (name,message,created_at,updated_at)')
                 }
                 else
                 {
@@ -71,37 +78,20 @@ socket.on('new user',function(data,callback){
         }
         else{
                    var today = new Date();
-          //      name = data.name;
-                    var name = socket.nickname;
+                  let name = socket.nickname;
                 console.log(msg)
-        //       connection.saveMsg(name,message,function(err){
-         //           if(err) throw error;
-            //    console.log(name,message);
-                var users={
-              "name":name,
-              "message":msg,
-            "created_at":today,
-            "updated_at":today
-    }
-              connection.query('INSERT into chat set ?',users)
+               connection.saveMsg(name,msg,function(){})
               io.sockets.emit('newmessage',{msg:msg,nick:socket.nickname});
        
-     //   })
 }
-
     });
 
 
-
     function updateNicknames(){
-        io.sockets.emit('usernames',Object.keys(users));//sending socket does not make sense
+        io.sockets.emit('usernames',Object.keys(users));//user name
     }
 
-    // socket.on('typing', function(data){
-    //     socket.broadcast.emit('typing', data);
-    // }); 
-
-// trying to add stuff
+//diconnect
 socket.on('disconnect',function(data){
     console.log('user disconnected');
     if(!socket.nickname)//when the user has no nickname 

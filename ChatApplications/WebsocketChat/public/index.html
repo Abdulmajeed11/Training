@@ -69,10 +69,21 @@
 
             });
 
+            // socket.on('load old messages',function(docs){
+            //     for(var i=0; i<docs.length,i++){
+            //       displayMessage(docs[i]);
+            //     }
+            // })
+
             socket.on('newmessage',function(data){
                 //console.log(data);
-                $chat.append('<span class="normal"><b>'+data.nick+':-</b>'+data.msg+"</span><Br>");
+                displayMessage(data);
             });
+            
+            function displayMessage(data){
+                $chat.append('<span class="normal"><b>'+data.nick+':-</b>'+data.msg+"</span><Br>");
+            }
+
             socket.on('usernames',function(data){
                 var str=' ';
                 for(var i=0;i<data.length;i++)
@@ -85,11 +96,7 @@
             socket.on('whisper',function(data){
                 $chat.append('<span class="whisper"><b>'+data.nick+':-</b>'+data.msg+"</span><Br>");
             })
-
-//         var feedback = document.getElementById('feedback');
-//          socket.on('typing', function(data){
-//     $chat.append('<p><em>' + data + ' is typing a message...</em></p>');
-// });
+ 
 
         }); 
     </script>
