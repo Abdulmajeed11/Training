@@ -16,13 +16,17 @@ app.get('/',function(req,res){
 
 var io = socket(server);
 io.on('connection', (socket) => {
+    try{
     console.log('made socket connection', socket.id);
 connection.oldMsg(function(err,docs){
 if(err) throw err;
 console.log("old messages")
-socket.emit("load old messages",docs);
+socket.emit("oldmessages",docs);
 })
-
+}
+catch(err){
+    console.log(err)
+}
 socket.on('new user',function(data,callback){
         console.log("New user");
 
@@ -37,11 +41,10 @@ socket.on('new user',function(data,callback){
             socket.nickname=data; 
             name=socket.nickname;               //store nickname of each user becomes clear on disconnect
             users[socket.nickname]=socket;       //key value pair as defined above
-              console.log("is this working fine")
+           //   console.log("is this working fine")
     connection.saveUser(socket,name,function(){})
             updateNicknames();
      //    console.log(users)
-
         }
     });
     socket.on('sendmessage',function(data,callback){
@@ -93,10 +96,14 @@ socket.on('new user',function(data,callback){
 
 //diconnect
 socket.on('disconnect',function(data){
+    try{
     console.log('user disconnected');
     if(!socket.nickname)//when the user has no nickname 
             return;
         delete users[socket.nickname];
         updateNicknames();
+}catch(err){
+    console.log(err);
+}
 })
 });

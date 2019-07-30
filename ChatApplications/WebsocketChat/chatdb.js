@@ -12,7 +12,7 @@ connection.connect(function(err) {
 
 module.exports.saveUser = function(socket,name,callback){
   name=socket.nickname
-  return connection.query("INSERT INTO chat (name) VALUES ('"+name+"')")
+  return connection.query("INSERT INTO chat (name) VALUES ('"+name+"')",callback)
 }
 
 module.exports.saveMsg = function(name,message,callback){
@@ -29,7 +29,8 @@ module.exports.saveMsg = function(name,message,callback){
 };
 
 module.exports.oldMsg = function(callback){
-  return connection.query("SELECT * from chat")
+  console.log('is it coming here in chat db')
+  return connection.query("SELECT name,message from chat",callback);
 }
 
 module.exports.privateMsg = function(toUser,message,callback){
@@ -40,7 +41,7 @@ module.exports.privateMsg = function(toUser,message,callback){
                     "created_at":today,
                     "updated_at":today
 }
-return connection.query('Insert into chat set ?',users);
+return connection.query('Insert into chat set ?',users,callback);
 }
 
 module.exports.connection = connection;

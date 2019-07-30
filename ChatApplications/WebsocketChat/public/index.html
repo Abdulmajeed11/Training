@@ -69,11 +69,18 @@
 
             });
 
-            // socket.on('load old messages',function(docs){
+
+        //     try{
+            // socket.on('oldmessages',function(docs){
+            //     console.log(docs)
             //     for(var i=0; i<docs.length,i++){
             //       displayMessage(docs[i]);
             //     }
             // })
+        // }
+        // catch(err){
+        //     console.log(err);
+        // }
 
             socket.on('newmessage',function(data){
                 //console.log(data);
