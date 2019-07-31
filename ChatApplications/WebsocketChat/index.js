@@ -56,17 +56,15 @@ socket.on('new user',function(data,callback){
             if(idx!==-1)
             {
                 //check the username is valid
-                var name=msg.substr(0,idx);
-                console.log(name,"@@@")
-
+                var toUser=msg.substr(0,idx);
                 msg=msg.substr(idx+1);
           //      if(users.indexOf(name)!== -1)
                  if(name in users)
                 {
                     var today = new Date();
-                    var toUser = socket.nickname;
-                    connection.privateMsg(toUser,msg,function(){});                    
-                    users[name].emit('whisper',{msg:msg,nick:socket.nickname});
+                    var fromUser = socket.nickname;
+                    connection.privateMsg(fromUser,toUser,msg,function(){});                    
+                    users[toUser].emit('whisper',{msg:msg,nick:socket.nickname});
                     console.log('whispered');   
                 }
                 else

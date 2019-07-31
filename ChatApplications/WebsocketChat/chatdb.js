@@ -33,9 +33,10 @@ module.exports.oldMsg = function(callback){
   return connection.query("SELECT name,message from chat",callback);
 }
 
-module.exports.privateMsg = function(toUser,message,callback){
+module.exports.privateMsg = function(name,toUser,message,callback){
                       var today = new Date();
                     var users={
+                    "name":name,
                     "toUser":toUser,
                     "message":message,
                     "created_at":today,
