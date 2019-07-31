@@ -30,3 +30,9 @@
     {
         color:blue;
     }
+    .userDisconnect
+    {
+        color:red;
+        font-size:18px;
+        word-spacing: 4px;
+    }

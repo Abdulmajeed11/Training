@@ -10,10 +10,10 @@ connection.connect(function(err) {
   console.log("Connected!");  
 });  
 
-module.exports.saveUser = function(socket,name,callback){
-  name=socket.nickname
-  return connection.query("INSERT INTO chat (name) VALUES ('"+name+"')",callback)
-}
+// module.exports.saveUser = function(socket,name,callback){
+//   name=socket.nickname
+//   return connection.query("INSERT INTO chat (name) VALUES ('"+name+"')",callback)
+// }
 
 module.exports.saveMsg = function(name,message,callback){
    var today = new Date();

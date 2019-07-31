@@ -96,8 +96,9 @@ socket.on('new user',function(data,callback){
 socket.on('disconnect',function(data){
     try{
     console.log('user disconnected');
-    if(!socket.nickname)//when the user has no nickname 
+    if(!socket.nickname)//when the user has no nickname   
             return;
+      socket.broadcast.emit('userDisconnect',{nick:socket.nickname});
         delete users[socket.nickname];
         updateNicknames();
 }catch(err){
