@@ -71,12 +71,14 @@
 
 
         //     try{
-            // socket.on('oldmessages',function(docs){
-            //     console.log(docs)
-            //     for(var i=0; i<docs.length,i++){
-            //       displayMessage(docs[i]);
-            //     }
-            // })
+            socket.on('oldmessages',function(docs){
+                console.log(docs)
+                for(var i=0; i<docs.length;i++){
+                //  displayMessage(docs[i]);
+                console.log(docs[i].name+" "+docs[i].message);
+            $chat.append('<span class="normal"><b>'+docs[i].name+':-</b>'+docs[i].message+"</span><Br>");
+                }
+            })
         // }
         // catch(err){
         //     console.log(err);

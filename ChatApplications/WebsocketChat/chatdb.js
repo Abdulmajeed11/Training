@@ -30,8 +30,8 @@ module.exports.saveMsg = function(name,message,callback){
 
 module.exports.oldMsg = function(callback){
   console.log('is it coming here in chat db')
-  return connection.query("SELECT name,message from chat",callback);
-}
+  return connection.query("SELECT name,message from chat",[],callback);
+}  
 
 module.exports.privateMsg = function(name,toUser,message,callback){
                       var today = new Date();
@@ -44,5 +44,6 @@ module.exports.privateMsg = function(name,toUser,message,callback){
 }
 return connection.query('Insert into chat set ?',users,callback);
 }
+
 
 module.exports.connection = connection;

@@ -17,6 +17,7 @@ app.get('/',function(req,res){
 var io = socket(server);
 io.on('connection', (socket) => {
     try{
+    try{
     console.log('made socket connection', socket.id);
 connection.oldMsg(function(err,docs){
 if(err) throw err;
@@ -41,8 +42,7 @@ socket.on('new user',function(data,callback){
             socket.nickname=data; 
             name=socket.nickname;               //store nickname of each user becomes clear on disconnect
             users[socket.nickname]=socket;       //key value pair as defined above
-           //   console.log("is this working fine")
-    connection.saveUser(socket,name,function(){})
+   // connection.saveUser(socket,name,function(){})
             updateNicknames();
      //    console.log(users)
         }
@@ -104,4 +104,8 @@ socket.on('disconnect',function(data){
     console.log(err);
 }
 })
+}catch(err)
+{
+    console.log(err);
+}
 });
