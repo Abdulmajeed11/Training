@@ -11,10 +11,10 @@
         display: none;
 
     }
-    #chatwrap
+    #chat-box
     {
         float: left;
-        border: 100px #000 solid;
+        border: 5px #000 solid;
         border-color: black;
     }
     .error
