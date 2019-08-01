@@ -72,16 +72,16 @@
 
 
         
-            socket.on('oldmessages',function(docs){
+            socket.on('oldmessages',function(err,docs){
                 try{
                 console.log(docs)
+                if(err) throw err;
                 for(var i=0; i<docs.length;i++){
-                //  displayMessage(docs[i]);
                // console.log(docs[i].name+" "+docs[i].message);
             $chat.append('<span class="normal"><b>'+docs[i].name+':-</b>'+docs[i].message+"</span><Br>");
                 }
             }catch(err){
-                console.log(err);
+                console.log("Error is:"+err);
             }
             })
 
@@ -110,7 +110,6 @@
             socket.on('userDisconnect',function(data){
                 $chat.append('<span class= "userDisconnect"><b><em>'+ data.nick+'</em> </b>'+ "Is offline"+"</span><Br>" );
             })
-
         }); 
     </script>
     </body>

@@ -17,12 +17,11 @@ app.get('/',function(req,res){
 var io = socket(server);
 io.on('connection', (socket) => {
     try{
-    try{
     console.log('made socket connection', socket.id);
 connection.oldMsg(function(err,docs){
 if(err) throw err;
 console.log("old messages")
-socket.emit("oldmessages",docs);
+socket.emit("oldmessages",err,docs);
 })
 }
 catch(err){
@@ -105,8 +104,4 @@ socket.on('disconnect',function(data){
     console.log(err);
 }
 })
-}catch(err)
-{
-    console.log(err);
-}
 });
