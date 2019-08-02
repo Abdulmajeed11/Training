@@ -88,20 +88,26 @@ socket.on('new user',function(data,callback){
 
 
     function updateNicknames(){
+       // console.log(Object.keys(users));
         io.sockets.emit('usernames',Object.keys(users));//user name
     }
 
 //diconnect
 socket.on('disconnect',function(data){
-    try{
     console.log('user disconnected');
     if(!socket.nickname)//when the user has no nickname   
             return;
-      socket.broadcast.emit('userDisconnect',{nick:socket.nickname});
-        delete users[socket.nickname];
+      socket.broadcast.emit('userDisconnect',{nick:socket.nickname});  
+     //   delete users[socket.nickname];
+      
         updateNicknames();
-}catch(err){
-    console.log(err);
-}
 })
+
+socket.on('reconnect',function(data){
+    if(socket.nickname){
+        socket.broadcast.emit('UserReconnect',{nick:socket.nickname});
+    }
+})
+
 });
+

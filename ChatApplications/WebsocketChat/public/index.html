@@ -96,17 +96,46 @@
                 var str=' ';
                 for(var i=0;i<data.length;i++)
                 {
-                    str+=data[i]+' (Online)'+'<br/>';
+                    str+=data[i]+'<br/>';
 
                 }
                 $users.html(str).css("color","black");
+             //   console.log(data,"%%")
             });
             socket.on('whisper',function(data){
                 $chat.append('<span class="whisper"><b>'+data.nick+':-</b>'+data.msg+"</span><Br>");
             })
             
             socket.on('userDisconnect',function(data){
+                var str = [];
+                str.push(data)
+                // console.log(data)
                 $chat.append('<span class= "userDisconnect"><b><em>'+ data.nick+'</em> </b>'+ "Is offline"+"</span><Br>" );
+                // let str = '';
+                console.log("Here",data,str)
+                 for(var i = 0;i< str.length;i++){
+                 // str.push(data[i])
+                  //  str = data[i]
+                   console.log(str,"is it coming here")
+                //     str+=data[i]
+                //  //   if(data.nick in str)
+                //    if(data.nick.indexOf(str) > 0);
+                //         console.log("hi",str)
+                //        $users.html(str).css("color","pink");
+
+              } 
+
+            })
+
+            socket.on('reconnect',function(data){
+                console.log(data)
+                str = {};
+                str.push(data)
+            if(data.nick in str)
+            {
+            $users.html(str).css("color","black");
+            }
+
             })
         }); 
     </script>
