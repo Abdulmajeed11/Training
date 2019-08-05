@@ -30,12 +30,12 @@ catch(err){
 socket.on('new user',function(data,callback){
         console.log("New user");
 
-        if(data in users)//if nickname exist
-        {
-            callback(false);
-        }
-        else
-        {
+        // if(data in users)//if nickname exist
+        // {
+        //     callback(false);
+        // }
+        // else
+        // {
             console.log("here");
             callback(true);
             socket.nickname=data; 
@@ -44,7 +44,7 @@ socket.on('new user',function(data,callback){
    // connection.saveUser(socket,name,function(){})
             updateNicknames();
      //    console.log(users)
-        }
+        // }
     });
     socket.on('sendmessage',function(data,callback){
         var msg=data.trim();
@@ -104,6 +104,7 @@ socket.on('disconnect',function(data){
 })
 
 socket.on('reconnect',function(data){
+    socket.io.reconnect();
     if(socket.nickname){
         socket.broadcast.emit('UserReconnect',{nick:socket.nickname});
     }
