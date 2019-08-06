@@ -40,7 +40,7 @@ socket.on('new user',function(data,callback){
             callback(true);
             socket.nickname=data; 
             name=socket.nickname;               //store nickname of each user becomes clear on disconnect
-            users[socket.nickname]=socket;       //key value pair as defined above
+           users[name] = socket;              //key value pair as defined above
    // connection.saveUser(socket,name,function(){})
             updateNicknames();
      //    console.log(users)
@@ -97,10 +97,10 @@ socket.on('disconnect',function(data){
     console.log('user disconnected');
     if(!socket.nickname)//when the user has no nickname   
             return;
+ //      socket.broadcast.emit('usernames',{nick:socket.username}) 
       socket.broadcast.emit('userDisconnect',{nick:socket.nickname});  
-     //   delete users[socket.nickname];
-      
-        updateNicknames();
+     //   delete users[socket.nickname];   
+    //    updateNicknames();
 })
 
 socket.on('reconnect',function(data){
@@ -109,6 +109,5 @@ socket.on('reconnect',function(data){
         socket.broadcast.emit('UserReconnect',{nick:socket.nickname});
     }
 })
-
 });
 

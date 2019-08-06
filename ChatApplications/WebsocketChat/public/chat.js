@@ -40,16 +40,12 @@
 
         
             socket.on('oldmessages',function(err,docs){
-                try{
-                console.log(docs)
-                if(err) throw err;
+             //   console.log(docs)
                 for(var i=0; i<docs.length;i++){
                // console.log(docs[i].name+" "+docs[i].message);
             $chat.append('<span class="normal"><b>'+docs[i].name+':-</b>'+docs[i].message+"</span><Br>");
                 }
-            }catch(err){
-                console.log("Error is:"+err);
-            }
+
             })
 
             socket.on('newmessage',function(data){
@@ -76,31 +72,33 @@
             })
             
             socket.on('userDisconnect',function(data){
-                var str = [];
-               str.push(data.nick)
+                 var str = [];
+                str.push(data.nick)
+                console.log(str)
                 $chat.append('<span class= "userDisconnect"><b><em>'+ data.nick+'</em> </b>'+ "Is offline"+"</span><Br>" );
-                console.log("Here",data,str)
-                 for(var i = 0;i< str.length;i++){
+            //   console.log(data.nick,users)
+              // $users.text(str).css("color","pink")
+              $users.html(data.nick).css("color","pink")
+              // $users.attr('<span class ="userList">'+ data.nick + '</span>');
+                // console.log("Here",data,str)
+           //       for(var i = 0;i< str.length;i++){
+           // //      str.push(data)
 
-                   // str.push(data.nick)
-                   str[i] = data.nick;
-                   console.log(str,data.nick,"is it coming here")
-                   if (data.nick == str[i])
-                  // if(data.nick.indexOf(str[0]) > -1)
-                    console.log("coming here",str[i])
-                    $users.html(str[i]).css("color","blue");
-                    console.log("after applying color")
-
-              } 
+           //        // str[i] = data.nick;
+           //      // str.push(data.nick)
+           //         console.log(str,data.nick,"is it coming here")
+           //         if (data.nick == str[i])
+           //        // if(data.nick.indexOf(str[0]) > -1)
+           //          console.log("coming here",str[i])
+           //          $users.html(str[i]).css("color","blue");
+           //          console.log("after applying color")
+          //    } 
             })
 
-            socket.on('UserReconnect',function(data){
-                console.log(data)
-                str = [];
-                str.push(data)
-            if(data.nick in str)
-            {
-            $users.html(str).css("color","black");
-            }
-            })
+            // socket.on('UserReconnect',function(data){
+            //     console.log(data.nick)
+            //     str = [];
+            //     str.push(data.nick)
+            // $users.html(str).css("color","black");
+            // }
         }); 
