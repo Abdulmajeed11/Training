@@ -96,18 +96,49 @@ socket.on('new user',function(data,callback){
 socket.on('disconnect',function(data){
     console.log('user disconnected');
     if(!socket.nickname)//when the user has no nickname   
-            return;
+         return;
  //      socket.broadcast.emit('usernames',{nick:socket.username}) 
       socket.broadcast.emit('userDisconnect',{nick:socket.nickname});  
      //   delete users[socket.nickname];   
     //    updateNicknames();
 })
 
-socket.on('reconnect',function(data){
-    socket.io.reconnect();
+socket.on('connection',function(data){
+   // socket.io.reconnect();
     if(socket.nickname){
         socket.broadcast.emit('UserReconnect',{nick:socket.nickname});
     }
 })
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*socket.on('new user',function(data,callback){
+            callback(true);
+            socket.nickname=data; 
+            name=socket.nickname;              
+           users[name] = socket;             
+         io.sockets.emit('usernames',Object.keys(users));
+    });
+
+
+            socket.on('usernames',function(data){
+                var str=' ';
+                for(var i=0;i<data.length;i++){
+                    str+=data[i]+'<br/>';
+                }
+                $users.html(str).css("color","black");
+            });
+            */
