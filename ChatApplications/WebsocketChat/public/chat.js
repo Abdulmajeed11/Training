@@ -36,12 +36,12 @@
                 });
                 $messageip.val("");//clear input field
 
-            });
-
-
-        
+            }); 
+            socket.on('reconnect', function(){
+            socket.socket.connect();
+              });
+   
             socket.on('oldmessages',function(err,docs){
-             //   console.log(docs)
                 for(var i=0; i<docs.length;i++){
                // console.log(docs[i].name+" "+docs[i].message);
             $chat.append('<span class="normal"><b>'+docs[i].name+':-</b>'+docs[i].message+"</span><Br>");
@@ -50,7 +50,6 @@
             })
 
             socket.on('newmessage',function(data){
-                //console.log(data);
                 displayMessage(data);
             });
             
@@ -58,14 +57,15 @@
                 $chat.append('<span class="normal"><b>'+data.nick+':-</b>'+data.msg+"</span><Br>");
             }
 
-            socket.on('usernames',function(data){
+            socket.on('usernames',function(data){ 
                 var str=' ';
+
                 for(var i=0;i<data.length;i++)
                 {
-                    // str+=data[i]+'<br/>';
-                   str+=`<p id="#id_${data[i]}">${data[i]}</p> `
+                  // str+=data[i]+'<br/>';
+                  //  str+=`<p id="#id_">${data[i]}</p> `
+                   str+=`<p id="id_${data[i]}">${data[i]}</p> `
                 }
-               // console.log(data)
                 $users.html(str).css("color","black");
             });
             socket.on('whisper',function(data){
@@ -74,30 +74,17 @@
             
 
             socket.on('userDisconnect',function(data){
-                //  var str = [];
-                // str.push(data.nick)
+                console.log(data.nick)
                 $chat.append('<span class= "userDisconnect"><b><em>'+ data.nick+'</em> </b>'+ "Is offline"+"</span><Br>" );
-                $(`#id_${data.nick}`).css("color","red")
-            
-    /*          //    for(var i= 0;i<data.length;i++){
-              //     str = data.nick[i]
-              //     }
-               // $users.val(data.nick).css("color","red") */                 
-/*         
-                 for(var i = 0;i< str.length;i++){
-                  str.push(data)
-                  // str[i] = data.nick;
-                   if (data.nick == str[i])
-                    $users.html(str[i]).css("color","red");
-             } */
+              // $users.val(data).css("color","red");
+               $(`#id_${data.nick}`).css("color","red")
+               console.log(`#id_${data.nick}`)
 
-            })
-   
+           })
+    
+
             socket.on('UserReconnect',function(data){
                 console.log(data.nick, "user reconnect")
-            //     str = [];
-            //     str.push(data.nick)
-            // $users.html(str).css("color","black");
           $(`#id_${data.nick}`).css("color","black")
          })
         }); 

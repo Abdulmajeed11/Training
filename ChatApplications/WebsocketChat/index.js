@@ -7,6 +7,7 @@ var server = app.listen(4000, function(){
 });
 
 var users={};
+var removedUsers= []
 
 // Static files
 app.use(express.static('public'));
@@ -16,17 +17,20 @@ app.get('/',function(req,res){
 
 var io = socket(server);
 io.on('connection', (socket) => {
-    try{
     console.log('made socket connection', socket.id);
 connection.oldMsg(function(err,docs){
 if(err) throw err;
 console.log("old messages")
 socket.emit("oldmessages",err,docs);
 })
-}
-catch(err){
-    console.log(err)
-}
+
+socket.on('error',function(data){
+   // socket.io.reconnect();
+    if(socket.nickname){
+        socket.broadcast.emit('UserReconnect',{nick:socket.nickname});
+    }
+})
+
 socket.on('new user',function(data,callback){
         console.log("New user");
 
@@ -44,7 +48,8 @@ socket.on('new user',function(data,callback){
    // connection.saveUser(socket,name,function(){})
             updateNicknames();
      //    console.log(users)
-        // }
+      
+
     });
     socket.on('sendmessage',function(data,callback){
         var msg=data.trim();
@@ -92,23 +97,25 @@ socket.on('new user',function(data,callback){
         io.sockets.emit('usernames',Object.keys(users));//user name
     }
 
-//diconnect
+
 socket.on('disconnect',function(data){
     console.log('user disconnected');
-    if(!socket.nickname)//when the user has no nickname   
+    if(!socket.nickname)
          return;
- //      socket.broadcast.emit('usernames',{nick:socket.username}) 
-      socket.broadcast.emit('userDisconnect',{nick:socket.nickname});  
      //   delete users[socket.nickname];   
     //    updateNicknames();
+      socket.broadcast.emit('userDisconnect',{nick:socket.nickname});  
 })
 
-socket.on('connection',function(data){
-   // socket.io.reconnect();
-    if(socket.nickname){
-        socket.broadcast.emit('UserReconnect',{nick:socket.nickname});
-    }
-})
+//diconnect
+// socket.on('disconnect',function(data){
+//     console.log('user disconnected');
+//     if(!socket.nickname)//when the user has no nickname   
+//          return;
+//       socket.broadcast.emit('userDisconnect',{nick:socket.nickname});  
+//         delete users[socket.nickname];   
+//         updateNicknames();
+// })
 });
 
 
@@ -121,24 +128,3 @@ socket.on('connection',function(data){
 
 
 
-
-
-
-
-/*socket.on('new user',function(data,callback){
-            callback(true);
-            socket.nickname=data; 
-            name=socket.nickname;              
-           users[name] = socket;             
-         io.sockets.emit('usernames',Object.keys(users));
-    });
-
-
-            socket.on('usernames',function(data){
-                var str=' ';
-                for(var i=0;i<data.length;i++){
-                    str+=data[i]+'<br/>';
-                }
-                $users.html(str).css("color","black");
-            });
-            */
