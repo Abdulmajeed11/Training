@@ -87,4 +87,5 @@
                 console.log(data.nick, "user reconnect")
           $(`#id_${data.nick}`).css("color","black")
          })
-        }); 
+        });    
+ 

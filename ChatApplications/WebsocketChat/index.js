@@ -109,7 +109,6 @@ socket.on('disconnect',function(data){
 
 //diconnect
 // socket.on('disconnect',function(data){
-//     console.log('user disconnected');
 //     if(!socket.nickname)//when the user has no nickname   
 //          return;
 //       socket.broadcast.emit('userDisconnect',{nick:socket.nickname});  
