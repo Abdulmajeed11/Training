@@ -1,6 +1,11 @@
 
  $(function(){
-            var socket=io.connect();
+            var socket=io.connect('http://localhost:4000/', { 
+        reconnection: true,             
+        reconnectionDelay: 1000,        
+        reconnectionDelayMax : 5000,    
+        reconnectionAttempts: Infinity  
+      });
             var $nickform=$('#setnick');
             var $nickerror=$('#nicknameerror');
             var $nickbox=$('#nickname');
@@ -60,7 +65,7 @@
             socket.on('usernames',function(data){ 
                 var str=' ';
 
-                for(var i=0;i<data.length;i++)
+                for(var i=0;i<data.length;i++)    
                 {
                   // str+=data[i]+'<br/>';
                   //  str+=`<p id="#id_">${data[i]}</p> `
@@ -78,14 +83,13 @@
                 $chat.append('<span class= "userDisconnect"><b><em>'+ data.nick+'</em> </b>'+ "Is offline"+"</span><Br>" );
               // $users.val(data).css("color","red");
                $(`#id_${data.nick}`).css("color","red")
-               console.log(`#id_${data.nick}`)
+            //   console.log(`#id_${data.nick}`)
 
            })
-    
 
-            socket.on('UserReconnect',function(data){
+               socket.on('UserReconnect',function(data){
                 console.log(data.nick, "user reconnect")
-          $(`#id_${data.nick}`).css("color","black")
+               $(`#id_${data.nick}`).css("color","black")
          })
         });    
  

@@ -20,16 +20,15 @@ io.on('connection', (socket) => {
     console.log('made socket connection', socket.id);
 connection.oldMsg(function(err,docs){
 if(err) throw err;
-console.log("old messages")
 socket.emit("oldmessages",err,docs);
 })
 
-socket.on('error',function(data){
-   // socket.io.reconnect();
-    if(socket.nickname){
-        socket.broadcast.emit('UserReconnect',{nick:socket.nickname});
-    }
-})
+// socket.on('error',function(data){
+//    // socket.io.reconnect();
+//     if(socket.nickname){
+//         socket.broadcast.emit('UserReconnect',{nick:socket.nickname});
+//     }
+// })
 
 socket.on('new user',function(data,callback){
         console.log("New user");
@@ -48,14 +47,12 @@ socket.on('new user',function(data,callback){
    // connection.saveUser(socket,name,function(){})
             updateNicknames();
      //    console.log(users)
-      
-
     });
     socket.on('sendmessage',function(data,callback){
         var msg=data.trim();
-        if(msg[0]=='@')//if thats whisper or private msg
+        if(msg[0]=='@') //if thats whisper or private msg
         {
-            msg=msg.substr(1);//start of name onwards
+            msg=msg.substr(1); //start of name onwards
             var idx=msg.indexOf(' ');
             if(idx!==-1)
             {
@@ -83,45 +80,31 @@ socket.on('new user',function(data,callback){
         }
         else{
                    var today = new Date();
-                  let name = socket.nickname;
-                console.log(msg)
-               connection.saveMsg(name,msg,function(){})
-              io.sockets.emit('newmessage',{msg:msg,nick:socket.nickname});
-       
+                   let name = socket.nickname;
+                   console.log(msg)
+                  connection.saveMsg(name,msg,function(){})
+                   io.sockets.emit('newmessage',{msg:msg,nick:socket.nickname});       
 }
     });
-
 
     function updateNicknames(){
        // console.log(Object.keys(users));
         io.sockets.emit('usernames',Object.keys(users));//user name
     }
 
-
 socket.on('disconnect',function(data){
     console.log('user disconnected');
-    if(!socket.nickname)
+    if(!socket.nickname)  //when the user has no nickname
          return;
+    socket.broadcast.emit('userDisconnect',{nick:socket.nickname});
+    // socket.socket.reconnect();
+    // socket.socket.connect();
+    // socket.broadcast.emit('UserReconnect',{nick:socket.nickname});
+
      //   delete users[socket.nickname];   
-    //    updateNicknames();
-      socket.broadcast.emit('userDisconnect',{nick:socket.nickname});  
+    //    updateNicknames();       
 })
-
-//diconnect
-// socket.on('disconnect',function(data){
-//     if(!socket.nickname)//when the user has no nickname   
-//          return;
-//       socket.broadcast.emit('userDisconnect',{nick:socket.nickname});  
-//         delete users[socket.nickname];   
-//         updateNicknames();
-// })
 });
-
-
-
-
-
-
 
 
 
