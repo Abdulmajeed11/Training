@@ -1,11 +1,6 @@
 
  $(function(){
-            var socket=io.connect('http://localhost:4000/', { 
-        reconnection: true,             
-        reconnectionDelay: 1000,        
-        reconnectionDelayMax : 5000,    
-        reconnectionAttempts: Infinity  
-      });
+            var socket=io.connect();
             var $nickform=$('#setnick');
             var $nickerror=$('#nicknameerror');
             var $nickbox=$('#nickname');
@@ -62,16 +57,26 @@
                 $chat.append('<span class="normal"><b>'+data.nick+':-</b>'+data.msg+"</span><Br>");
             }
 
-            socket.on('usernames',function(data){ 
+            socket.on('usernames',function(data,data2){ 
                 var str=' ';
-
+                var str2 ='';
+             console.log(data,data2, "5555")
                 for(var i=0;i<data.length;i++)    
                 {
                   // str+=data[i]+'<br/>';
                   //  str+=`<p id="#id_">${data[i]}</p> `
-                   str+=`<p id="id_${data[i]}">${data[i]}</p> `
+                   str+=`<p id="id_${data[i]}" style ="color : black">${data[i]}</p> `
+                   
                 }
-                $users.html(str).css("color","black");
+                for(var j=0;j<data2.length;j++){
+                   str2+=`<p id="id_${data2[j]}" style="color:red">${data2[j]}</p>`
+                }
+               $users.html(str)
+               $users.append(str2)
+
+               // $(`id_${data[i]}`).css("color",black)
+            
+
             });
             socket.on('whisper',function(data){
                 $chat.append('<span class="whisper"><b>'+data.nick+':-</b>'+data.msg+"</span><Br>");
@@ -83,11 +88,12 @@
                 $chat.append('<span class= "userDisconnect"><b><em>'+ data.nick+'</em> </b>'+ "Is offline"+"</span><Br>" );
               // $users.val(data).css("color","red");
                $(`#id_${data.nick}`).css("color","red")
+
             //   console.log(`#id_${data.nick}`)
 
            })
 
-               socket.on('UserReconnect',function(data){
+               socket.on('reconnectedUser',function(data){
                 console.log(data.nick, "user reconnect")
                $(`#id_${data.nick}`).css("color","black")
          })

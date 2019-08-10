@@ -7,7 +7,9 @@ var server = app.listen(4000, function(){
 });
 
 var users={};
-var removedUsers= []
+var connected = [];
+var disconnectedUsers = [];
+
 
 // Static files
 app.use(express.static('public'));
@@ -23,27 +25,28 @@ if(err) throw err;
 socket.emit("oldmessages",err,docs);
 })
 
-// socket.on('error',function(data){
-//    // socket.io.reconnect();
-//     if(socket.nickname){
-//         socket.broadcast.emit('UserReconnect',{nick:socket.nickname});
-//     }
-// })
-
 socket.on('new user',function(data,callback){
         console.log("New user");
-
         // if(data in users)//if nickname exist
         // {
         //     callback(false);
         // }
         // else
         // {
+            if(users.hasOwnProperty(data))
+            {
+               if(data in disconnectedUsers)
+               {
+                users[data].broadcast.emit("reconnectedUser",data)
+               }
+            }
             console.log("here");
             callback(true);
             socket.nickname=data; 
             name=socket.nickname;               //store nickname of each user becomes clear on disconnect
-           users[name] = socket;              //key value pair as defined above
+           users[name] = socket;                //key value pair as defined above
+           connected.push(socket.nickname); 
+           disconnectedUsers.splice(disconnectedUsers.indexOf(socket.nickname), 1 ); 
    // connection.saveUser(socket,name,function(){})
             updateNicknames();
      //    console.log(users)
@@ -60,6 +63,7 @@ socket.on('new user',function(data,callback){
                 var toUser=msg.substr(0,idx);
                 msg=msg.substr(idx+1);
           //      if(users.indexOf(name)!== -1)
+          
                  if(name in users)
                 {
                     var today = new Date();
@@ -89,19 +93,23 @@ socket.on('new user',function(data,callback){
 
     function updateNicknames(){
        // console.log(Object.keys(users));
-        io.sockets.emit('usernames',Object.keys(users));//user name
+        io.sockets.emit('usernames',connected,disconnectedUsers);//user name
     }
 
 socket.on('disconnect',function(data){
     console.log('user disconnected');
     if(!socket.nickname)  //when the user has no nickname
          return;
-    socket.broadcast.emit('userDisconnect',{nick:socket.nickname});
-    // socket.socket.reconnect();
-    // socket.socket.connect();
-    // socket.broadcast.emit('UserReconnect',{nick:socket.nickname});
 
-     //   delete users[socket.nickname];   
+    socket.broadcast.emit('userDisconnect',{nick:socket.nickname});
+    disconnectedUsers.push(socket.nickname);
+     console.log('-----',disconnectedUsers);
+    // socket.broadcast.emit('UserReconnect',{nick:socket.nickname});
+    //     console.log(connected,"1")
+      //  delete users[socket.nickname];
+   
+    connected.splice(connected.indexOf(socket.nickname), 1 );
+    //    console.log(connected,"2")   
     //    updateNicknames();       
 })
 });
