@@ -49,7 +49,6 @@ socket.on('new user',function(data,callback){
            disconnectedUsers.splice(disconnectedUsers.indexOf(socket.nickname), 1 ); 
    // connection.saveUser(socket,name,function(){})
             updateNicknames();
-     //    console.log(users)
     });
     socket.on('sendmessage',function(data,callback){
         var msg=data.trim();

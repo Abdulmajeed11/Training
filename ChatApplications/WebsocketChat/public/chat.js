@@ -37,9 +37,6 @@
                 $messageip.val("");//clear input field
 
             }); 
-            socket.on('reconnect', function(){
-            socket.socket.connect();
-              });
    
             socket.on('oldmessages',function(err,docs){
                 for(var i=0; i<docs.length;i++){
