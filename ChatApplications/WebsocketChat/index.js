@@ -61,9 +61,9 @@ socket.on('new user',function(data,callback){
                 //check the username is valid
                 var toUser=msg.substr(0,idx);
                 msg=msg.substr(idx+1);
-          //      if(users.indexOf(name)!== -1)
-          
-                 if(name in users)
+              console.log(idx,toUser,msg,"values  ")
+                //if(name in users)
+                 if(toUser in users)
                 {
                     var today = new Date();
                     var fromUser = socket.nickname;

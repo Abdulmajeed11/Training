@@ -15,7 +15,8 @@ connection.connect(function(err) {
 //   return connection.query("INSERT INTO chat (name) VALUES ('"+name+"')",callback)
 // }
 
-module.exports.saveMsg = function(name,message,callback){
+module.exports = {
+  saveMsg : function(name,message,callback){
    var today = new Date();
     var users={
         "name":name,
@@ -24,15 +25,13 @@ module.exports.saveMsg = function(name,message,callback){
         "updated_at":today
     }
 
- return connection.query("INSERT into chat set ?",users,callback)
+connection.query("INSERT into chat set ?",users,callback)
 
-};
-
-module.exports.oldMsg = function(callback){
-  return connection.query("SELECT name,message from chat",[],callback);
-}  
-
-module.exports.privateMsg = function(name,toUser,message,callback){
+},
+ oldMsg : function(callback){
+   connection.query("SELECT name,message from chat",callback);
+},
+privateMsg : function(name,toUser,message,callback){
                       var today = new Date();
                     var users={
                     "name":name,
@@ -41,7 +40,6 @@ module.exports.privateMsg = function(name,toUser,message,callback){
                     "created_at":today,
                     "updated_at":today
 }
-return connection.query('Insert into chat set ?',users,callback);
+ connection.query('Insert into chat set ?',users,callback);
 }
-
-module.exports.connection = connection;
+}

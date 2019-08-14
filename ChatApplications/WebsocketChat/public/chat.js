@@ -40,7 +40,6 @@
    
             socket.on('oldmessages',function(err,docs){
                 for(var i=0; i<docs.length;i++){
-               // console.log(docs[i].name+" "+docs[i].message);
             $chat.append('<span class="normal"><b>'+docs[i].name+':-</b>'+docs[i].message+"</span><Br>");
                 }
 
