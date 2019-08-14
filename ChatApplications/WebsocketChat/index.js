@@ -20,19 +20,33 @@ app.get('/',function(req,res){
 var io = socket(server);
 io.on('connection', (socket) => {
     console.log('made socket connection', socket.id);
-connection.oldMsg(function(err,docs){
+/*
+connection.oldMsg(name,function(err,docs){
 if(err) throw err;
 socket.emit("oldmessages",err,docs);
-})
+})*/
 
 socket.on('new user',function(data,callback){
         console.log("New user");
+  
+// sending the old messages of the user
+        socket.nickname=data; 
+            namee= data;   
+            console.log(namee,"first name ");
+         connection.oldMsg(namee,function(err,docs){
+           if(err) throw err;
+         socket.emit("oldmessages",err,docs);
+         console.log(err,docs)
+         })
+
         // if(data in users)//if nickname exist
         // {
         //     callback(false);
         // }
         // else
         // {
+
+//check the properties of a reconnected user
             if(users.hasOwnProperty(data))
             {
                if(data in disconnectedUsers)
@@ -42,8 +56,10 @@ socket.on('new user',function(data,callback){
             }
             console.log("here");
             callback(true);
+
             socket.nickname=data; 
             name=socket.nickname;               //store nickname of each user becomes clear on disconnect
+        console.log(name,"second name")
            users[name] = socket;                //key value pair as defined above
            connected.push(socket.nickname); 
            disconnectedUsers.splice(disconnectedUsers.indexOf(socket.nickname), 1 ); 

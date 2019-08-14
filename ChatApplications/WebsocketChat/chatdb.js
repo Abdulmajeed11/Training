@@ -28,8 +28,13 @@ module.exports = {
 connection.query("INSERT into chat set ?",users,callback)
 
 },
- oldMsg : function(callback){
-   connection.query("SELECT name,message from chat",callback);
+ oldMsg : function(namee,callback){
+/*    JSON.stringify(namee);
+    console.log(JSON.stringify(namee),"the name 1")*/
+/*    var users = {
+      "name":  namee
+         }*/
+   connection.query("SELECT name,message from chat where name = ?",namee,callback);
 },
 privateMsg : function(name,toUser,message,callback){
                       var today = new Date();
