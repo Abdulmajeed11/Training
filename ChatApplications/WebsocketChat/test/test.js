@@ -7,13 +7,25 @@ var conn = require('../chatdb.js');
  describe('Access to DB', function(){
    describe('#pass', function(){
         it('should pass as correct details are given', function(done){
-            var conn = mysql.createConnection({
-			  host: "127.0.0.1",  
-			  user: "root",  
-			  password: "0000" ,
-			  database : "mydb"          
-			   });
-            conn.connect(done);
+     //      var conn = mysql.createConnection({
+			  // host: "127.0.0.1",  
+			  // user: "root",  
+			  // password: "0000" ,
+			  // database : "mydb"          
+			  //  });
+     //        conn.connect(done);
+        conn.connection.connect(function(err,result) {
+        console.log("is it coming here")
+        if(err){
+           assert.equal(err,'Connection Error');
+            return;
+        }
+      //  expect(result).to.equal("Connected");
+      console.log(err,result)
+       assert.equal(result,'Connected');
+        done();
+    });
+
         });
     })
 });
@@ -38,11 +50,18 @@ var conn = require('../chatdb.js');
 // displaying the old  messages
 
 describe('displaying messages',function(){
+	before(function(done){
+   conn.saveMsg('majeed','HHHHH',function(e,o){
+		if(!e)
+		     done()
+		})
+
+})		
 	describe('pass',function(){
 		it('should pass by giving the old messages',function(done){
-       var temp = conn.oldMsg(function(e,o){
+       var temp = conn.oldMsg('majeed',function(e,o){
 		//console.log(e,o);
-		assert.equal(o.length,56);
+		assert.equal(o.length,11);
 		done()
 		})
 	})
@@ -62,7 +81,6 @@ describe('inserting message in db',function(){
 	})
 })
 })
-
 
 
 describe('inserting message in db for private messaging',function(){

@@ -5,9 +5,14 @@ var connection = mysql.createConnection({
   password: "0000" ,
   database : "mydb" 
 });  
-connection.connect(function(err) {  
-  if (err) throw err;  
-  console.log("Connected!");  
+connection.connect(function(err,res) {  
+/*  if (err) throw err;  */
+ if(err){
+  console.log("Connection Error")
+ }
+ else{
+  console.log("Connected");  
+}
 });  
 
 // module.exports.saveUser = function(socket,name,callback){
@@ -29,11 +34,6 @@ connection.query("INSERT into chat set ?",users,callback)
 
 },
  oldMsg : function(namee,callback){
-/*    JSON.stringify(namee);
-    console.log(JSON.stringify(namee),"the name 1")*/
-/*    var users = {
-      "name":  namee
-         }*/
    connection.query("SELECT name,message from chat where name = ?",namee,callback);
 },
 privateMsg : function(name,toUser,message,callback){

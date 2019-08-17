@@ -36,7 +36,7 @@ socket.on('new user',function(data,callback){
          connection.oldMsg(namee,function(err,docs){
            if(err) throw err;
          socket.emit("oldmessages",err,docs);
-         console.log(err,docs)
+      //   console.log(err,docs)
          })
 
         // if(data in users)//if nickname exist
