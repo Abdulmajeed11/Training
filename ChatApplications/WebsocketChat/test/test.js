@@ -7,24 +7,24 @@ var conn = require('../chatdb.js');
  describe('Access to DB', function(){
    describe('#pass', function(){
         it('should pass as correct details are given', function(done){
-     //      var conn = mysql.createConnection({
-			  // host: "127.0.0.1",  
-			  // user: "root",  
-			  // password: "0000" ,
-			  // database : "mydb"          
-			  //  });
-     //        conn.connect(done);
-        conn.connection.connect(function(err,result) {
-        console.log("is it coming here")
-        if(err){
-           assert.equal(err,'Connection Error');
-            return;
-        }
-      //  expect(result).to.equal("Connected");
-      console.log(err,result)
-       assert.equal(result,'Connected');
-        done();
-    });
+          var conn = mysql.createConnection({
+			  host: "127.0.0.1",  
+			  user: "root",  
+			  password: "0000" ,
+			  database : "mydb"          
+			   });
+            conn.connect(done);
+
+    //     conn.connection.connect(function(err,result) {
+    //     console.log("is it coming here")
+    //     if(err){
+    //        assert.equal(err,'Connection Error');
+    //         return;
+    //     }
+    //     console.log(err,result)
+    //     assert.equal(result,'Connected');
+    //     done();
+    // });
 
         });
     })
@@ -47,12 +47,15 @@ var conn = require('../chatdb.js');
     })
 });
 
-// displaying the old  messages
+
+// displaying the old  messages with insert functionality
 
 describe('displaying messages',function(){
 	before(function(done){
-   conn.saveMsg('majeed','HHHHH',function(e,o){
+   conn.saveMsg('majeed','kkkkk',function(e,o){
 		if(!e)
+			// console.log(o)
+			assert.equal(o.affectedRows,1)
 		     done()
 		})
 
@@ -61,7 +64,7 @@ describe('displaying messages',function(){
 		it('should pass by giving the old messages',function(done){
        var temp = conn.oldMsg('majeed',function(e,o){
 		//console.log(e,o);
-		assert.equal(o.length,11);
+		assert.equal(o.length,24);
 		done()
 		})
 	})
@@ -69,11 +72,23 @@ describe('displaying messages',function(){
 })
 
 
+
+//checking with two insert 
+
 describe('inserting message in db',function(){
+      before(function(done){
+   conn.saveMsg('majeed','kkkkk',function(e,o){
+		if(!e)
+			// console.log(o)
+			// assert.equal(o.affectedRows,1)
+		     done()
+		})
+})
+
 	describe('pass',function(){
 		it('should pass as message is being inserted',function(done){
           
-       var temp = conn.saveMsg('abdul','Hello',function(e,o){
+       var temp = conn.saveMsg('majeed','Hello',function(e,o){
 	  //	console.log(e,o);
 		assert.equal(o.affectedRows,1);
 		done()
@@ -82,6 +97,7 @@ describe('inserting message in db',function(){
 })
 })
 
+// passing right values
 
 describe('inserting message in db for private messaging',function(){
 	describe('pass',function(){
@@ -96,12 +112,12 @@ describe('inserting message in db for private messaging',function(){
 })
 
 
-// not passing all the parameters
+// not passing all parameters
 
 describe('inserting message in db for private messaging',function(){
 	describe('#fail',function(){
 		it('should pass as message is being inserted',function(done){        
-       var temp = conn.privateMsg('abdul','hi',function(e,o){          // not passing to parameter
+       var temp = conn.privateMsg('abdul',function(e,o){          // not passing to parameter
 		console.log(e,o); 
 	    assert.equal(o.affectedRows, 1);                      
 		done()

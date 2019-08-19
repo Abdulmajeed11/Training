@@ -48,3 +48,5 @@ privateMsg : function(name,toUser,message,callback){
  connection.query('Insert into chat set ?',users,callback);
 }
 }
+
+// exports.connection = connection;

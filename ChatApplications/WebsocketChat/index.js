@@ -33,7 +33,7 @@ socket.on('new user',function(data,callback){
         socket.nickname=data; 
             namee= data;   
             console.log(namee,"first name ");
-         connection.oldMsg(namee,function(err,docs){
+          connection.oldMsg(namee,function(err,docs){
            if(err) throw err;
          socket.emit("oldmessages",err,docs);
       //   console.log(err,docs)
