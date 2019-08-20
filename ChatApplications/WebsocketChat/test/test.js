@@ -1,4 +1,5 @@
-var assert = require('assert');
+// var assert = require('assert');
+var assert = require('chai').assert
 var mysql = require('mysql'); 
 var conn = require('../chatdb.js');
 
@@ -52,25 +53,44 @@ var conn = require('../chatdb.js');
 
 describe('displaying messages',function(){
 	before(function(done){
-   conn.saveMsg('majeed','kkkkk',function(e,o){
+   conn.saveMsg('majeed','Hello',function(e,o){
 		if(!e)
-			// console.log(o)
-			assert.equal(o.affectedRows,1)
 		     done()
 		})
 
-})		
+ })		
 	describe('pass',function(){
-		it('should pass by giving the old messages',function(done){
-       var temp = conn.oldMsg('majeed',function(e,o){
+	it('should pass by giving the old messages',function(done){
+       let temp = conn.oldMsg('majeed',function(e,o){
 		//console.log(e,o);
-		assert.equal(o.length,24);
-		done()
-		})
-	})
+    	assert.typeOf(o,'array')                      // checking the type
+	    done()
+		 })
+   })
+	 it('should pass',function(done){
+        let temp = conn.oldMsg('majeed',function(e,o){
+		assert.equal(o.length,58);                 // comparing with length
+        done()
+     
+})
+    })
+   it('should pass',function(done){
+   	let temp = conn.saveMsg('majeed','hi',function(e,o){    //  adding again 
+   		console.log(e,o)
+   		//assert.equal(o,"Success")
+        assert.equal(o.affectedRows,1)
+   		done()
+   	})
+   })
+   	 it('should pass',function(done){
+        let temp = conn.oldMsg('majeed',function(e,o){
+		assert.equal(o.length,59);                 // comparing with length again
+        done()
+     
 })
 })
-
+})
+})
 
 
 //checking with two insert 
@@ -79,8 +99,6 @@ describe('inserting message in db',function(){
       before(function(done){
    conn.saveMsg('majeed','kkkkk',function(e,o){
 		if(!e)
-			// console.log(o)
-			// assert.equal(o.affectedRows,1)
 		     done()
 		})
 })
@@ -110,7 +128,6 @@ describe('inserting message in db for private messaging',function(){
 	})
 })
 })
-
 
 // not passing all parameters
 

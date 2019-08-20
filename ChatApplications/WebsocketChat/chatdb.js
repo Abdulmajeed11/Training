@@ -20,6 +20,9 @@ connection.connect(function(err,res) {
 //   return connection.query("INSERT INTO chat (name) VALUES ('"+name+"')",callback)
 // }
 
+ 
+
+
 module.exports = {
   saveMsg : function(name,message,callback){
    var today = new Date();
@@ -30,7 +33,21 @@ module.exports = {
         "updated_at":today
     }
 
-connection.query("INSERT into chat set ?",users,callback)
+
+
+// connection.query("INSERT into chat set ?",users,callback)
+connection.query("INSERT into chat set ?",users,function(err,out){
+  if(err)
+  {
+  //  console.log("Error")
+   return callback(err,null)
+  }
+  else
+  {
+  // console.log("Success",out);
+ return callback(null,out);
+  }
+})
 
 },
  oldMsg : function(namee,callback){
