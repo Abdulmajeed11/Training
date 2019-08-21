@@ -96,17 +96,17 @@ socket.on('new user',function(data,callback){
                    var today = new Date();
                    let name = socket.nickname;
                    console.log(msg)
-                // connection.saveMsg(name,msg,function(){}
-                  connection.saveMsg(name,msg,function(err,out){
-                  if(err)
-                  {
-                    console.log("Error")
-                  }
-                  else
-                  {
-                   console.log("Success");
-                  }
-                  })
+                connection.saveMsg(name,msg,function(){}
+                  // connection.saveMsg(name,msg,function(err,out){
+                  // if(err)
+                  // {
+                  //   console.log("Error")
+                  // }
+                  // else
+                  // {
+                  //  console.log("Success");
+                  // }
+                  // })
                    io.sockets.emit('newmessage',{msg:msg,nick:socket.nickname});       
 }
     });
