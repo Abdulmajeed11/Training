@@ -23,18 +23,15 @@ io.on('connection', (socket) => {
 
 socket.on('new user',function(data,callback){
         console.log("New user");
-  
-// sending the old messages of the user
-        socket.nickname=data; 
-            namee= data;   
-            console.log(namee,"first name ");
-          connection.oldMsg(namee,function(err,docs){
+  // sending the old messages of the user        
+           socket.nickname=data; 
+            name= data;   
+           connection.oldMsg({name:name},function(err,docs){
            if(err) throw err;
-         socket.emit("oldmessages",err,docs);
-      //   console.log(err,docs)
+          socket.emit("oldmessages",err,docs);
          })
 
-        // if(data in users)//if nickname exist
+        // if(data in users)        //if nickname exist
         // {
         //     callback(false);
         // }
@@ -78,7 +75,7 @@ socket.on('new user',function(data,callback){
                 {
                     var today = new Date();
                     var fromUser = socket.nickname;
-                    connection.privateMsg(fromUser,toUser,msg,function(){});                    
+                    connection.privateMsg({name:fromUser,toUser:toUser,message:msg},function(){});                    
                     users[toUser].emit('whisper',{msg:msg,nick:socket.nickname});
                     console.log('whispered');   
                 }
@@ -96,17 +93,7 @@ socket.on('new user',function(data,callback){
                    var today = new Date();
                    let name = socket.nickname;
                    console.log(msg)
-                connection.saveMsg(name,msg,function(){}
-                  // connection.saveMsg(name,msg,function(err,out){
-                  // if(err)
-                  // {
-                  //   console.log("Error")
-                  // }
-                  // else
-                  // {
-                  //  console.log("Success");
-                  // }
-                  // })
+                connection.saveMsg({name:name,message:msg},function(){})
                    io.sockets.emit('newmessage',{msg:msg,nick:socket.nickname});       
 }
     });

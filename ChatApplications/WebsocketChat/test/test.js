@@ -11,21 +11,11 @@ var conn = require('../chatdb.js');
           var conn = mysql.createConnection({
 			  host: "127.0.0.1",  
 			  user: "root",  
-			  password: "0000" ,
+			  password: "00000" ,
 			  database : "mydb"          
 			   });
             conn.connect(done);
 
-    //     conn.connection.connect(function(err,result) {
-    //     console.log("is it coming here")
-    //     if(err){
-    //        assert.equal(err,'Connection Error');
-    //         return;
-    //     }
-    //     console.log(err,result)
-    //     assert.equal(result,'Connected');
-    //     done();
-    // });
 
         });
     })
@@ -49,11 +39,11 @@ var conn = require('../chatdb.js');
 });
 
 
-// displaying the old  messages with insert functionality
+// displaying the old  messages with insert functionality (1st way)
 
 describe('displaying messages',function(){
 	before(function(done){
-   conn.saveMsg({name:'majeed',message:'Hello'},function(e,o){
+   conn.saveMsg({name:'majeed',message:'Hello'},function(e,o){     // inserts the message before starting 
 		if(!e)
 		     done()
 		})
@@ -62,7 +52,6 @@ describe('displaying messages',function(){
 	describe('pass',function(){
 	it('should pass by giving the old messages',function(done){
       conn.oldMsg({name:'majeed'},function(e,o){
-		//console.log(e,o);
     	assert.typeOf(o,'array')                      // checking the type
 	    done()
 		 })
@@ -113,7 +102,7 @@ describe('inserting message in db',function(){
 })
 })
 
-// insert and displaying output inside a test case
+// displaying the old  messages with insert functionality (2nd way)
 
 describe('inserting message in db',function(){
 	describe('pass',function(){
@@ -129,7 +118,7 @@ describe('inserting message in db',function(){
 })
 })
 
-// trying out with the saveMessage
+// trying out with errors
 
 describe('inserting message in db',function(){         // passing nothing
 	describe('pass',function(){
@@ -171,14 +160,12 @@ describe('inserting message in db',function(){         // passing nothing
 })
 })
 
-//trying with old messages now
+// displaying old messages
 
 describe('inserting message in db',function(){         // passing nothing
 	describe('pass',function(){
 		it('should pass as error is given',function(done){    
        conn.oldMsg({name:"abdul"},function(e,o){
-      //	console.log(e,o,"this is in test")
-      console.log(e)
 		assert.equal(o.length,78)
 		done()
 	})
@@ -186,7 +173,7 @@ describe('inserting message in db',function(){         // passing nothing
      })
 	})
 
-// passing right values
+// comparing the private chat
 
 describe('inserting message in db for private messaging',function(){
 	describe('pass',function(){
@@ -205,7 +192,7 @@ describe('inserting message in db for private messaging',function(){
 describe('inserting message in db for private messaging',function(){
 	describe('#fail',function(){
 		it('should pass as message is being inserted',function(done){        
-       var temp = conn.privateMsg('abdul',function(e,o){          // not passing to parameter
+       var temp = conn.privateMsg({name:'abdul'},function(e,o){          // not passing to parameter
 		console.log(e,o); 
 	    assert.equal(o.affectedRows, 1);                      
 		done()

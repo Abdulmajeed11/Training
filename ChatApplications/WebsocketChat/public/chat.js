@@ -24,7 +24,6 @@
                     // {
                     //     $nickerror.html('That username is already taken...Try again!');
                     // }
-
                 });
                 $nickbox.val('');
             });
@@ -61,18 +60,15 @@
                 {
                   // str+=data[i]+'<br/>';
                   //  str+=`<p id="#id_">${data[i]}</p> `
-                   str+=`<p id="id_${data[i]}" style ="color : black">${data[i]}</p> `
-                   
+                   str+=`<p id="id_${data[i]}" style ="color : black">${data[i]}</p> `      
                 }
                 for(var j=0;j<data2.length;j++){
                    str2+=`<p id="id_${data2[j]}" style="color:red">${data2[j]}</p>`
                 }
                $users.html(str)
                $users.append(str2)
-
                // $(`id_${data[i]}`).css("color",black)
             
-
             });
             socket.on('whisper',function(data){
                 $chat.append('<span class="whisper"><b>'+data.nick+':-</b>'+data.msg+"</span><Br>");
@@ -84,11 +80,8 @@
                 $chat.append('<span class= "userDisconnect"><b><em>'+ data.nick+'</em> </b>'+ "Is offline"+"</span><Br>" );
               // $users.val(data).css("color","red");
                $(`#id_${data.nick}`).css("color","red")
-
             //   console.log(`#id_${data.nick}`)
-
            })
-
                socket.on('reconnectedUser',function(data){
                 console.log(data.nick, "user reconnect")
                $(`#id_${data.nick}`).css("color","black")

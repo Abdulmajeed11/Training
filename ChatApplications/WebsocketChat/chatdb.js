@@ -20,9 +20,6 @@ connection.connect(function(err,res) {
 //   return connection.query("INSERT INTO chat (name) VALUES ('"+name+"')",callback)
 // }
 
- 
-
-
 module.exports = {
   // saveMsg : function(name,message,callback){
    saveMsg : function(data,callback){
@@ -38,12 +35,10 @@ module.exports = {
 connection.query("INSERT into chat set ?",users,function(err,out){
   if(err)
   {
-  // console.log("Error",err)
    return callback(err,null)
   }
   else
   {
-  //console.log("Success",out);
  return callback(null,out);
   }
 })
@@ -56,12 +51,10 @@ connection.query("INSERT into chat set ?",users,function(err,out){
  connection.query("SELECT name,message from chat where name = ?",name,function(err,out){
   if(err)
   {
-  // console.log("Error",err)
    return callback(err,null)
   }
   else
   {
-   // console.log("Success",out);
     return callback(null,out);
   }
 })
@@ -77,8 +70,17 @@ connection.query("INSERT into chat set ?",users,function(err,out){
                     "created_at":today,
                     "updated_at":today
 }
- connection.query('Insert into chat set ?',users,callback);
-},
+ // connection.query('Insert into chat set ?',users,callback);
+ connection.query("Insert into chat set ?",users,function(err,out){
+  if(err)
+  {
+   return callback(err,null)
+  }
+  else
+  {
+    return callback(null,out);
+  }
+})
+}
 }
 
-// exports.connection = connection;
