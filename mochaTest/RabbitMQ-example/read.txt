@@ -1,0 +1,9 @@
+producer.js 
+This one initiates the message
+
+consumer-1.js , consumer-2.js
+these both consumes the message that is being initiated by the producer
+
+run:
+first run producer.js in one terminal, second run consumer-1.js / consumer-2.js
+to check if the queue is getting produced and consumer login at localhost:15672  
