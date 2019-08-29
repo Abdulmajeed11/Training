@@ -15,10 +15,12 @@ function RabbitMQConnector(options,type) {
     // if the connection is closed or fails to be established at all, we will reconnect
 
     function connect(thisObj) {
+        console.log("-------1-------")
         var self = thisObj;
         amqp.connect(
             self.host + "?heartbeat=60",
             function(err, conn) {
+                console.log("-----------2-----------")
                 if (err) {
                     return setTimeout(function() {
                         connect(self);
@@ -64,7 +66,7 @@ function startPublisher(self) {
     });
 }
 
-RabbitMQConnector.prototype.pushMessage = function(queue, content) {
+RabbitMQConnector.prototype.pushMessage = function(queue, content) {     //When values are from the producer
     var self = this;
     try {
         this.pubChannel.publish(
@@ -76,13 +78,13 @@ RabbitMQConnector.prototype.pushMessage = function(queue, content) {
             },
             function(err, ok) {
                 if (err) {
-                    console.error("[AMQP] publish", err);
+                    console.error("[AMQP] publish - 1", err);
                     self.pubChannel.connection.close();
                 }
             }
         );
     } catch (e) {
-        console.error("[AMQP] publish", e.message);
+        console.error("[AMQP] publish - 2", e.message);        // when wrong content is sent like number of an object 
     }
 };
 

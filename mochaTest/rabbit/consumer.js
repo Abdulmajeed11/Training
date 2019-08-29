@@ -26,4 +26,3 @@ consumer.events.emit('message',msg)
 }
 
 module.exports=consumer
-

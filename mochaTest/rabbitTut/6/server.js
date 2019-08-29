@@ -23,7 +23,6 @@ amqp.connect('amqp://localhost', function(error0, connection) {
       console.log(" [.] fib(%d)", n);
 
       var r = fibonacci(n);
-      exports.r = r;
       channel.sendToQueue(msg.properties.replyTo,
         Buffer.from(r.toString()), {
           correlationId: msg.properties.correlationId

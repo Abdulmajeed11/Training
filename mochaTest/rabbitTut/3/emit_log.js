@@ -14,12 +14,19 @@ amqp.connect('amqp://localhost', function(error0, connection) {
     }
     var exchange = 'logs';
     var msg = process.argv.slice(2).join(' ') || 'Hello World!';
+    var msg2 = "Helllo Worlddd" 
 
     channel.assertExchange(exchange, 'fanout', {
       durable: false
     });
     channel.publish(exchange, '', Buffer.from(msg));
     console.log(" [x] Sent %s", msg);
+  
+
+     channel.publish(exchange, '', Buffer.from(msg2));
+    console.log(" [x] Sent %s", msg2);
+  
+
   });
 
   setTimeout(function() { 

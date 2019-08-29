@@ -12,6 +12,7 @@ amqp.connect('amqp://localhost', function(error0, connection) {
     }
     var exchange = 'logs';
 
+    // channel.prefetch(1); 
     channel.assertExchange(exchange, 'fanout', {
       durable: false
     });
@@ -32,6 +33,15 @@ amqp.connect('amqp://localhost', function(error0, connection) {
       }, {
         noAck: true
       });
+
+      channel.consume(q.queue, function(msg2) {
+        if(msg2.content) {
+            console.log(" [x] %s", msg2.content.toString());
+          }
+      }, {
+        noAck: true
+      });
+
     });
   });
 });

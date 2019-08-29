@@ -18,14 +18,13 @@ emitter.on('message', function(data) {
        producer.pushMessage('hellooo',payload);
 },1000);
         assertFunction = function(data) {
-        	console.log(data);
+          console.log(data);
         //   var packet = JSON.parse(data)
           var packet = data;
           assert.equal('hello',packet);
                 done()
         }
     }) 
-     
 
        it('should pass 2 ', function(done) {
        setTimeout(function() {
