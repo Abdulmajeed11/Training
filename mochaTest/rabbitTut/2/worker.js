@@ -1,7 +1,5 @@
 // Worker for handeling the tasks , (note: we can multiple wokrers for distributive processing) 
 
-//#!/usr/bin/env node
-
 var amqp = require('amqplib/callback_api');
 
 amqp.connect('amqp://localhost', function(error0, connection) {
@@ -28,8 +26,6 @@ amqp.connect('amqp://localhost', function(error0, connection) {
         channel.ack(msg);
       }, secs * 1000);
     }, {
-      // manual acknowledgment mode,
-      // see https://www.rabbitmq.com/confirms.html for details
       noAck: false               //if a worker is down we dont want to lose the message sent to it
     }); 
 
@@ -46,9 +42,6 @@ amqp.connect('amqp://localhost', function(error0, connection) {
       noAck: false               
     }); 
 
-
-
-
       channel.consume(queue, function(msg3) {           //consuming the message here
       var secs = msg3.content.toString().split('.').length - 1;
 
@@ -60,8 +53,6 @@ amqp.connect('amqp://localhost', function(error0, connection) {
     }, {
       noAck: false                
     }); 
-
-
 
       channel.consume(queue, function(msg4) {      
       var secs = msg4.content.toString().split('.').length - 1;

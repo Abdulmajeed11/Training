@@ -17,35 +17,28 @@ amqp.connect('amqp://localhost', function(error0, connection) {
         var msg3 = " whats up"
         var msg4 = "heya"
 
-
-        channel.assertQueue(queue, {              //even if rabbitMQ is down save the message
+        channel.assertQueue(queue, {
             durable: true
         });
         channel.sendToQueue(queue, Buffer.from(msg), {
-            persistent: true                         
+            persistent: true
+        });
         console.log(" [x] Sent '%s'", msg);
-
-        
 
         channel.sendToQueue(queue, Buffer.from(msg2), {
         persistent: true                        
         }); 
         console.log(" [x] Sent '%s'", msg2);
 
-       
-
         channel.sendToQueue(queue, Buffer.from(msg3), {
         persistent: true                         
         }); 
         console.log(" [x] Sent '%s'", msg3);
 
-
-
         channel.sendToQueue(queue, Buffer.from(msg4), {
         persistent: true                        
         }); 
         console.log(" [x] Sent '%s'", msg4);
-
 
     });
     setTimeout(function() {
