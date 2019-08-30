@@ -19,10 +19,18 @@ amqp.connect('amqp://localhost', function(error0, connection) {
 
         console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", queue);
 
+// trying requeuing
+       // channel.basicGet(queue, false);
+       // channel.basicNack(getEnvelope().getDeliveryTag(), false, true);
+
         channel.consume(queue, function(msg) {
             console.log(" [x] Received %s", msg.content.toString());
+       
+// Added for requeuing purpose 
+         //   channel.nack(msg);
         }, {
-            noAck: true
+           noack:true          
+        //    noAck: false
         });
     });
 });
