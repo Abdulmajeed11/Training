@@ -16,7 +16,7 @@ function RabbitMQConnector(options,type) {
 
     function connect(thisObj) {
         console.log("-------1-------")
-        var self = thisObj;
+       var self = thisObj;
         amqp.connect(
             self.host + "?heartbeat=60",
             function(err, conn) {
@@ -56,10 +56,10 @@ function startPublisher(self) {
     self.amqpConn.createConfirmChannel(function(err, ch) {
         if (closeOnErr(self, err)) return;
         ch.on("error", function(err) {
-            console.error("[AMQP] channel error", err.message);
+            console.error("[AMQP] channel error - 1", err.message);
         });
         ch.on("close", function() {
-            console.log("[AMQP] channel closed");
+            console.log("[AMQP] channel closed - 1");
         });
 
         self.pubChannel = ch;
@@ -93,11 +93,11 @@ function startWorker(self) {
     self.amqpConn.createChannel(function(err, ch) {
         if (closeOnErr(self, err)) return;
         ch.on("error", function(err) {
-            console.error("[AMQP] channel error", err.message);
+            console.error("[AMQP] channel error - 2", err.message);
         });
 
         ch.on("close", function() {
-            console.log("[AMQP] channel closed");
+            console.log("[AMQP] channel closed - 2");
         });
 
         ch.prefetch(10);
