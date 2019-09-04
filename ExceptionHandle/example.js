@@ -136,6 +136,10 @@ welcome()
 //console.log(a)
 
 
+
+
+
+
 //Example nesting
 
 function a()
@@ -151,13 +155,6 @@ function a()
 				     try{
                         d()
                        // throw Error("Error in d ")
-				         try{
-				         	 e()
-				         	 //throw Error("Error in e")
-				         }
-				         catch(err){
-				         	console.log(err,"----5----")
-				         }
 				     }
 				     catch(err){
 				     	console.log(err,"---4---")
@@ -177,19 +174,23 @@ function a()
 }
 
 function b(){
-	console.log("Hello")
-}
+	 let json = '{bad json}'
+	  let user = JSON.parse(json); 
+
+	 // let user = {name:'abdul'} 
+    console.log( user.name );
+ }
 
 function c(){
-	console.log("world")
+		let json = '{bad json}'
+	  let user = JSON.parse(json); 
+    console.log( user.name );
 }
 
 function d(){
-	console.log("how are")
-}
-
-function e(){
-	console.log("you")
+		let json = '{bad json}'
+	  let user = JSON.parse(json); 
+    console.log( user.name );
 }
 
 a()
@@ -197,23 +198,21 @@ a()
 
 // Trying with the asynchronous nature of the code
 
+// Mistake- try block was outsite the async function, it should have been inside the function like below 
 //Aysnchronous
-
 function asyn(){
-	try{
 	setTimeout(function(){
-		throw Error("This is the error")
-		console.log("Hello")
-	},3000);
-}catch(err){
+	try{
+	throw Error("This is the error")
+	console.log("Hello")
+	}catch(err){
      console.log(err,"this is the asyn error");     // Dosent come here
 }
+	},3000);
 }
+ asyn()
 
-asyn()
-
-
-// //Synchronous
+Synchronous
 
 function sync()
 {
@@ -233,4 +232,4 @@ function temp(){
 sync()
 
 
-//conclusion : try and catch will not catch asynchoronous code
+//conclusion: place the try and catch block right in an asynchronous code
