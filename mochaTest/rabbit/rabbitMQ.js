@@ -15,6 +15,7 @@ function RabbitMQConnector(options,type) {
     // if the connection is closed or fails to be established at all, we will reconnect
 
     function connect(thisObj) {
+        // try{
         console.log("-------1-------")
        var self = thisObj;
         amqp.connect(
@@ -44,7 +45,11 @@ function RabbitMQConnector(options,type) {
             }
         );
     }
+// catch(err){
+//     console.log(err,"Caught Error")
+// }}
 }
+
 
 function whenConnected(self) {
     if (self.type == "PRODUCER") startPublisher(self);

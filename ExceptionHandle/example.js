@@ -136,4 +136,101 @@ welcome()
 //console.log(a)
 
 
+//Example nesting
 
+function a()
+{
+	try{
+		//throw Error('Error in a')
+			try{
+				b()
+			//	throw Error('Error in b')
+				try{
+                     c() 
+                   //  throw Error("error in c")
+				     try{
+                        d()
+                       // throw Error("Error in d ")
+				         try{
+				         	 e()
+				         	 //throw Error("Error in e")
+				         }
+				         catch(err){
+				         	console.log(err,"----5----")
+				         }
+				     }
+				     catch(err){
+				     	console.log(err,"---4---")
+				     }
+				}
+				catch(err){
+                  console.log(err,"----3----")
+				}
+			}
+			catch(err){
+				console.log(err,"----2-----")
+			}
+		}
+ 	catch(err){
+      console.log(err,"-----1-----")
+	}
+}
+
+function b(){
+	console.log("Hello")
+}
+
+function c(){
+	console.log("world")
+}
+
+function d(){
+	console.log("how are")
+}
+
+function e(){
+	console.log("you")
+}
+
+a()
+
+
+// Trying with the asynchronous nature of the code
+
+//Aysnchronous
+
+function asyn(){
+	try{
+	setTimeout(function(){
+		throw Error("This is the error")
+		console.log("Hello")
+	},3000);
+}catch(err){
+     console.log(err,"this is the asyn error");     // Dosent come here
+}
+}
+
+asyn()
+
+
+// //Synchronous
+
+function sync()
+{
+	try{
+		throw Error("Throwing error")
+	temp()	
+	}
+	catch(err){
+    console.log(err,"error caught here")
+	}
+}
+
+function temp(){
+	console.log("hello")
+}
+
+sync()
+
+
+//conclusion : try and catch will not catch asynchoronous code
