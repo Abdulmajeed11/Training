@@ -24,7 +24,6 @@ catch (error) {
 
 
 
-
 //Without function
 try {
   nonExistentFunction();
@@ -111,3 +110,154 @@ try {
 
 a()
 
+
+
+// multiple try catch with multple function 
+
+/*function a(){
+  try{
+     b()
+  function b(){
+      // let json = '{bad json}'
+      // let user = JSON.parse(json); 
+
+     let user = {name:'abdul'} 
+     console.log( user.name );
+        c()
+        function c(){
+          try{
+        // let json = '{bad json}'
+        // let user = JSON.parse(json); 
+
+      let user = {name:'majeed'} 
+       console.log( user.name );
+ 
+      }catch(err)
+      {
+        console.log(err,"---3---")
+      }
+           d()
+          function d(){
+            try{
+        //  let json = '{bad json}'
+        // let user = JSON.parse(json); 
+
+      let user = {name:'bruce'} 
+     console.log( user.name );
+            }catch(err){
+              console.log(err,"inside the function err")
+            }
+             }
+            }         
+}
+}
+   catch(err)
+   {
+    console.log(err,"Error caught")
+   }
+}
+a()
+*/
+
+
+
+// try catch with multple function with anonymous functionality
+function a(){
+  try{
+     b()
+  function b(){
+      // let json = '{bad json}'
+      // let user = JSON.parse(json); 
+
+     let user = {name:'abdul'} 
+     console.log( user.name );
+        c()
+        function c(){
+          try{
+        // let json = '{bad json}'
+        // let user = JSON.parse(json); 
+
+      let user = {name:'majeed'} 
+       console.log( user.name );
+  
+
+      setTimeout(function(){
+        // try{
+        //  throw Error('Anonomous Error')
+
+      let json = '{bad json}'
+      let user = JSON.parse(json); 
+        // }
+        // catch(err){
+        //   console.log(err,"--22--")
+        // }
+      },3000)
+
+ 
+      }catch(err)
+      {
+        console.log(err,"---3---")
+      }
+           d()
+          function d(){
+            try{
+        //  let json = '{bad json}'
+        // let user = JSON.parse(json); 
+
+      let user = {name:'bruce'} 
+     console.log( user.name );
+            }catch(err){
+              console.log(err,"inside the function err")
+            }
+             }
+            }         
+}
+}
+   catch(err)
+   {
+    console.log(err,"Error caught")
+   }
+}
+a()
+
+
+
+
+
+
+//with one try catch
+function a(){
+  try{
+     b()
+  function b(){
+      let json = '{bad json}'
+      let user = JSON.parse(json); 
+
+     // let user = {name:'abdul'} 
+     // console.log( user.name );
+        c()
+        function c(){
+
+        // let json = '{bad json}'
+        // let user = JSON.parse(json); 
+
+      let user = {name:'majeed'} 
+       console.log( user.name );
+           d()
+          function d(){
+
+        //  let json = '{bad json}'
+        // let user = JSON.parse(json); 
+
+      let user = {name:'bruce'} 
+     console.log( user.name );
+             }
+            }         
+}
+}
+   catch(err)
+   {
+    console.log(err,"Error caught")
+   }
+}
+a()
