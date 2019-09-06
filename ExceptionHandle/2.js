@@ -4,16 +4,12 @@ function a() {
         b()
 
         function b() {
-            let user = {
-                name: 'abdul'
-                       }
+            let user = {name: 'abdul'}
             console.log(user.name);
             c()
 
             function c() {
-                let user = {
-                    name: 'majeed'
-                           }
+                let user = {name: 'majeed'}
                 console.log(user.name);
                 d()
 

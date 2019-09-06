@@ -77,6 +77,65 @@ try {
 
 
 
+
+// ErrorHandler-Test1
+var test = null;
+test.arg = 5;
+// ErrorHandler-Test2
+throw (new Error("Hello"));
+// ErrorHandler-Test3
+throw "Hello again";
+// ErrorHandler-Test4
+throw {
+    myMessage: "stuff",
+    customProperty: 5,
+    anArray: [1, 2, 3]
+};
+// ErrorHandler-Test5
+try {
+    var test2 = null;
+    test2.arg = 5;
+} catch(e) {
+     console.log(e);
+}
+// ErrorHandler-Test6
+try {
+    throw (new Error("Goodbye"));
+} catch(e) {
+    console.log(e);
+}
+// ErrorHandler-Test7
+try {
+    throw "Goodbye again";
+} catch(e) {
+     console.log(e);
+}
+// ErrorHandler-Test8
+try {
+    throw {
+        myMessage: "stuff",
+        customProperty: 5,
+        anArray: [1, 2, 3]
+    };
+} catch(e) {
+    console.log(e);
+}
+
+
+
+try {
+    var x = 90;
+    var value = x / y;
+}
+catch (err) {
+    console.log(err);
+}
+
+
+
+
+
+
 //Without variable 
 setTimeout(function() {
     try {

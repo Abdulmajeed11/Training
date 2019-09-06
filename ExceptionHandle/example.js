@@ -219,7 +219,6 @@ function temp() {
 
 sync()
 
-
 //conclusion: place the try and catch block right in an asynchronous code
 
 
