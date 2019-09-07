@@ -3,11 +3,12 @@ function a() {
                 d()
                 function d() {
                     try {
-                        let json = '{bad json}'
-                        let user = JSON.parse(json);
+                         // let json = '{bad json}'
+                         // let user = JSON.parse(json);
 
+                        let user = "hello"
                         let user = {name: 'bruce'}
-                        console.log(user.name);
+                        // console.log(user.name);
                     } catch (err) {
                         console.log(err, "inside the function err")
                     }
@@ -16,6 +17,7 @@ function a() {
         console.log(err, "Error caught")
     }
 }
+
 a()
 
 
