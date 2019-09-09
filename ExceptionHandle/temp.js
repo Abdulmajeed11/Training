@@ -1,9 +1,8 @@
-// empty array
+/*// empty array
 function lastElement(array) {
     if (array.length > 0)
         return array[array.length - 1];
     else
-        // throw "Can not take the last element of an empty array.";
         throw exception;
 }
 
@@ -18,8 +17,6 @@ try {
 }
 
 
-
-
 //Without function
 try {
     nonExistentFunction();
@@ -28,8 +25,6 @@ try {
     // expected output: ReferenceError: nonExistentFunction is not defined
     // Note - error messages will vary depending on browser
 }
-
-
 
 
 //with try..catch
@@ -46,8 +41,6 @@ try {
 }
 
 
-
-
 //Wth callback
 var validateObject = function(obj, callback) {
     if (typeof obj !== 'object') {
@@ -61,7 +54,6 @@ validateObject("123", function(err) {
 });
 
 
-
 //without variable
 try {
     setTimeout(function() {
@@ -73,9 +65,6 @@ try {
     console.log(`Error has occurred!`); // (3) <--
 
 }
-
-
-
 
 
 // ErrorHandler-Test1
@@ -122,7 +111,6 @@ try {
 }
 
 
-
 try {
     var x = 90;
     var value = x / y;
@@ -130,10 +118,6 @@ try {
 catch (err) {
     console.log(err);
 }
-
-
-
-
 
 
 //Without variable 
@@ -147,7 +131,7 @@ setTimeout(function() {
 
 
 
-
+//Exmaple
 function a() {
     let json = "{ bad json }";
 
@@ -328,3 +312,29 @@ function a() {
     }
 }
 a()
+
+*/
+
+
+
+const verifyUser = function(username, password, callback){
+   dataBase.verifyUser(username, password, (error, userInfo) => {
+       if (error) {
+           callback(error)
+       }else{
+           dataBase.getRoles(username, (error, roles) => {
+               if (error){
+                   callback(error)
+               }else {
+                   dataBase.logAccess(username, (error) => {
+                       if (error){
+                           callback(error);
+                       }else{
+                           callback(null, userInfo, roles);
+                       }
+                   })
+               }
+           })
+       }
+   })
+};
