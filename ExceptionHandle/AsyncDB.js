@@ -23,7 +23,7 @@ function insert(callback){
         "created_at":today,
         "updated_at":today
 	} 
-   connection.query("INSER into chatt set ?",user,function(err,out){
+   connection.query("INSERT into chatt set ?",user,function(err,out){
   if(err) callback(err,null)
   else callback(null,out)
 })
@@ -35,9 +35,9 @@ insert(function(e,o){
 })
 
 
-// SELECT
+//SELECT
 function select(callback){
-	connection.query('SELEC * from chatt', function (err,res) {
+	connection.query('SELECT * from chatt', function (err,res) {
     if(err)callback(err,null)
     else callback(null,res)
 	})
@@ -51,7 +51,7 @@ select(function(e,o){
 
 //DELETE
 function del(callback){
-	connection.query('Delet from chatt',function(err,res){
+	connection.query('Delete from chatt',function(err,res){
 		if(err) callback(err,null);
 	    else callback(null,res);
  	})
