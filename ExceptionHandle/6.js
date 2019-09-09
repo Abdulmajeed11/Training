@@ -16,10 +16,10 @@ function a() {
         let json = '{bad json}'
         let user = JSON.parse(json);
  
-       let user = {name: 'bruce'}
-       console.log(user.name);
-       } catch (err) {
-       console.log(err, "inside the function err")
+        let user = {name: 'bruce'}
+        console.log(user.name);
+        } catch (err) {
+        console.log(err, "inside the function err")
           }
          }
         }

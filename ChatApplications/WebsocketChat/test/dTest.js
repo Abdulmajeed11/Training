@@ -5,7 +5,7 @@
 // beforeEach() is run before each test in a describe
 // afterEach()   is run after each test in a describe
 
-/*describe("top", function () {
+describe("top", function () {
     before(function () {
         console.log("top before");
     });
@@ -45,7 +45,7 @@
         console.log("top test2");
     });
 });
-*/
+
 // O/p:
 //  top before
 // top beforeEach

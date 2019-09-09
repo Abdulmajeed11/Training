@@ -1,7 +1,4 @@
-#!/usr/bin/env node
-
 var amqp = require('amqplib/callback_api');
-
 var args = process.argv.slice(2);
 
 if (args.length == 0) {

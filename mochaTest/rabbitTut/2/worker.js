@@ -1,7 +1,6 @@
 // Worker for handeling the tasks , (note: we can multiple wokrers for distributive processing) 
 
 var amqp = require('amqplib/callback_api');
-
 amqp.connect('amqp://localhost', function(error0, connection) {
   if (error0) {
     throw error0;
@@ -11,7 +10,6 @@ amqp.connect('amqp://localhost', function(error0, connection) {
       throw error1;
     }
     var queue = 'task_queue';
-
     channel.assertQueue(queue, {            // tells to save the message even if rabbitMQ server is down
       durable: true
     });
@@ -29,10 +27,8 @@ amqp.connect('amqp://localhost', function(error0, connection) {
       noAck: false               //if a worker is down we dont want to lose the message sent to it
     }); 
 
-
       channel.consume(queue, function(msg2) {           
       var secs = msg2.content.toString().split('.').length - 1;
-
       console.log(" [x] Received %s", msg2.content.toString());
       setTimeout(function() {
         console.log(" [x] Done");
@@ -65,7 +61,5 @@ amqp.connect('amqp://localhost', function(error0, connection) {
     }, {
       noAck: false              
     }); 
-
-
   });
 });

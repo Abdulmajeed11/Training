@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 var amqp = require('amqplib/callback_api');
-
 amqp.connect('amqp://localhost', function(error0, connection) {
   if (error0) {
     throw error0;
@@ -11,7 +10,6 @@ amqp.connect('amqp://localhost', function(error0, connection) {
       throw error1;
     }
     var exchange = 'logs';
-
     // channel.prefetch(1); 
     channel.assertExchange(exchange, 'fanout', {
       durable: false

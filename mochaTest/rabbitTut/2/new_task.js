@@ -14,7 +14,6 @@ amqp.connect('amqp://localhost', function(error0, connection) {
         var msg2 = "Hello Worlddd"
         var msg3 = " whats up"
         var msg4 = "heya"
-
         channel.assertQueue(queue, {
             durable: true
         });
@@ -37,7 +36,6 @@ amqp.connect('amqp://localhost', function(error0, connection) {
         persistent: true                        
         }); 
         console.log(" [x] Sent '%s'", msg4);
-
     });
     setTimeout(function() {
         connection.close();

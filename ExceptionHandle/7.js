@@ -6,7 +6,7 @@ function a() {
         function c() {
         try {
           // let json = '{bad json}'                 
-          // let user = JSON.parse(json); 
+          // let user = JSON.parse(json);          // For Checking with Async
          let user = {name: 'majeed'}
          console.log(user.name);
 
