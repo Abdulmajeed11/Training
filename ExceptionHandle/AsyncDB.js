@@ -65,53 +65,53 @@ del(function(e,o){
 
 //Nested Async DB operations 
 
-function Oper(){
-	try{
-        insert(function(e,o){
-    	 if(e) console.log(e,"insert error")
-        else console.log(o,"insert success")
+function Oper() {
+  try {
+    insert(function(e, o) {
+      if (e) console.log(e, "insert error")
+      else console.log(o, "insert success")
+    })
+
+    function insert(callback) {
+      var today = new Date();
+      var user = {
+        "name": "kane",
+        "message": "Hello",
+        "created_at": today,
+        "updated_at": today
+      }
+      connection.query("INSERT into chatt set ?", user, function(err, out) {
+        if (err) callback(err, null)
+        else callback(null, out)
+      })
+
+      select(function(e, o) {
+        if (e) console.log(e, "select error")
+        else console.log(o, "select success")
+      })
+
+      function select(callback) {
+        connection.query('SELECT * from chatt', function(err, res) {
+          if (err) callback(err, null)
+          else callback(null, res)
         })
 
-        function insert(callback){
-  	    var today =  new Date();
-	      var user = {
-        "name":"kane",
-        "message":"Hello",
-        "created_at":today,
-        "updated_at":today
-	   } 
-   	connection.query("INSERT into chatt set ?",user,function(err,out){
-   	if(err) callback(err,null)
-  	 else callback(null,out)
-   })
+        del(function(e, o) {
+          if (e) console.log(e, "delete error")
+          else console.log(o, "delete success")
+        })
 
-   select(function(e,o){
-	if(e) console.log(e,"select error")
-    else console.log(o,"select success")
-   })
-    
-    function select(callback){
-	 connection.query('SELECT * from chatt', function (err,res) {
-    if(err)callback(err,null)
-    else callback(null,res)
-	})
-
-   del(function(e,o){
-	if(e) console.log(e,"delete error")
-	else console.log(o,"delete success")
-    })
-   
-   function del(callback){
-	connection.query('Delete from chatt',function(err,res){
-		if(err) callback(err,null);
-	    else callback(null,res);
- 	    })
-     }
-   }
+        function del(callback) {
+          connection.query('Delete from chatt', function(err, res) {
+            if (err) callback(err, null);
+            else callback(null, res);
+          })
+        }
+      }
+    }
+  } catch (err) {
+    console.log(err, "caught error")
   }
-	}catch(err){
-		console.log(err,"caught error")
-	}
 }
 
 Oper()
@@ -121,59 +121,59 @@ Oper()
 
 //Nested DB operations - 2 
 
-function Oper(){
-	try{
-      insert(function(e){
-    	if(e) console.log(e,"insert error")
+function Oper() {
+  try {
+   insert(function(e) {
+    if (e) console.log(e, "insert error")
+    })
+
+    function insert(callback) {
+     var today = new Date();
+     var user = {
+      "name": "kane",
+      "message": "Hello",
+      "created_at": today,
+      "updated_at": today
+      }
+     connection.query("INSERT into chatt set ?", user, function(err, out) {
+       if (err) callback(err, null)
+       else {
+       console.log(out, "insert output")
+       select(function(e) {
+       if (e) console.log(e, "select error")
+       })
+
+     function select(callback) {
+      connection.query('SELECT * from chatt', function(err, res) {
+       if (err) callback(err, null)
+       else {
+       console.log(res, "select res")
+       del(function(e, o) {
+       if (e) console.log(e, "delete error")
+       else console.log(o, "delete success")
         })
 
-        function insert(callback){
-  	    var today =  new Date();
-	      var user = {
-        "name":"kane",
-        "message":"Hello",
-        "created_at":today,
-        "updated_at":today
-	   } 
-   	connection.query("INSERT into chatt set ?",user,function(err,out){
-   	if(err) callback(err,null)
-  	 else{
-     console.log(out,"insert output")
-     select(function(e){
-  	if(e) console.log(e,"select error")
-     })
-
-    function select(callback){
-	 connection.query('SELECT * from chatt', function (err,res) {
-    if(err) callback(err,null)
-    else {
-     console.log(res,"select res")
-     del(function(e,o){
-  	if(e) console.log(e,"delete error")
-	  else console.log(o,"delete success")
-    })
-   
-   function del(callback){
-  	connection.query('Delete from chatt',function(err,res){
-	 if(err) callback(err,null);
-    else
-    try{ 
-      callback(null,res);
- 	     }
-       catch(err){
-        console.log(err,"Trying to ctach an error")
-      } 
-              })
-             }
+     function del(callback) {
+     connection.query('Delete from chatt', function(err, res) {
+     if (err) callback(err, null);
+     else
+       try {
+          callback(null, res);
            }
-	        })
+       catch (err) {
+         console.log(err, "Trying to ctach an error")
+                   }
+                  })
+                }
+              }
+            })
+          }
         }
-       }
       })
-     }
-	}catch(err){
-		console.log(err,"caught error")
-	}
+    }
+  } catch (err) {
+    console.log(err, "caught error")
+  }
 }
 
 
