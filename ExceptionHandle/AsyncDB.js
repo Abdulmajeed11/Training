@@ -15,7 +15,7 @@ connection.connect(function(err,res) {
 // Asynchronous error hadnelling for database operations
 
 // INSERT
-/*function insert(callback){
+function insert(callback){
      var today =  new Date();
 	 var user = {
         "name":"kane",
@@ -115,7 +115,7 @@ function Oper(){
 }
 
 Oper()
-*/
+
 
 
 
