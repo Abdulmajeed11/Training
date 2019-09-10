@@ -1,4 +1,4 @@
-/*// empty array
+// empty array
 function lastElement(array) {
     if (array.length > 0)
         return array[array.length - 1];
@@ -313,10 +313,11 @@ function a() {
 }
 a()
 
-*/
 
 
 
+
+//Example
 const verifyUser = function(username, password, callback){
    dataBase.verifyUser(username, password, (error, userInfo) => {
        if (error) {

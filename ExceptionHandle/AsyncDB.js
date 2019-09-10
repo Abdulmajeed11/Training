@@ -63,7 +63,6 @@ del(function(e,o){
 })
 
 
-
 //Nested Async DB operations 
 
 function Oper(){
@@ -124,14 +123,13 @@ Oper()
 
 function Oper(){
 	try{
-        insert(function(e,o){
+      insert(function(e){
     	if(e) console.log(e,"insert error")
-        else console.log(o,"insert success")
         })
 
         function insert(callback){
   	    var today =  new Date();
-	    var user = {
+	      var user = {
         "name":"kane",
         "message":"Hello",
         "created_at":today,
@@ -140,28 +138,29 @@ function Oper(){
    	connection.query("INSERT into chatt set ?",user,function(err,out){
    	if(err) callback(err,null)
   	 else{
-     select(function(e,o){
+     console.log(out,"insert output")
+     select(function(e){
   	if(e) console.log(e,"select error")
-     else console.log(out,"select success")
-   })
+     })
 
     function select(callback){
-	connection.query('SELECT * from chatt', function (err,res) {
+	 connection.query('SELECT * from chatt', function (err,res) {
     if(err)callback(err,null)
     else {
+     console.log(res,"select res")
      del(function(e,o){
-	if(e) console.log(e,"delete error")
-	else console.log(o,"delete success")
+  	if(e) console.log(e,"delete error")
+	  else console.log(o,"delete success")
     })
    
    function del(callback){
-	connection.query('Delete from chatt',function(err,res){
-	if(err) callback(err,null);
+  	connection.query('Delete from chatt',function(err,res){
+	 if(err) callback(err,null);
     else callback(null,res);
  	           })
              }
            }
-	     })
+	       })
         }
        }
       })
@@ -170,5 +169,6 @@ function Oper(){
 		console.log(err,"caught error")
 	}
 }
+
 
 Oper()
