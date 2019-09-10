@@ -15,7 +15,7 @@ connection.connect(function(err,res) {
 // Asynchronous error hadnelling for database operations
 
 // INSERT
-function insert(callback){
+/*function insert(callback){
      var today =  new Date();
 	 var user = {
         "name":"kane",
@@ -68,13 +68,13 @@ del(function(e,o){
 function Oper(){
 	try{
         insert(function(e,o){
-    	if(e) console.log(e,"insert error")
+    	 if(e) console.log(e,"insert error")
         else console.log(o,"insert success")
         })
 
         function insert(callback){
   	    var today =  new Date();
-	    var user = {
+	      var user = {
         "name":"kane",
         "message":"Hello",
         "created_at":today,
@@ -91,12 +91,12 @@ function Oper(){
    })
     
     function select(callback){
-	connection.query('SELECT * from chatt', function (err,res) {
+	 connection.query('SELECT * from chatt', function (err,res) {
     if(err)callback(err,null)
     else callback(null,res)
 	})
 
-     del(function(e,o){
+   del(function(e,o){
 	if(e) console.log(e,"delete error")
 	else console.log(o,"delete success")
     })
@@ -105,7 +105,7 @@ function Oper(){
 	connection.query('Delete from chatt',function(err,res){
 		if(err) callback(err,null);
 	    else callback(null,res);
- 	  })
+ 	    })
      }
    }
   }
@@ -115,7 +115,7 @@ function Oper(){
 }
 
 Oper()
-
+*/
 
 
 
@@ -145,7 +145,7 @@ function Oper(){
 
     function select(callback){
 	 connection.query('SELECT * from chatt', function (err,res) {
-    if(err)callback(err,null)
+    if(err) callback(err,null)
     else {
      console.log(res,"select res")
      del(function(e,o){
@@ -156,11 +156,17 @@ function Oper(){
    function del(callback){
   	connection.query('Delete from chatt',function(err,res){
 	 if(err) callback(err,null);
-    else callback(null,res);
- 	           })
+    else
+    try{ 
+      callback(null,res);
+ 	     }
+       catch(err){
+        console.log(err,"Trying to ctach an error")
+      } 
+              })
              }
            }
-	       })
+	        })
         }
        }
       })
