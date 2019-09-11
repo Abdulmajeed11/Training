@@ -136,23 +136,30 @@ function Oper() {
       "updated_at": today
       }
      connection.query("INSERT into chatt set ?", user, function(err, out) {
-       if (err) callback(err, null)
+       if(err) callback(err, null)
        else {
+        try{
        console.log(out, "insert output")
        select(function(e) {
        if (e) console.log(e, "select error")
        })
+     }catch(err){
+      console.log(err,"checking")
+     }
 
      function select(callback) {
       connection.query('SELECT * from chatt', function(err, res) {
        if (err) callback(err, null)
        else {
+        try{
        console.log(res, "select res")
        del(function(e, o) {
        if (e) console.log(e, "delete error")
        else console.log(o, "delete success")
         })
-
+      }catch(err){
+        console.log(err,"Error")
+      }
      function del(callback) {
      connection.query('Delete from chatt', function(err, res) {
      if (err) callback(err, null);
@@ -160,9 +167,9 @@ function Oper() {
        try {
           callback(null, res);
            }
-       catch (err) {
+       catch(err) {
          console.log(err, "Trying to ctach an error")
-                   }
+                    }
                   })
                 }
               }
