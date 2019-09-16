@@ -17,7 +17,6 @@ connection.connect(function(err,res) {
 });  
 
 controller.list = (data,callback) => {
-    //req.getConnection((err, conn) => {
         connection.query('SELECT * FROM student', (err, customers) => {
             if (err) {
             //    res.json(err);
@@ -29,7 +28,6 @@ controller.list = (data,callback) => {
            else{
             return callback(null,customers)
            }
-      //  });
     });
 };
 
@@ -40,9 +38,8 @@ controller.save = (data, callback) => {
         "name":data.name,
         "address":data.address,
         "phone":data.phone,
-    }    // console.log(req.body);
+    }    
     console.log(data)
-  //  getConnection((err, connection) => {
         const query = connection.query('INSERT INTO student set ?', user, (err, customer) => {
               if(err)
               {
@@ -52,22 +49,18 @@ controller.save = (data, callback) => {
              {
              console.log(customer,"---insert data---");
              return callback(null,customer);
-              }
-            
+              }      
          //   res.redirect('/');
         })
-//    })
 };
 
-//controller.edit = (req, res) => {
-  controller.edit = (data,callback) => {
+controller.edit = (req, res) => {
+  //controller.edit = (data,callback) => {
 
     const {id} = req.params;
-    req.getConnection((err, conn) => {
-        conn.query("SELECT * FROM student WHERE id = ?", [id], (err, rows) => {
+        connection.query("SELECT * FROM student WHERE id = ?", [id], (err, rows) => {
             res.render('customers_edit', {
                 data: rows[0]
-            })
         });
     });
 };
@@ -75,20 +68,17 @@ controller.save = (data, callback) => {
 controller.update = (req, res) => {
     const {id} = req.params;
     const newCustomer = req.body;
-    req.getConnection((err, conn) => {
-
-        conn.query('UPDATE student set ? where id = ?', [newCustomer, id], (err, rows) => {
+        connection.query('UPDATE student set ? where id = ?', [newCustomer, id], (err, rows) => {
             res.redirect('/');
-        });
     });
 };
 
 controller.delete = (req, res) => {
+//  controller.delete = (data,callback) => {
+ //   console.log(data,"-----")
     const {id} = req.params;
-    req.getConnection((err, connection) => {
         connection.query('DELETE FROM student WHERE id = ?', [id], (err, rows) => {
             res.redirect('/');
-        });
     });
 };
 

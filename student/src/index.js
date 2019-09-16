@@ -1,5 +1,6 @@
 const express = require('express'),
     path = require('path'),
+  //  morgan = require('morgan'),
     socket = require('socket.io'),
     mysql = require('mysql'),
     myConnection = require('express-myconnection');
@@ -11,6 +12,13 @@ const app = express();
 const customerRoutes = require('./routes/customer');
 const connection = require('./controllers/customerController')
 
+// settings
+
+// app.set('port', process.env.PORT || 3000);
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'ejs');
+
+
 // doing stuff
 app.set('port', process.env.PORT || 3000);
 app.use(express.static('public'));
@@ -18,14 +26,17 @@ app.get('/',function(req,res){
     res.sendFile(__dirname+"/public/temp.html")
 });
 
-app.get('/',function(req,res){
-    res.sendFile(__dirname+"/publi/tempEdit.html")
+app.get('/update/',function(req,res){
+    res.sendFile(__dirname+"/public/tempEdit.html")
 })
 
 app.use(express.urlencoded({extended: false}));
 
 // routes
 app.use('/', customerRoutes);
+
+// static files
+//app.use(express.static(path.join(__dirname, 'public')));
 
 // starting the server
 server = app.listen(app.get('port'), () => {
@@ -48,4 +59,12 @@ io.on('connection', (socket) => {
          })
     })
 })
+    // socket.on('deleteUser',function(data,callback){
+    //    console.log("this is the user data being deleted",data)
+    //    connection.delete(data,function(err,data){
+    //         if(err) throw err;
+    //       console.log('deleted data',data);
+    //       socket.emit("removeUser",data)
+    //    })
+    // })
  })
