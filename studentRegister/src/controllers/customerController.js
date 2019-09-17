@@ -25,11 +25,9 @@ controller.save = (req, res) => {
 };
 
 controller.edit = (req, res) => {
-    console.log(req.params)
     const {id} = req.params;
     req.getConnection((err, conn) => {
         conn.query("SELECT * FROM student WHERE id = ?", [id], (err, rows) => {
-            console.log(data)
             res.render('customers_edit', {
                 data: rows[0]
             })
@@ -41,7 +39,6 @@ controller.update = (req, res) => {
     const {id} = req.params;
     const newCustomer = req.body;
     req.getConnection((err, conn) => {
-
         conn.query('UPDATE student set ? where id = ?', [newCustomer, id], (err, rows) => {
             res.redirect('/');
         });

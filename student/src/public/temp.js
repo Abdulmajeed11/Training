@@ -7,6 +7,7 @@
              var $userphone=$('#userphone')
              var $content=$('#content');
              var $userList = $('#userList');
+             var $editDetails = $('#editDetails');
                $saveuser.submit(function(e){
                 e.preventDefault();
                 console.log("here-----")
@@ -39,7 +40,26 @@
 
               }
             })
-   
+            
+          $editDetails.submit(function(e){
+            e.preventDefault();
+            console.log("in edit details");
+        if($username.val()=='' || $username.val()==" "||$useraddress.val()=='' || $useraddress.val()==" "
+                    || $userphone.val()=='' || $userphone.val()==" ")
+                {   
+                    alert("not allowed");
+                    return false;
+                }
+                console.log("is this getting here too",$username.val(),$useraddress.val(),$userphone.val())
+                if(data){
+                console.log("here") 
+                    }
+                $username.val('');
+                $useraddress.val('');
+                $userphone.val('');
+            });
+
+
     //    socket.on('removeUser',function(data){
     //     $("body").on("click", ".btn-delete", function(){
     //       console.log(data,"removed data")

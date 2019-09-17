@@ -47,10 +47,13 @@ connection.connect(function(err,res) {
 };
 
         controller.edit = (req, res) => {
-      //  console.log("is it coming in edit",req.params)
+        console.log("is it coming in edit",req.params)
         const {id} = req.params;
         connection.query("SELECT * FROM student WHERE id = ?", [id], (err, rows) => {
-        res.redirect('/tempEdit.html');
+       res.redirect('/tempEdit.html');
+           // res.render('customers_edit', {
+           // data: rows[0]
+           //  })
     });
 };
 
@@ -63,7 +66,7 @@ connection.connect(function(err,res) {
 };
 
       controller.delete = (req, res) => {
-     // console.log(req.params,"delete params")
+      console.log(req.params,"delete params")
       const {id} = req.params;
       console.log(id,"id")
       connection.query('DELETE FROM student WHERE id = ?', [id], (err, rows) => {

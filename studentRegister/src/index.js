@@ -31,7 +31,7 @@ app.use('/', customerRoutes);
 app.use(express.static(path.join(__dirname, 'public')));
 
 // starting the server
-server= app.listen(app.get('port'), () => {
+server=app.listen(app.get('port'), () => {
     console.log(`server on port ${app.get('port')}`);
 });
 
@@ -39,5 +39,4 @@ server= app.listen(app.get('port'), () => {
 var io = socket(server);
 io.on('connection', (socket) => {
     console.log('made socket connection', socket.id);
-
 });
