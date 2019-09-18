@@ -16,12 +16,12 @@ connection.connect(function(err,res) {
 });  
 
         controller.list = (data,callback) => {
-        connection.query('SELECT * FROM student', (err, student) => {
+        connection.query('SELECT * FROM student', (err, customers) => {
             if (err) {
              return callback(err,null)
             }
            else{
-            return callback(null,student)
+            return callback(null,customers)
            }
        });
     };
@@ -33,7 +33,7 @@ connection.connect(function(err,res) {
         "phone":data.phone,
       }    
       console.log(data)
-        const query = connection.query('INSERT INTO student set ?', user, (err, student) => {
+        const query = connection.query('INSERT INTO student set ?', user, (err, customer) => {
               if(err)
               {
               return callback(err,null)
@@ -41,7 +41,7 @@ connection.connect(function(err,res) {
               else
              {
              console.log(customer,"---insert data---");
-             return callback(null,student);
+             return callback(null,customer);
               }      
         })
 };
@@ -56,8 +56,8 @@ connection.connect(function(err,res) {
 
      controller.update = (req, res) => {
      const {id} = req.params;
-     const newCustomer = req.body;
-     connection.query('UPDATE student set ? where id = ?', [newCustomer, id], (err, rows) => {
+    const newCustomer = req.body;
+    connection.query('UPDATE student set ? where id = ?', [newCustomer, id], (err, rows) => {
        res.redirect('/');
     });
 };
