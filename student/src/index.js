@@ -18,10 +18,6 @@ app.get('/',function(req,res){
     res.sendFile(__dirname+"/public/temp.html")
 });
 
-
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-
 app.use(express.urlencoded({extended: false}));
 
 // routes
@@ -47,6 +43,10 @@ io.on('connection', (socket) => {
          })
     })
 })
+
+     socket.on('editUser',function(data,callback){
+        console.log("edit user data");
+     })
 
     // socket.on('deleteUser',function(data,callback){
     //    console.log("this is the user data being deleted",data)

@@ -16,12 +16,12 @@ connection.connect(function(err,res) {
 });  
 
         controller.list = (data,callback) => {
-        connection.query('SELECT * FROM student', (err, customers) => {
+        connection.query('SELECT * FROM student', (err, student) => {
             if (err) {
              return callback(err,null)
             }
            else{
-            return callback(null,customers)
+            return callback(null,student)
            }
        });
     };
@@ -33,7 +33,7 @@ connection.connect(function(err,res) {
         "phone":data.phone,
       }    
       console.log(data)
-        const query = connection.query('INSERT INTO student set ?', user, (err, customer) => {
+        const query = connection.query('INSERT INTO student set ?', user, (err, student) => {
               if(err)
               {
               return callback(err,null)
@@ -41,7 +41,7 @@ connection.connect(function(err,res) {
               else
              {
              console.log(customer,"---insert data---");
-             return callback(null,customer);
+             return callback(null,student);
               }      
         })
 };
@@ -50,17 +50,14 @@ connection.connect(function(err,res) {
         console.log("is it coming in edit",req.params)
         const {id} = req.params;
         connection.query("SELECT * FROM student WHERE id = ?", [id], (err, rows) => {
-       res.redirect('/tempEdit.html');
-           // res.render('customers_edit', {
-           // data: rows[0]
-           //  })
-    });
+        res.redirect('/tempEdit.html');
+     });
 };
 
-    controller.update = (req, res) => {
-    const {id} = req.params;
-    const newCustomer = req.body;
-    connection.query('UPDATE student set ? where id = ?', [newCustomer, id], (err, rows) => {
+     controller.update = (req, res) => {
+     const {id} = req.params;
+     const newCustomer = req.body;
+     connection.query('UPDATE student set ? where id = ?', [newCustomer, id], (err, rows) => {
        res.redirect('/');
     });
 };

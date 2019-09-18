@@ -50,15 +50,19 @@
                     alert("not allowed");
                     return false;
                 }
+
                 console.log("is this getting here too",$username.val(),$useraddress.val(),$userphone.val())
-                if(data){
-                console.log("here") 
+                socket.emit('editUser',{name:$username.val(),address:$useraddress.val(),phone:$userphone.val()},function(data){//to check whether its a valid nickname or not
+                    
+                    if(data){
+                    console.log("here") 
                     }
+
                 $username.val('');
                 $useraddress.val('');
                 $userphone.val('');
             });
-
+        })
 
     //    socket.on('removeUser',function(data){
     //     $("body").on("click", ".btn-delete", function(){
