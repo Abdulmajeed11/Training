@@ -5,11 +5,12 @@ const express = require('express'),
     myConnection = require('express-myconnection');
 
 const app = express();
+const router = require('express').Router();
+
 
 
 // importing routes
-const customerRoutes = require('./routes/customer');
-const connection = require('./controllers/customerController')
+const connection = require('./StudentDB')
 
 // settings
 app.set('port', process.env.PORT || 3000);
@@ -21,7 +22,12 @@ app.get('/',function(req,res){
 app.use(express.urlencoded({extended: false}));
 
 // routes
-app.use('/', customerRoutes);
+router.get('/', connection.list);
+router.post('/add', connection.save);
+router.get('/update/:id', connection.edit);
+router.post('/update/:id', connection.update);
+router.get('/delete/:id', connection.delete);
+app.use('/', router);
 
 // starting the server
 server = app.listen(app.get('port'), () => {

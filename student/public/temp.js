@@ -8,6 +8,9 @@
              var $content=$('#content');
              var $userList = $('#userList');
              var $editDetails = $('#editDetails');
+             var $userNameEdit = $('#userNameEdit')
+             var $userAddrEdit = $('#userAddrEdit')
+             var $userPhoneEdit = $('#userPhoneEdit')
                $saveuser.submit(function(e){
                 e.preventDefault();
                 console.log("here-----")
@@ -44,23 +47,23 @@
           $editDetails.submit(function(e){
             e.preventDefault();
             console.log("in edit details");
-        if($username.val()=='' || $username.val()==" "||$useraddress.val()=='' || $useraddress.val()==" "
-                    || $userphone.val()=='' || $userphone.val()==" ")
+        if($userNameEdit.val()=='' || $userNameEdit.val()==" "||$userAddrEdit.val()=='' || $userAddrEdit.val()==" "
+                    || $userPhoneEdit.val()=='' || $userPhoneEdit.val()==" ")
                 {   
                     alert("not allowed");
                     return false;
                 }
 
-                console.log("is this getting here too",$username.val(),$useraddress.val(),$userphone.val())
-                socket.emit('editUser',{name:$username.val(),address:$useraddress.val(),phone:$userphone.val()},function(data){//to check whether its a valid nickname or not
+                console.log("is this getting here too",$userNameEdit.val(),$userAddrEdit.val(),$userPhoneEdit.val())
+                socket.emit('editUser',{name:$userNameEdit.val(),address:$userAddrEdit.val(),phone:$userPhoneEdit.val()},function(data){//to check whether its a valid nickname or not
                     
                     if(data){
                     console.log("here") 
                     }
 
-                $username.val('');
-                $useraddress.val('');
-                $userphone.val('');
+                $userNameEdit.val('');
+                $userAddrEdit.val('');
+                $userPhoneEdit.val('');
             });
         })
 
@@ -70,6 +73,4 @@
     //     $(this).parents("tr").remove();
     // });   
     //    })
-
-
 })
