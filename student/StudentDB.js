@@ -28,11 +28,12 @@ connection.connect(function(err,res) {
 
       controller.save = (data, callback) => {
         var user={
+        "id":data.id,
         "name":data.name,
         "address":data.address,
         "phone":data.phone,
       }    
-      console.log(data)
+      console.log(data,"save data")
         const query = connection.query('INSERT INTO student set ?', user, (err, customer) => {
               if(err)
               {
@@ -46,19 +47,26 @@ connection.connect(function(err,res) {
         })
 };
 
-        controller.edit = (req, res) => {
-        console.log("is it coming in edit",req.params)
-        const {id} = req.params;
-        connection.query("SELECT * FROM student WHERE id = ?", [id], (err, rows) => {
-        res.redirect('/tempEdit.html');
-     });
-};
+    controller.update = (data, callback) => {
+      console.log(data,"updating data")
+      const newCustomer = {
+        "name":data.name,
+        "address":data.address,
+        "phone":data.phone,
+      }
+      ;
+    connection.query('UPDATE student set ?', [newCustomer], (err, rows) => {
+       // res.redirect('/');
+            if(err)
+            {
+              return callback(err,null)
+            }
+              else
+             {
+             console.log(rows,"---update data---");
+             return callback(null,rows);
+              } 
 
-     controller.update = (req, res) => {
-     const {id} = req.params;
-    const newCustomer = req.body;
-    connection.query('UPDATE student set ? where id = ?', [newCustomer, id], (err, rows) => {
-       res.redirect('/');
     });
 };
 

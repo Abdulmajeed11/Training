@@ -5,9 +5,6 @@ const express = require('express'),
     myConnection = require('express-myconnection');
 
 const app = express();
-const router = require('express').Router();
-
-
 
 // importing routes
 const connection = require('./StudentDB')
@@ -21,14 +18,6 @@ app.get('/',function(req,res){
 
 app.use(express.urlencoded({extended: false}));
 
-// routes
-router.get('/', connection.list);
-router.post('/add', connection.save);
-router.get('/update/:id', connection.edit);
-router.post('/update/:id', connection.update);
-router.get('/delete/:id', connection.delete);
-app.use('/', router);
-
 // starting the server
 server = app.listen(app.get('port'), () => {
     console.log(`server on port ${app.get('port')}`);
@@ -38,7 +27,12 @@ var io = socket(server);
 io.on('connection', (socket) => {
     console.log('made socket connection', socket.id);
      socket.on('newUser',function(data,callback){
-     console.log("New user",data);        
+     console.log("New user",data); 
+
+     // connection.list(data,function(err,data){
+     // if(err) throw err;
+     // socket.emit("oldUsers",data);
+     // })
     
     connection.save(data,function(err,data){
     if(err) throw err;
@@ -51,7 +45,12 @@ io.on('connection', (socket) => {
 })
 
      socket.on('editUser',function(data,callback){
-        console.log("edit user data");
+        console.log(data,"edit user data");
+     
+       connection.update(data,function(err,data){
+        if (err) throw err;
+        socket.emit('editedUser',data)
+       })
      })
 
     // socket.on('deleteUser',function(data,callback){
