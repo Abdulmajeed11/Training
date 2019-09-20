@@ -26,7 +26,7 @@ connection.connect(function(err,res) {
        });
     };
 
-      controller.save = (data, callback) => {
+       controller.save = (data, callback) => {
         var user={
         "id":data.id,
         "name":data.name,
@@ -47,7 +47,7 @@ connection.connect(function(err,res) {
         })
 };
 
-    controller.update = (data, callback) => {
+     controller.update = (data, callback) => {
       console.log(data,"updating data")
       const newCustomer = {
         "name":data.name,
@@ -55,7 +55,7 @@ connection.connect(function(err,res) {
         "phone":data.phone,
       }
       ;
-    connection.query('UPDATE student set ?', [newCustomer], (err, rows) => {
+     connection.query('UPDATE student set ?', [newCustomer], (err, rows) => {
        // res.redirect('/');
             if(err)
             {
@@ -71,7 +71,6 @@ connection.connect(function(err,res) {
 };
 
       controller.delete = (req, res) => {
-      console.log(req.params,"delete params")
       const {id} = req.params;
       console.log(id,"id")
       connection.query('DELETE FROM student WHERE id = ?', [id], (err, rows) => {

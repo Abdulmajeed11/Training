@@ -27,7 +27,7 @@ var io = socket(server);
 io.on('connection', (socket) => {
     console.log('made socket connection', socket.id);
      socket.on('newUser',function(data,callback){
-     console.log("New user",data); 
+     console.log(data,"New user"); 
 
      // connection.list(data,function(err,data){
      // if(err) throw err;
@@ -44,21 +44,17 @@ io.on('connection', (socket) => {
     })
 })
 
-     socket.on('editUser',function(data,callback){
-        console.log(data,"edit user data");
+      socket.on('editUser',function(data,callback){
+      console.log(data,"edit user data");
      
        connection.update(data,function(err,data){
         if (err) throw err;
         socket.emit('editedUser',data)
        })
      })
+   
+   socket.on('deteteUser',function(data,callback){
+    console.log(data,"the deleted user data")
+   })
 
-    // socket.on('deleteUser',function(data,callback){
-    //    console.log("this is the user data being deleted",data)
-    //    connection.delete(data,function(err,data){
-    //         if(err) throw err;
-    //       console.log('deleted data',data);
-    //       socket.emit("removeUser",data)
-    //    })
-    // })
  })
