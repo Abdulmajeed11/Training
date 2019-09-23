@@ -16,7 +16,7 @@ connection.connect(function(err,res) {
 });  
 
         controller.list = (data,callback) => {
-        connection.query('SELECT * FROM student', (err, customers) => {
+        connection.query('SELECT * FROM student ', (err, customers) => {
             if (err) {
              return callback(err,null)
             }
