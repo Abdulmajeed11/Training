@@ -49,14 +49,14 @@ connection.connect(function(err,res) {
 
      controller.update = (data, callback) => {
       console.log(data,"updating data")
-      const newCustomer = {
+      const id = data.id; 
+       const newCustomer = {
         "name":data.name,
         "address":data.address,
         "phone":data.phone,
       }
       ;
-     connection.query('UPDATE student set ?', [newCustomer], (err, rows) => {
-       // res.redirect('/');
+     connection.query('UPDATE student set ? where id = ?', [newCustomer,id], (err, rows) => {
             if(err)
             {
               return callback(err,null)
@@ -70,11 +70,17 @@ connection.connect(function(err,res) {
     });
 };
 
-      controller.delete = (req, res) => {
-      const {id} = req.params;
+      controller.delete = (data,callback) => {
+      const id = data.id;
       console.log(id,"id")
       connection.query('DELETE FROM student WHERE id = ?', [id], (err, rows) => {
-      res.redirect('/');
+       if(err){
+        return callback(err,null)
+       }
+       else{
+        console.log(rows,"deleted data")
+       return callback(null,rows)
+       }
     });
 };
 

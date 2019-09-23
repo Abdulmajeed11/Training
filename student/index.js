@@ -5,6 +5,7 @@ const express = require('express'),
     myConnection = require('express-myconnection');
 
 const app = express();
+const router = require('express').Router();
 
 // importing routes
 const connection = require('./StudentDB')
@@ -55,6 +56,10 @@ io.on('connection', (socket) => {
    
    socket.on('deteteUser',function(data,callback){
     console.log(data,"the deleted user data")
+    connection.delete(data,function(err,data){
+      if(err) throw err;
+      socket.emit("deletedData",data)
+    })
    })
 
  })
