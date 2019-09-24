@@ -77,13 +77,12 @@
          console.log("is this getting here",$userid.val(),$username.val(),$useraddress.val(),$userphone.val())  
         socket.emit('deleteUser',{id:$userid.val(),name:$username.val(),address:$useraddress.val(),phone:$userphone.val()})
         $(this).parents("tr").remove();
-      //  })
      })
 
-        // socket.on('oldUsers',function(data){
-        //   console.log(data,"old user data");
-        //   $(".data-table tbody").append("<tr data.id='"+data.id+"' data-name='"+data.name+"' data-Address='"+data.address+"' data-phone='"+data.phone+"'><td>"+data.id+"</td><td>"+data.name+"</td><td>"+data.address+"</td><td>"+data.phone+"</td><td><a href='tempEdit.html' class='btn btn-info btn-xs btn-edit'>Edit</a><button class='btn btn-danger btn-xs btn-delete'>Delete</button></td></tr>");
-        // })
+        socket.on('oldUsers',function(data){
+          console.log(data,"old user data");
+          $(".data-table tbody").append("<tr data.id='"+data.id+"' data-name='"+data.name+"' data-Address='"+data.address+"' data-phone='"+data.phone+"'><td>"+data.id+"</td><td>"+data.name+"</td><td>"+data.address+"</td><td>"+data.phone+"</td><td><a href='tempEdit.html' class='btn btn-info btn-xs btn-edit'>Edit</a><button class='btn btn-danger btn-xs btn-delete'>Delete</button></td></tr>");
+        })
 
 
 })
