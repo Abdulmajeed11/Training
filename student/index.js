@@ -30,11 +30,11 @@ io.on('connection', (socket) => {
      socket.on('newUser',function(data,callback){
      console.log(data,"New user"); 
 
-    //  connection.list(data,function(err,data){
-    //  console.log(err,data,"------5----")
-    //  if(err) throw err;
-    // socket.emit("oldUsers",data);
-    //  })
+     connection.list(data,function(err,data){
+     console.log(err,data,"------5----")
+     if(err) throw err;
+    socket.emit("oldUsers",data);
+     })
     
     connection.save(data,function(err,data){
     if(err) throw err;
