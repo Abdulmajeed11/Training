@@ -30,18 +30,12 @@ io.on('connection', (socket) => {
      socket.on('newUser',function(data,callback){
      console.log(data,"New user"); 
 
-     connection.list(data,function(err,data){
-     console.log(err,data,"------5----")
-     if(err) throw err;
-    socket.emit("oldUsers",data);
-     })
-    
     connection.save(data,function(err,data){
     if(err) throw err;
     connection.list(data,function(err,data){
         if(err) throw err;
         console.log(data,"user Data");
-           socket.emit("saveUser",data);
+        //   socket.emit("saveUser",data);
          })
     })
 })
@@ -51,7 +45,7 @@ io.on('connection', (socket) => {
      
        connection.update(data,function(err,data){
         if (err) throw err;
-        socket.emit('editedUser',data)
+    //    socket.emit('editedUser',data)
        })
      })
    

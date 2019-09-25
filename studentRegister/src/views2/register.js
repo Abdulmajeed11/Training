@@ -20,7 +20,6 @@
     
         $(this).parents("tr").find("td:eq(0)").html('<input name="edit_name" value="'+name+'">');
         $(this).parents("tr").find("td:eq(1)").html('<input name="edit_email" value="'+email+'">');
-    
         $(this).parents("tr").find("td:eq(2)").prepend("<button class='btn btn-info btn-xs btn-update'>Update</button><button class='btn btn-warning btn-xs btn-cancel'>Cancel</button>")
         $(this).hide();
     });
