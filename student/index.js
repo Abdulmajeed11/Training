@@ -1,8 +1,7 @@
 const express = require('express'),
     path = require('path'),
     socket = require('socket.io'),
-    mysql = require('mysql'),
-    myConnection = require('express-myconnection');
+    mysql = require('mysql');
 
 const app = express();
 const router = require('express').Router();
@@ -14,7 +13,7 @@ const connection = require('./StudentDB')
 app.set('port', process.env.PORT || 3000);
 app.use(express.static('public'));
 app.get('/',function(req,res){
-    res.sendFile(__dirname+"/public/temp.html")
+    res.sendFile(__dirname+"/public/index.html")
 });
 
 app.use(express.urlencoded({extended: false}));
@@ -29,13 +28,12 @@ io.on('connection', (socket) => {
     console.log('made socket connection', socket.id);
      socket.on('newUser',function(data,callback){
      console.log(data,"New user"); 
-
+    
     connection.save(data,function(err,data){
     if(err) throw err;
     connection.list(data,function(err,data){
         if(err) throw err;
         console.log(data,"user Data");
-        //   socket.emit("saveUser",data);
          })
     })
 })
@@ -45,7 +43,6 @@ io.on('connection', (socket) => {
      
        connection.update(data,function(err,data){
         if (err) throw err;
-    //    socket.emit('editedUser',data)
        })
      })
    
