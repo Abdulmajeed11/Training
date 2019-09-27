@@ -1,7 +1,8 @@
 const express = require('express'),
     path = require('path'),
     socket = require('socket.io'),
-    mysql = require('mysql');
+    mysql = require('mysql'),
+    myConnection = require('express-myconnection');
 
 const app = express();
 const router = require('express').Router();
@@ -28,12 +29,13 @@ io.on('connection', (socket) => {
     console.log('made socket connection', socket.id);
      socket.on('newUser',function(data,callback){
      console.log(data,"New user"); 
-    
+
     connection.save(data,function(err,data){
     if(err) throw err;
     connection.list(data,function(err,data){
         if(err) throw err;
         console.log(data,"user Data");
+        
          })
     })
 })
