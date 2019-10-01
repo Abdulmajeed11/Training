@@ -30,17 +30,14 @@
                 $username.val('');
                 $useraddress.val('');
                 $userphone.val('');
-            });
-       // $(".data-table tbody").append("<tr data-name='"+$username.val()+"' data-address='"+$useraddress.val()+"' data-phone='"+$userphone.val()+"'><td>"+$username.val()+"</td><td>"+$useraddress.val()+"</td><td>"+$userphone.val()+"</td><td><a href='/update/' class='btn btn-info btn-xs btn-edit'>Edit</a><button class='btn btn-danger btn-xs btn-delete'>Delete</button></td></tr>");     
+            })
         })
 
 
             socket.on('saveUser',function(data){
               console.log("user getting saved",data)
-              for(var i=0;i<data.length;i++) {
-       
+              for(var i=0;i<data.length;i++) {       
                $(".data-table tbody").append("<tr data-name='"+data[i].name+"' data-Address='"+data[i].address+"' data-phone='"+data[i].phone+"'><td>"+data[i].name+"</td><td>"+data[i].address+"</td><td>"+data[i].phone+"</td><td><a href='/update/"+data[i].id+"' class='btn btn-info btn-xs btn-edit'>Edit</a><a href='/delete/"+data[i].id+"' class='btn btn-danger btn-xs btn-delete'>Delete</a></td></tr>");
-             //   $(".data-table tbody").append("<tr data-name='"+data[i].name+"' data-Address='"+data[i].address+"' data-phone='"+data[i].phone+"'><td>"+data[i].name+"</td><td>"+data[i].address+"</td><td>"+data[i].phone+"</td><td><a href='tempEdit.html' class='btn btn-info btn-xs btn-edit'>Edit</a><button class='btn btn-danger btn-xs btn-delete'>Delete</button></td></tr>");
               }
             })
 
@@ -64,13 +61,11 @@
                 $userAddrEdit.val('');
                 $userPhoneEdit.val('');
             });
-        //$(".data-table tbody").append("<tr data-name='"+$userNameEdit.val()+"' data-Address='"+$userAddrEdit.val()+"' data-phone='"+$userPhoneEdit.val()+"'><td>"+$userNameEdit.val()+"</td><td>"+$userAddrEdit.val()+"</td><td>"+$userPhoneEdit.val()+"</td><td><a href='indexEdit.html' class='btn btn-info btn-xs btn-edit'>Edit</a><button class='btn btn-danger btn-xs btn-delete'>Delete</button></td></tr>");
         })
         
          socket.on('editedUser',function(data){
          console.log("edited user values")
-        $(".data-table tbody").append("<tr data-name='"+data[i].name+"' data-Address='"+data[i].address+"' data-phone='"+data[i].phone+"'><td>"+data[i].name+"</td><td>"+data[i].address+"</td><td>"+data[i].phone+"</td><td><a href='/update/"+data[i].id+"' class='btn btn-info btn-xs btn-edit'>Edit</a><a href='/delete/"+data[i].id+"' class='btn btn-danger btn-xs btn-delete'>Delete</a></td></tr>");      
-        // $(".data-table tbody").append("<tr data-name='"+data.name+"' data-Address='"+data.address+"' data-phone='"+data.phone+"'><td>"+data.id+"</td><td>"+data.name+"</td><td>"+data.address+"</td><td>"+data.phone+"</td><td><a href='tempEdit.html' class='btn btn-info btn-xs btn-edit'>Edit</a><button class='btn btn-danger btn-xs btn-delete'>Delete</button></td></tr>");
+        $(".data-table tbody").append("<tr data-name='"+data.name+"' data-Address='"+data.address+"' data-phone='"+data.phone+"'><td>"+data.name+"</td><td>"+data.address+"</td><td>"+data.phone+"</td><td><a href='/update/"+data.id+"' class='btn btn-info btn-xs btn-edit'>Edit</a><a href='/delete/"+data.id+"' class='btn btn-danger btn-xs btn-delete'>Delete</a></td></tr>");        
           })
 
 

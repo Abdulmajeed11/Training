@@ -25,17 +25,6 @@ app.get('/delete/:id',function(req,res){
   res.sendFile(__dirname+"/public/index.html")
 })
 
-// app.post('/update/:id',function(req,res){
-//       connection.save(data,function(err,data){
-//     if(err) throw err;
-//     connection.list(data,function(err,data){
-//         if(err) throw err;
-//         console.log(data,"user Data");
-//          socket.emit("saveUser",data);
-//          })
-//     })
-// })
-
 app.use(express.urlencoded({extended: false}));
 
 // starting the server
@@ -48,15 +37,6 @@ io.on('connection', (socket) => {
     console.log('made socket connection', socket.id);
      socket.on('newUser',function(data,callback){
      console.log(data,"New user"); 
-
-    // connection.save(data,function(err,data){
-    // if(err) throw err;
-    // connection.list(data,function(err,data){
-    //     if(err) throw err;
-    //     console.log(data,"user Data");
-    //      socket.emit("saveUser",data);
-    //      })
-    // })
 
     connection.save(data,function(err,data){
     if(err) throw err;
