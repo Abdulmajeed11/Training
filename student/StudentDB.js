@@ -25,6 +25,17 @@ connection.connect(function(err,res) {
            }
        });
     };
+ 
+       controller.saveList = (data,callback) => {
+        connection.query('SELECT * FROM student ORDER BY id DESC limit 1 ', (err, customers) => {
+            if (err) {
+             return callback(err,null)
+            }
+           else{
+            return callback(null,customers)
+           }
+       });
+    };
 
        controller.save = (data, callback) => {
         var user={

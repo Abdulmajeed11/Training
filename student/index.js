@@ -35,17 +35,26 @@ server = app.listen(app.get('port'), () => {
 var io = socket(server);
 io.on('connection', (socket) => {
     console.log('made socket connection', socket.id);
+
+    socket.on("oldUser",function(data,callback){
+      console.log(data,"old data")
+    connection.list(data,function(err,data){
+        if(err) throw err;
+      socket.emit("oldUserDisplay",data);
+    })
+  })
+
      socket.on('newUser',function(data,callback){
      console.log(data,"New user"); 
 
     connection.save(data,function(err,data){
     if(err) throw err;
-    connection.list(data,function(err,data){
+    connection.saveList(data,function(err,data){
         if(err) throw err;
         console.log(data,"user Data");
          socket.emit("saveUser",data);
          })
-})
+ })
 })
 
       socket.on('editUser',function(data,callback){
