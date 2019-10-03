@@ -57,13 +57,21 @@ io.on('connection', (socket) => {
  })
 })
 
-      socket.on('editUser',function(data,callback){
-      console.log(data,"edit user data");
-       connection.update(data,function(err,data){
+     // socket.on('UD',function(data)
+     // {
+     //  console.log(data,"user data")
+     // })
+
+      socket.on("UD",function(data1){
+       console.log(data1,"user dataaa") 
+      socket.on('editUser',function(data2,callback){
+      console.log(data2,"edit user data");
+       connection.update(data1,data2,function(err,data){
         if (err) throw err;
         socket.emit('editedUser',data)
        })
      })
+  })
    
    socket.on('deleteUser',function(data,callback){
     console.log(data,"the deleted user data")

@@ -58,13 +58,13 @@ connection.connect(function(err,res) {
         })
 };
 
-     controller.update = (data, callback) => {
-      console.log(data,"updating data")
-      const id = data.id; 
+     controller.update = (data1,data2, callback) => {
+      console.log(data1,data2,"updating data")
+      const id = data1.id; 
        const newCustomer = {
-        "name":data.name,
-        "address":data.address,
-        "phone":data.phone,
+        "name":data2.name,
+        "address":data2.address,
+        "phone":data2.phone,
       }
       ;
      connection.query('UPDATE student set ? where id = ?', [newCustomer,id], (err, rows) => {

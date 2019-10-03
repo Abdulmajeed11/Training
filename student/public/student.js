@@ -22,7 +22,7 @@
                     return false;
                 }
                 console.log("is this getting here",$userid.val(),$username.val(),$useraddress.val(),$userphone.val())
-                socket.emit('newUser',{id:$userid.val(),name:$username.val(),address:$useraddress.val(),phone:$userphone.val()},function(data){//to check whether its a valid nickname or not
+                socket.emit('newUser',{id:$userid.val(),name:$username.val(),address:$useraddress.val(),phone:$userphone.val()},function(data){
                     
                     if(data){
                     console.log("here",data) 
@@ -34,12 +34,13 @@
         })
 
 
-            socket.on('saveUser',function(data){
-                //saveid = data.id
+              socket.on('saveUser',function(data){
                console.log("user getting saved",data)
               for(var i=0;i<data.length;i++) {       
                $(".data-table tbody").append("<tr data-name='"+data[i].name+"' data-Address='"+data[i].address+"' data-phone='"+data[i].phone+"'><td>"+data[i].name+"</td><td>"+data[i].address+"</td><td>"+data[i].phone+"</td><td><a href='/update/"+data[i].id+"' class='btn btn-info btn-xs btn-edit'>Edit</a><a href='/delete/"+data[i].id+"' class='btn btn-danger btn-xs btn-delete'>Delete</a></td></tr>");
+               socket.emit("UD",{id:data[i].id})
               }
+              
             })
 
           $editDetails.submit(function(e){
@@ -53,8 +54,7 @@
                 }
 
                 console.log("is this getting here too",$userid.val(),$userNameEdit.val(),$userAddrEdit.val(),$userPhoneEdit.val())
-                socket.emit('editUser',{id:$userid.val(),name:$userNameEdit.val(),address:$userAddrEdit.val(),phone:$userPhoneEdit.val()},function(data){//to check whether its a valid nickname or not
-                    
+                socket.emit('editUser',{name:$userNameEdit.val(),address:$userAddrEdit.val(),phone:$userPhoneEdit.val()},function(data){        
                 if(data){
                 console.log("here") 
                  }
