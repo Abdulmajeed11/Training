@@ -3,6 +3,7 @@
             var socket=io.connect();
              var $saveuser=$('#saveuser');
              var $userid= $('#userid');
+             var keeper;
              var $username=$('#username')
              var $useraddress=$('#useraddress')
              var $userphone=$('#userphone')
@@ -38,7 +39,18 @@
                console.log("user getting saved",data)
               for(var i=0;i<data.length;i++) {       
                $(".data-table tbody").append("<tr data-name='"+data[i].name+"' data-Address='"+data[i].address+"' data-phone='"+data[i].phone+"'><td>"+data[i].name+"</td><td>"+data[i].address+"</td><td>"+data[i].phone+"</td><td><a href='/update/"+data[i].id+"' class='btn btn-info btn-xs btn-edit'>Edit</a><a href='/delete/"+data[i].id+"' class='btn btn-danger btn-xs btn-delete'>Delete</a></td></tr>");
-               socket.emit("UD",{id:data[i].id})
+               // socket.emit("editUser",{id:data[i].id})       //1
+
+             //  keeper= {id:data[i].id};                         //2
+
+              //   keeper = $(this).val();                      //3
+              // console.log(keeper,"keeper")
+
+               // $('body').on("click", ".btn-edit", function(){      //4
+               // $('body').trigger('myEvent', {id: data[i].id})
+               // console.log("is this getting called")
+               //  });
+
               }
               
             })
@@ -46,6 +58,12 @@
           $editDetails.submit(function(e){
             e.preventDefault();
             console.log("in edit details");
+            console.log(keeper,"keeper value")
+  
+           $('body').on('myEvent',function(e,data){
+            console.log(data);
+             });
+
           if($userNameEdit.val()=='' || $userNameEdit.val()==" "||$userAddrEdit.val()=='' || $userAddrEdit.val()==" "
                     || $userPhoneEdit.val()=='' || $userPhoneEdit.val()==" ")
                 {   
