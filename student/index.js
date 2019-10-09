@@ -23,6 +23,7 @@ app.get('/update/:id',function(req,res){
 
 app.get('/delete/:id',function(req,res){
   res.sendFile(__dirname+"/public/index.html")
+  res.redirect('/')
 })
 
 app.use(express.urlencoded({extended: false}));
@@ -62,16 +63,11 @@ io.on('connection', (socket) => {
      //  console.log(data,"user data")
      // })
 
-     
-
-      // socket.on("editUser",function(data1){
-      //  console.log(data1,"user dataaa") 
-      socket.on('editUser',function(data2,callback){
-      console.log(data2,"edit user data");
-       connection.update(data2,function(err,data){
+      socket.on('editUser',function(data,callback){
+      console.log(data,"edit user data");
+       connection.update(data,function(err,data){
         if (err) throw err;
         socket.emit('editedUser',data)
-       //})
      })
   })
    
