@@ -58,11 +58,6 @@ io.on('connection', (socket) => {
  })
 })
 
-     // socket.on('UD',function(data)
-     // {
-     //  console.log(data,"user data")
-     // })
-
       socket.on('editUser',function(data,callback){
       console.log(data,"edit user data");
        connection.update(data,function(err,data){

@@ -12,7 +12,7 @@
              var $userNameEdit = $('#userNameEdit')
              var $userAddrEdit = $('#userAddrEdit')
              var $userPhoneEdit = $('#userPhoneEdit')
-               $saveuser.submit(function(e){
+               $saveuser.submit(function(e){ 
                 e.preventDefault();
                 console.log("here-----")
                 if($username.val()=='' || $username.val()==" "||$useraddress.val()=='' || $useraddress.val()==" "
@@ -43,35 +43,11 @@
            console.log($('#userid').val());
            }
 
-            // function update(){
-            // var count=parseInt($userid.val());
-            // $userid.val(count+1);
-            //  console.log(count);
-            // }
-            
-            $("userid").click(update);
-
            function update2(){
            var count=parseInt($('#userEditId').val());
            $('#userEditId').val(count+1);
            console.log($('#userEditId').val());
            }
-
-            // function update2(){
-            // var count=parseInt($userEditId.val());
-            // $userEditId.val(count+1);
-            //  console.log(count);
-            // }
-             
-            $("userEditId").click(update2);
-
-/*           function update3(){
-           var count=parseInt($('#userid').val());
-           $('#userid').val(count);
-           console.log($('#userid').val());
-           }
-
-           $("userid").click(update3);*/
 
               socket.on('saveUser',function(data){
                console.log("user getting saved",data)
@@ -109,7 +85,7 @@
          
 
       $(window).on('load', function(){   
-      socket.emit('oldUser',{name:$username.val(),address:$useraddress.val(),phone:$userphone.val()})   
+      socket.emit('oldUser',{id:$('#userEditId').val(),name:$username.val(),address:$useraddress.val(),phone:$userphone.val()})   
       })   
 
      socket.on("oldUserDisplay",function(data){
@@ -120,8 +96,6 @@
 
      $("body").on("click", ".btn-delete", function(){
      console.log("is this getting here",$('#userid').val(),$username.val(),$useraddress.val(),$userphone.val())  
-  //   update3() 
-     let count= parseInt(1)
      socket.emit('deleteUser',{id:$('#userid').val(),name:$username.val(),address:$useraddress.val(),phone:$userphone.val()})
      $(this).parents("tr").remove();
        })
