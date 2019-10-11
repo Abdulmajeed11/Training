@@ -54,6 +54,7 @@ io.on('connection', (socket) => {
         if(err) throw err;
         console.log(data,"user Data");
          socket.emit("saveUser",data);
+         socket.emit("data",data)
          })
  })
 })
@@ -72,5 +73,11 @@ io.on('connection', (socket) => {
       if(err) throw err;
     })
    })
-
  })
+
+
+
+
+
+
+

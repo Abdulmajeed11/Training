@@ -45,7 +45,7 @@ connection.connect(function(err,res) {
         "phone":data.phone,
       }    
       console.log(data,"save data")
-        const query = connection.query('INSERT INTO student set ?', user, (err, customer) => {
+      const query = connection.query('INSERT INTO student set ?', user, (err, customer) => {
               if(err)
               {
               return callback(err,null)
