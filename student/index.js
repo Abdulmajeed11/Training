@@ -23,7 +23,7 @@ app.get('/update/:id',function(req,res){
 
 app.get('/delete/:id',function(req,res){
   res.sendFile(__dirname+"/public/index.html")
-  res.redirect('/')
+  //res.redirect('/')
 })
 
 app.use(express.urlencoded({extended: false}));
