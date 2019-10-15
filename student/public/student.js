@@ -61,7 +61,7 @@
                 socket.emit('editUser',{id:final,name:$userNameEdit.val(),address:$userAddrEdit.val(),phone:$userPhoneEdit.val()},function(data){        
                 if(data){
                 console.log("here") 
-                 }name
+                 }
                 $userNameEdit.val('');
                 $userAddrEdit.val('');
                 $userPhoneEdit.val('');
@@ -74,7 +74,8 @@
          // var final = s.substr(s.lastIndexOf('/') + 1);
          // console.log(final) 
          $(".data-table tbody").append("<tr><td>"+data.name+"</td><td>"+data.address+"</td><td>"+data.phone+"</td><td><a href='/update/"+data.id+"' class='btn btn-info btn-xs btn-edit'>Edit</a><a href='/delete/"+data.id+"' class='btn btn-danger btn-xs btn-delete'>Delete</a></td></tr>");        
-          })        
+          })
+         
 
      $("body").on("click", ".btn-delete", function(){
      s = window.location.href;
