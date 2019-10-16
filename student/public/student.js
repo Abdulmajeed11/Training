@@ -17,14 +17,12 @@
                 if($username.val()=='' || $username.val()==" "||$useraddress.val()=='' || $useraddress.val()==" "
                     || $userphone.val()=='' || $userphone.val()==" ")
                 {   
-       
                  alert("not allowed");
                  return false;
                 }
 
                 console.log("is this getting here",$username.val(),$useraddress.val(),$userphone.val())
-                socket.emit('newUser',{name:$username.val(),address:$useraddress.val(),phone:$userphone.val()},function(data){
-                    
+                socket.emit('newUser',{name:$username.val(),address:$useraddress.val(),phone:$userphone.val()},function(data){ 
                 if(data){
                 console.log("here",data) 
                 }
@@ -66,19 +64,21 @@
             });
         })
 
-        socket.on('editedUser',function(data){
+         socket.on('editedUser',function(data){
          console.log("edited user values",window.location.href)
          $(".data-table tbody").append("<tr><td>"+data.name+"</td><td>"+data.address+"</td><td>"+data.phone+"</td><td><a href='/update/"+data.id+"' class='btn btn-info btn-xs btn-edit'>Edit</a><a href='/delete/"+data.id+"' class='btn btn-danger btn-xs btn-delete'>Delete</a></td></tr>");        
           })
          
-
      $("body").on("click", ".btn-delete", function(){
      s = window.location.href;
      var final = s.substr(s.lastIndexOf('/') + 1);
      console.log("is this getting here",final,$username.val(),$useraddress.val(),$userphone.val())  
      socket.emit('deleteUser',{id:final,name:$username.val(),address:$useraddress.val(),phone:$userphone.val()})
+    }) 
+
+     socket.on("deletedUser",function(data){
      $(this).parents("tr").remove();
-    })
+     })
 
       $(window).on('load', function(){   
       socket.emit('oldUser',{name:$username.val(),address:$useraddress.val(),phone:$userphone.val()})   

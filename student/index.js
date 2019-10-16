@@ -23,7 +23,6 @@ app.get('/update/:id',function(req,res){
 
 app.get('/delete/:id',function(req,res){
   res.sendFile(__dirname+"/public/index.html")
-  //res.redirect('/')
 })
 
 app.use(express.urlencoded({extended: false}));
@@ -53,8 +52,7 @@ io.on('connection', (socket) => {
     connection.saveList(data,function(err,data){
         if(err) throw err;
         console.log(data,"user Data");
-         socket.emit("saveUser",data);
-         socket.emit("data",data)
+        socket.emit("saveUser",data);
          })
  })
 })
@@ -69,8 +67,9 @@ io.on('connection', (socket) => {
    
    socket.on('deleteUser',function(data,callback){
     console.log(data,"the deleted user data")
-    connection.delete(data,function(err){
+    connection.delete(data,function(err,data){
       if(err) throw err;
+      socket.emit('deletedUser',data)
     })
    })
  })
