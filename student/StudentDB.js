@@ -59,8 +59,7 @@ connection.connect(function(err,res) {
 };
 
      controller.update = (data, callback) => {
-      console.log(data,"updating data")
-     // const id = data1.id; 
+      console.log(data,"updating data") 
        const id = data.id  
        const newCustomer = {
         "name":data.name,

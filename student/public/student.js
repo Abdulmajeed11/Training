@@ -2,12 +2,10 @@
  $(function(){
             var socket=io.connect();
              var $saveuser=$('#saveuser');
-             var $userid= $('#userid');
              var $username=$('#username')
              var $useraddress=$('#useraddress')
              var $userphone=$('#userphone')
              var $userList = $('#userList');
-             var $userEditId = $('#editDetails');
              var $editDetails = $('#editDetails');
              var $userNameEdit = $('#userNameEdit')
              var $userAddrEdit = $('#userAddrEdit')
@@ -70,9 +68,6 @@
 
         socket.on('editedUser',function(data){
          console.log("edited user values",window.location.href)
-         // s = window.location.href;
-         // var final = s.substr(s.lastIndexOf('/') + 1);
-         // console.log(final) 
          $(".data-table tbody").append("<tr><td>"+data.name+"</td><td>"+data.address+"</td><td>"+data.phone+"</td><td><a href='/update/"+data.id+"' class='btn btn-info btn-xs btn-edit'>Edit</a><a href='/delete/"+data.id+"' class='btn btn-danger btn-xs btn-delete'>Delete</a></td></tr>");        
           })
          
@@ -94,6 +89,4 @@
       $(".data-table tbody").append("<tr><td>"+data[i].name+"</td><td>"+data[i].address+"</td><td>"+data[i].phone+"</td><td><a href='/update/"+data[i].id+"' class='btn btn-info btn-xs btn-edit'>Edit</a><a href='/delete/"+data[i].id+"' class='btn btn-danger btn-xs btn-delete'>Delete</a></td></tr>");
      }
     })
-
-
 })
