@@ -21,6 +21,10 @@ app.get('/update/:id',function(req,res){
   res.sendFile(__dirname+"/public/indexEdit.html")
 })
 
+app.post('/update:id',function(req,res){
+ res.redirect("/");
+})
+
 app.get('/delete/:id',function(req,res){
   res.sendFile(__dirname+"/public/index.html")
 })

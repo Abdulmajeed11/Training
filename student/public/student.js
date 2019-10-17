@@ -64,10 +64,10 @@
             });
         })
 
-         socket.on('editedUser',function(data){
-         console.log("edited user values",window.location.href)
-         $(".data-table tbody").append("<tr><td>"+data.name+"</td><td>"+data.address+"</td><td>"+data.phone+"</td><td><a href='/update/"+data.id+"' class='btn btn-info btn-xs btn-edit'>Edit</a><a href='/delete/"+data.id+"' class='btn btn-danger btn-xs btn-delete'>Delete</a></td></tr>");        
-          })
+        socket.on('editedUser',function(data){
+        console.log("edited user values",window.location.href)
+        $(".data-table tbody").append("<tr><td>"+data.name+"</td><td>"+data.address+"</td><td>"+data.phone+"</td><td><a href='/update/"+data.id+"' class='btn btn-info btn-xs btn-edit'>Edit</a><a href='/delete/"+data.id+"' class='btn btn-danger btn-xs btn-delete'>Delete</a></td></tr>");        
+         })
          
      $("body").on("click", ".btn-delete", function(){
      s = window.location.href;
