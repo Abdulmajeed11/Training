@@ -21,10 +21,6 @@ app.get('/update/:id',function(req,res){
   res.sendFile(__dirname+"/public/indexEdit.html")
 })
 
-app.post('/update:id',function(req,res){
- res.redirect("/");
-})
-
 app.get('/delete/:id',function(req,res){
   res.sendFile(__dirname+"/public/index.html")
 })
@@ -73,7 +69,7 @@ io.on('connection', (socket) => {
     console.log(data,"the deleted user data")
     connection.delete(data,function(err,data){
       if(err) throw err;
-      socket.emit('deletedUser',data)
+    socket.emit('deletedUser',data)
     })
    })
  })
