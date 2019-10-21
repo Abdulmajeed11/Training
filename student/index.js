@@ -1,11 +1,9 @@
 const express = require('express'),
     path = require('path'),
     socket = require('socket.io'),
-    mysql = require('mysql'),
-    myConnection = require('express-myconnection');
+    mysql = require('mysql');
 
 const app = express();
-const router = require('express').Router();
 
 // importing routes
 const connection = require('./StudentDB')
@@ -64,17 +62,16 @@ io.on('connection', (socket) => {
         socket.emit('editedUser',data)
      })
   })
-   
-   socket.on('deleteUser',function(data,callback){
-    console.log(data,"the deleted user data")
-    connection.delete(data,function(err,data){
-      if(err) throw err;
-    socket.emit('deletedUser',data)
+
+   socket.on('deleteUser',function(data){
+   console.log(data.data[0],"server data")
+   var data1 = data.data[0]
+    connection.delete(data1,function(err,data){
+     if(err) throw err;
+  socket.emit('del',data1)
     })
-   })
- })
-
-
+})
+})
 
 
 
