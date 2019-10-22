@@ -33,17 +33,17 @@
             })
         })
 
-              socket.on('saveUser',function(data){
-               console.log("user getting saved",data) 
-              for(var i=0;i<data.length;i++) {       
+            socket.on('saveUser',function(data){
+            console.log("user getting saved",data) 
+            for(var i=0;i<data.length;i++) {       
             $(".data-table tbody").append("<tr><td>"+data[i].name+"</td><td>"+data[i].address+"</td><td>"+data[i].phone+"</td><td><a href='/update/"+data[i].id+"' class='btn btn-info btn-xs btn-edit'>Edit</a><button class='btn btn-danger btn-xs btn-delete'>Delete</button></td></tr>");              
             $(".btn-delete").on("click",function(){
             console.log(data,"this the the data when delete is clicked")
              socket.emit("deleteUser",{data:data})
               $(this).closest('tr').remove();
             })
-              } 
-               })
+        } 
+    })
 
           $editDetails.submit(function(e){
             e.preventDefault();
@@ -76,8 +76,8 @@
          console.log(data,"this the the data when delete is clicked")
          socket.emit("deleteUser",{data:data})
         $(this).closest('tr').remove();
-            })
-          })
+        })
+     })
          
       socket.on('del',function(data){
         console.log(data,"comeback delete data")

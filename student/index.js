@@ -19,10 +19,6 @@ app.get('/update/:id',function(req,res){
   res.sendFile(__dirname+"/public/indexEdit.html")
 })
 
-app.get('/delete/:id',function(req,res){
-  res.sendFile(__dirname+"/public/index.html")
-})
-
 app.use(express.urlencoded({extended: false}));
 
 // starting the server
