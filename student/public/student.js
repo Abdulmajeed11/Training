@@ -87,6 +87,11 @@
       e.preventDefault();   
       socket.emit('oldUser',{name:$username.val(),address:$useraddress.val(),phone:$userphone.val()})   
       })   
+  
+     window.homePage = function() {
+        console.log("Its here")
+        window.location = 'http://localhost:3000/';
+    }
 
      socket.on("oldUserDisplay",function(data){
      for(var i=0;i<data.length;i++) {       
