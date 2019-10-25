@@ -79,23 +79,32 @@
         })
      })
          
-      socket.on('del',function(data){
-        console.log(data,"comeback delete data")
+    socket.on('del',function(data){
+    console.log(data,"comeback delete data")
+    })
+           
+     window.delData2 = function(data){
+     console.log(data,"this is the deleted data")
+     socket.emit("deleteUser2",{id:data})
+      }      
+      
+    socket.on('del2',function(data){
+     console.log(data,"comeback delete datassssssssss")
+    $('.data-table tr:last').remove();
      })
 
-      $(window).on('load', function(e){
-      e.preventDefault();   
-      socket.emit('oldUser',{name:$username.val(),address:$useraddress.val(),phone:$userphone.val()})   
-      })   
+    $(window).on('load', function(e){
+    e.preventDefault();   
+    socket.emit('oldUser',{name:$username.val(),address:$useraddress.val(),phone:$userphone.val()})   
+    })   
   
-     window.homePage = function() {
-        console.log("Its here")
-        window.location = 'http://localhost:3000/';
+    window.homePage = function() {
+    window.location = 'http://localhost:3000/';
     }
 
-     socket.on("oldUserDisplay",function(data){
-     for(var i=0;i<data.length;i++) {       
-      $(".data-table tbody").append("<tr><td>"+data[i].name+"</td><td>"+data[i].address+"</td><td>"+data[i].phone+"</td><td><a href='/update/"+data[i].id+"' class='btn btn-info btn-xs btn-edit'>Edit</a><button class='btn btn-danger btn-xs btn-delete'>Delete</button></td></tr>");
+    socket.on("oldUserDisplay",function(data){
+    for(var i=0;i<data.length;i++) {          
+    $(".data-table tbody").append('<tr><td>'+data[i].name+'</td><td>'+data[i].address+'</td><td>'+data[i].phone+'</td><td><a href="/update/'+data[i].id+'" class="btn btn-info btn-xs btn-edit">Edit</a><button onclick="delData2('+data[i].id+')" class="btn btn-danger btn-xs btn-delete">Delete</button></td></tr>');                  
      }
     })
 })

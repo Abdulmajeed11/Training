@@ -67,6 +67,12 @@ io.on('connection', (socket) => {
   socket.emit('del',data1)
     })
 })
+
+  socket.on('deleteUser2',function(data1){
+    connection.delete(data1,function(err,data){
+     if(err) throw err;
+     socket.emit('del2',data1)
+    })})
 })
 
 
