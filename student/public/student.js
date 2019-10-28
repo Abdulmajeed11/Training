@@ -1,10 +1,10 @@
 
  $(function(){
-    var socket=io.connect();
-    var $saveuser=$('#saveuser');
-    var $username=$('#username')
-    var $useraddress=$('#useraddress')
-    var $userphone=$('#userphone')
+    var socket = io.connect();
+    var $saveuser = $('#saveuser');
+    var $username = $('#username')
+    var $useraddress = $('#useraddress')
+    var $userphone = $('#userphone')
     var $editDetails = $('#editDetails');
     var $userNameEdit = $('#userNameEdit')
     var $userAddrEdit = $('#userAddrEdit')
@@ -13,8 +13,8 @@
      $saveuser.submit(function(e){ 
      e.preventDefault();
      console.log("here-----")
-        if($username.val()=='' || $username.val()==" "||$useraddress.val()=='' || $useraddress.val()==" "
-          || $userphone.val()=='' || $userphone.val()==" ")
+        if($username.val() == '' || $username.val() == " "||$useraddress.val() == '' || $useraddress.val() == " "
+          || $userphone.val() == '' || $userphone.val() == " ")
            {   
             alert("not allowed");
             return false;
@@ -26,7 +26,7 @@
         console.log("here",data) 
         }
 
-        $username.val('');
+        $username.val(''); 
         $useraddress.val('');
         $userphone.val('');
       })
@@ -34,12 +34,11 @@
 
      socket.on('saveUser',function(data){
      console.log("user getting saved",data) 
-        for(var i=0;i<data.length;i++) {       
+        for(var i = 0; i< data.length; i++) {       
         $(".data-table tbody").append("<tr><td>"+data[i].name+"</td><td>"+data[i].address+"</td><td>"+data[i].phone+"</td><td><a href='/update/"+data[i].id+"' class='btn btn-info btn-xs btn-edit'>Edit</a><button class='btn btn-danger btn-xs btn-delete'>Delete</button></td></tr>");              
         $(".btn-delete").on("click",function(){
               console.log(data,"this the the data when delete is clicked")
               socket.emit("deleteUser",{data:data})
-              $(this).closest('tr').remove();
             })
         } 
     })
@@ -50,8 +49,8 @@
      s = window.location.href;
      var final = s.substr(s.lastIndexOf('/') + 1); 
 
-        if($userNameEdit.val()=='' || $userNameEdit.val()==" "||$userAddrEdit.val()=='' || $userAddrEdit.val()==" "
-                    || $userPhoneEdit.val()=='' || $userPhoneEdit.val()==" ")
+        if($userNameEdit.val() == '' || $userNameEdit.val() == " "||$userAddrEdit.val() == '' || $userAddrEdit.val() == " "
+            || $userPhoneEdit.val() == '' || $userPhoneEdit.val() == " ")
             {   
              alert("not allowed");
              return false;
@@ -74,12 +73,12 @@
         $(".btn-delete").on("click",function(){
             console.log(data,"this the the data when delete is clicked")
             socket.emit("deleteUser",{data:data})
-            $(this).closest('tr').remove();
         })
      })
          
     socket.on('del',function(data){
     console.log(data,"comeback delete data")
+    $('.data-table tr:last').remove();
     })
            
      window.delData2 = function(data){
@@ -101,7 +100,7 @@
     }
 
     socket.on("oldUserDisplay",function(data){
-        for(var i=0;i<data.length;i++) {          
+        for(var i = 0 ; i< data.length ; i++) {          
         $(".data-table tbody").append('<tr><td>'+data[i].name+'</td><td>'+data[i].address+'</td><td>'+data[i].phone+'</td><td><a href="/update/'+data[i].id+'" class="btn btn-info btn-xs btn-edit">Edit</a><button onclick="delData2('+data[i].id+')" class="btn btn-danger btn-xs btn-delete">Delete</button></td></tr>');                  
        }
     })
