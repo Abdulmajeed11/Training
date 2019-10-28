@@ -9,75 +9,64 @@ var connection = mysql.createConnection({
 connection.connect(function(err,res) {  
  if(err){
   console.log("Connection Error")
- }
- else{
+ } else{
   console.log("Connected");  
-}
+  }
 });  
 
-        controller.list = (data,callback) => {
-        connection.query('SELECT * FROM student ', (err, customers) => {
+      controller.list = (data,callback) => {
+      connection.query('SELECT * FROM student ', (err, rows) => {
             if (err) {
-             return callback(err,null)
-            }
-           else{
-            return callback(null,customers)
+              return callback(err,null)
+            } else{
+              return callback(null,rows)
            }
-       });
-    };
+      });
+  };
  
        controller.saveList = (data,callback) => {
-        connection.query('SELECT * FROM student ORDER BY id DESC limit 1 ', (err, customers) => {
+       connection.query('SELECT * FROM student ORDER BY id DESC limit 1 ', (err, rows) => {
             if (err) {
-             return callback(err,null)
-            }
-           else{
-            return callback(null,customers)
+              return callback(err,null)
+            } else {
+              return callback(null,rows)
            }
        });
     };
 
-       controller.save = (data, callback) => {
-        var user={
+      controller.save = (data, callback) => {
+        var user = {
         "id":data.id,
         "name":data.name,
         "address":data.address,
         "phone":data.phone,
       }    
       console.log(data,"save data")
-      const query = connection.query('INSERT INTO student set ?', user, (err, customer) => {
-              if(err)
-              {
+      const query = connection.query('INSERT INTO student set ?', user, (err, rows) => {
+              if(err){
               return callback(err,null)
-            }
-              else
-             {
-             console.log(customer,"---insert data---");
-             return callback(null,customer);
-              }      
-        })
+            } else {
+              console.log(rows,"---insert data---");
+              return callback(null,rows);
+         }      
+     })
 };
 
-     controller.update = (data, callback) => {
-      console.log(data,"updating data") 
+       controller.update = (data, callback) => {
+       console.log(data,"updating data") 
        const id = data.id  
-       const newCustomer = {
-        "name":data.name,
-        "address":data.address,
-        "phone":data.phone,
-      }
-      ;
-     connection.query('UPDATE student set ? where id = ?', [newCustomer,id], (err, rows) => {
-            if(err)
-            {
+       const newStudent = {
+         "name":data.name,
+         "address":data.address,
+         "phone":data.phone,
+       };
+       connection.query('UPDATE student set ? where id = ?', [newStudent,id], (err, rows) => {
+            if(err){
               return callback(err,null)
-            }
-              else
-             {
-             console.log(rows,"---update data---");
-             return callback(null,rows);
-              } 
-
+            } else{
+              console.log(rows,"---update data---");
+              return callback(null,rows);
+          } 
     });
 };
 
@@ -85,13 +74,12 @@ connection.connect(function(err,res) {
       const id = data.id;
       console.log(id,"id")
       connection.query('DELETE FROM student WHERE id = ?', [id], (err, rows) => {
-       if(err){
-        return callback(err,null)
-       }
-       else{
-        console.log(rows,"deleted data")
-       return callback(null,rows)
-       }
+          if(err){
+           return callback(err,null)
+         } else {
+           console.log(rows,"deleted data")
+           return callback(null,rows)
+        }
     });
 };
 
