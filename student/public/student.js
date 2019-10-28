@@ -5,7 +5,6 @@
     var $username=$('#username')
     var $useraddress=$('#useraddress')
     var $userphone=$('#userphone')
-    var $userList = $('#userList');
     var $editDetails = $('#editDetails');
     var $userNameEdit = $('#userNameEdit')
     var $userAddrEdit = $('#userAddrEdit')
