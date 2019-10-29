@@ -5,11 +5,9 @@ var connection = require('./../config');
 var express=require("express");
 module.exports.register=function(req,res){
     var today = new Date();
- // var encryptedString = cryptr.encrypt(req.body.password);
     var users={
         "name":req.body.name,
         "email":req.body.email,
-      //  "password":encryptedString,
         "password":req.body.password,
         "created_at":today,
         "updated_at":today
@@ -45,8 +43,6 @@ module.exports.authenticate=function(req,res){
       }else{
        
         if(results.length >0){
- // decryptedString = cryptr.decrypt(results[0].password);
-          //  if(password==decryptedString){
             if(password){
                 res.json({
                     status:true,

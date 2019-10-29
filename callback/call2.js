@@ -25,7 +25,7 @@ function getData(callback)
     });
 
 }
-/*
+
 //call Fn for db query with callback
 getData(function(err,data){
         if (err) {
@@ -194,4 +194,3 @@ getData(function(err,data){
 
 // O/p :  result from db is :  [ RowDataPacket { name: 'abdul', country: 'india' },
 //        RowDataPacket { name: 'sonu', country: 'india' } ]
-*/

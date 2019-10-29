@@ -20,10 +20,6 @@
                         $('#nickwrap').fadeOut();
                         $('#contentwrap').fadeIn();
                     }
-                    // else
-                    // {
-                    //     $nickerror.html('That username is already taken...Try again!');
-                    // }
                 });
                 $nickbox.val('');
             });
@@ -33,7 +29,7 @@
                 
                     $chat.append('<span class="error"><b>'+data+"</span><Br>");     
                 });
-                $messageip.val("");//clear input field
+                $messageip.val("");
 
             }); 
    
@@ -78,9 +74,7 @@
             socket.on('userDisconnect',function(data){
                 console.log(data.nick)
                 $chat.append('<span class= "userDisconnect"><b><em>'+ data.nick+'</em> </b>'+ "Is offline"+"</span><Br>" );
-              // $users.val(data).css("color","red");
                $(`#id_${data.nick}`).css("color","red")
-            //   console.log(`#id_${data.nick}`)
            })
                socket.on('reconnectedUser',function(data){
                 console.log(data.nick, "user reconnect")

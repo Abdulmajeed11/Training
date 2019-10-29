@@ -15,11 +15,6 @@ connection.connect(function(err,res) {
 }
 });  
 
-// module.exports.saveUser = function(socket,name,callback){
-//   name=socket.nickname
-//   return connection.query("INSERT INTO chat (name) VALUES ('"+name+"')",callback)
-// }
-
 module.exports = {
   // saveMsg : function(name,message,callback){
    saveMsg : function(data,callback){

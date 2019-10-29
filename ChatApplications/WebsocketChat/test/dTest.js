@@ -144,11 +144,11 @@ describe('Array', function() {
     });
   });
 
-  // describe.only('#concat()', function() {
-  //   it('should return a new Array', function() {
-  //     assert.equal(5,5)
-  //   });
-  // });
+  describe.only('#concat()', function() {
+    it('should return a new Array', function() {
+      assert.equal(5,5)
+    });
+  });
 
   describe('#slice()', function() {
     it('should return a new Array', function() {

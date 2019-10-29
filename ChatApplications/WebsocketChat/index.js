@@ -25,18 +25,11 @@ socket.on('new user',function(data,callback){
         console.log("New user");
   // sending the old messages of the user        
            socket.nickname=data; 
-            name= data;   
+           name= data;   
            connection.oldMsg({name:name},function(err,docs){
            if(err) throw err;
           socket.emit("oldmessages",err,docs);
          })
-
-        // if(data in users)        //if nickname exist
-        // {
-        //     callback(false);
-        // }
-        // else
-        // {
 
 //check the properties of a reconnected user
             if(users.hasOwnProperty(data))
@@ -46,16 +39,15 @@ socket.on('new user',function(data,callback){
                 users[data].broadcast.emit("reconnectedUser",data)
                }
             }
-            console.log("here");
-            callback(true);
+          console.log("here");
+          callback(true);
 
-            socket.nickname=data; 
-            name=socket.nickname;               //store nickname of each user becomes clear on disconnect
-        console.log(name,"second name")
+           socket.nickname=data; 
+           name=socket.nickname;               //store nickname of each user becomes clear on disconnect
+           console.log(name,"second name")
            users[name] = socket;                //key value pair as defined above
            connected.push(socket.nickname); 
            disconnectedUsers.splice(disconnectedUsers.indexOf(socket.nickname), 1 ); 
-   // connection.saveUser(socket,name,function(){})
             updateNicknames();
     });
     socket.on('sendmessage',function(data,callback){
@@ -99,7 +91,6 @@ socket.on('new user',function(data,callback){
     });
 
     function updateNicknames(){
-       // console.log(Object.keys(users));
         io.sockets.emit('usernames',connected,disconnectedUsers);//user name
     }
 
@@ -111,13 +102,7 @@ socket.on('disconnect',function(data){
     socket.broadcast.emit('userDisconnect',{nick:socket.nickname});
     disconnectedUsers.push(socket.nickname);
      console.log('-----',disconnectedUsers);
-    // socket.broadcast.emit('UserReconnect',{nick:socket.nickname});
-    //     console.log(connected,"1")
-      //  delete users[socket.nickname];
-   
-    connected.splice(connected.indexOf(socket.nickname), 1 );
-    //    console.log(connected,"2")   
-    //    updateNicknames();       
+    connected.splice(connected.indexOf(socket.nickname), 1 );    
 })
 });
 
